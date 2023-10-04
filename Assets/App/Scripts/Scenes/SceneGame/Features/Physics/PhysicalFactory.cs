@@ -1,17 +1,16 @@
 ﻿using App.Scripts.Infrastructure.Configs;
-using App.Scripts.Scenes.SceneGame.Features.Camera;
-using App.Scripts.Scenes.SceneGame.Features.Physics;
+using App.Scripts.Scenes.SceneGame.Features.CameraWrap;
 using UnityEngine;
 
-namespace App.Scripts.Infrastructure
+namespace App.Scripts.Scenes.SceneGame.Features.Physics
 {
-    public class FruitFactory
+    public class PhysicalFactory
     {
         private readonly GameConfig _gameConfig;
-        private readonly CameraWrap _cameraWrap;
+        private readonly CameraWrap.CameraWrap _cameraWrap;
         private readonly GamePhysics _physics;
 
-        public FruitFactory(GameConfig gameConfig, CameraWrap cameraWrap, GamePhysics physics)
+        public PhysicalFactory(GameConfig gameConfig, CameraWrap.CameraWrap cameraWrap, GamePhysics physics)
         {
             _gameConfig = gameConfig;
             _cameraWrap = cameraWrap;

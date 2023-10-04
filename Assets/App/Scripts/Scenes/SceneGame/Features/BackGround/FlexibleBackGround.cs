@@ -1,16 +1,15 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Camera;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.BackGround
 {
     public class FlexibleBackGround 
     {
         private readonly SpriteRenderer _spriteRenderer;
-        private readonly CameraWrap _cameraWrap;
+        private readonly CameraWrap.CameraWrap _cameraWrap;
         private readonly Texture2D _texture;
         private readonly Sprite _sprite;
         
-        public FlexibleBackGround(CameraWrap cameraWrap, SpriteRenderer spriteRenderer)
+        public FlexibleBackGround(CameraWrap.CameraWrap cameraWrap, SpriteRenderer spriteRenderer)
         {
             _cameraWrap = cameraWrap;
             _spriteRenderer = spriteRenderer;
@@ -27,11 +26,19 @@ namespace App.Scripts.Scenes.SceneGame.Features.BackGround
             if(_texture == null)
                 return;
             
-            var ratio = _sprite.pixelsPerUnit / _cameraWrap.PixelsPerUnit;
-            var scaleY = _cameraWrap.PixelsWidth / _texture.width * ratio;
-            var scaleX = _cameraWrap.PixelsHeight / _texture.height * ratio;
-            var newScale = new Vector3(scaleY, scaleX, 1f);
+            var scale = CalculateScale();
+
+            var newScale = new Vector3(scale, scale, 1f);
             _spriteRenderer.transform.localScale = newScale;
+        }
+
+        private float CalculateScale()
+        {
+            var ratio = _sprite.pixelsPerUnit / _cameraWrap.PixelsPerUnit;
+            var scale = _cameraWrap.PixelsHeight / _texture.height * ratio;
+            if (_cameraWrap.Aspect > (float)_texture.width / _texture.height)
+                scale = _cameraWrap.PixelsWidth / _texture.width * ratio;
+            return scale;
         }
     }
 }

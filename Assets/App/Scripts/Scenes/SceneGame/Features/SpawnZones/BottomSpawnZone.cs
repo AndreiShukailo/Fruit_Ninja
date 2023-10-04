@@ -1,13 +1,13 @@
 ﻿using App.Scripts.Infrastructure;
-using App.Scripts.Scenes.SceneGame.Features.Camera;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
 {
     public class BottomSpawnZone : SpawnZone
     {
-        public BottomSpawnZone(FruitFactory fruitFactory, PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap, SpawnZoneConfig.SpawnZoneConfig spawnZoneConfig) :
-            base(fruitFactory, physicalStartVelocityCalculator, cameraWrap, spawnZoneConfig)
+        public BottomSpawnZone(PhysicalFactory physicalFactory, PhysicalStartVelocityCalculator physicalStartVelocityCalculator,
+            CameraWrap.CameraWrap cameraWrap, SpawnZoneConfig.SpawnZoneConfig spawnZoneConfig) :
+            base(physicalFactory, physicalStartVelocityCalculator, cameraWrap, spawnZoneConfig)
         {
         }
 

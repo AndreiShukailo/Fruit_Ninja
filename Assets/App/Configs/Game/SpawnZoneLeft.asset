@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed402e25cca4868bd8a1f874c5aaca5, type: 3}
   m_Name: SpawnZoneLeft
   m_EditorClassIdentifier: 
-  Priority: 0.5
+  Priority: 0.3
   Type: 0

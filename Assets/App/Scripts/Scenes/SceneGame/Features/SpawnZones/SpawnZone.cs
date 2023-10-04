@@ -1,22 +1,21 @@
 ﻿using App.Scripts.Infrastructure;
-using App.Scripts.Scenes.SceneGame.Features.Camera;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
 {
-    public abstract class SpawnZone : ISpawnZone
+    public abstract class SpawnZone
     {
         public float Priority { get; }
 
-        private readonly FruitFactory _fruitFactory;
+        private readonly PhysicalFactory _physicalFactory;
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;
-        private readonly CameraWrap _cameraWrap;
+        private readonly CameraWrap.CameraWrap _cameraWrap;
 
-        protected SpawnZone(FruitFactory fruitFactory, PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap, SpawnZoneConfig.SpawnZoneConfig spawnZoneConfig)
+        protected SpawnZone(PhysicalFactory physicalFactory, PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap, SpawnZoneConfig.SpawnZoneConfig spawnZoneConfig)
         {
             _cameraWrap = cameraWrap;
-            _fruitFactory = fruitFactory;
+            _physicalFactory = physicalFactory;
             _physicalStartVelocityCalculator = physicalStartVelocityCalculator;
             Priority = spawnZoneConfig.Priority;
         }
@@ -33,7 +32,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
             var height = GetHeight(pointY);
 
             var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(height, distance, leftSide);
-            _fruitFactory.Create(spawnPoint, startVelocity);
+            _physicalFactory.Create(spawnPoint, startVelocity);
         }
 
         protected void SpawnOnTheBottom()
@@ -45,7 +44,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
             var distance = Mathf.Abs(endPointX - pointX);
 
             var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(height, distance, !(endPointX < pointX));
-            _fruitFactory.Create(spawnPoint, startVelocity);
+            _physicalFactory.Create(spawnPoint, startVelocity);
         }
 
         private Vector3 GetSpawnPointBottom(out float pointX, out float pointY)

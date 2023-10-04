@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneGame.Features.Camera
+namespace App.Scripts.Scenes.SceneGame.Features.CameraWrap
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class DestroyWhenInvisible : MonoBehaviour

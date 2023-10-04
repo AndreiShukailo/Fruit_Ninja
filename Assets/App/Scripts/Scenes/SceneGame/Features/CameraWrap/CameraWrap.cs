@@ -2,7 +2,7 @@
 using App.Scripts.Infrastructure.Installer;
 using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneGame.Features.Camera
+namespace App.Scripts.Scenes.SceneGame.Features.CameraWrap
 {
     public class CameraWrap : ITickable
     {
