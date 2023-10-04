@@ -1,5 +1,4 @@
-﻿using App.Scripts.Infrastructure;
-using App.Scripts.Scenes.SceneGame.Features.Physics;
+﻿using App.Scripts.Scenes.SceneGame.Features.Physics;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
@@ -71,7 +70,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
 
         private float GetHeight(float pointY)
         {
-            var height = Random.Range(_cameraWrap.OrthographicSize, _cameraWrap.Height);
+            var height = Random.Range(_cameraWrap.OrthographicSize * 1.5f, _cameraWrap.Height);
             height -= _cameraWrap.OrthographicSize - pointY;
             
             return height;

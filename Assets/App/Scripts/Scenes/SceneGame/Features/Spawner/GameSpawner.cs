@@ -1,6 +1,5 @@
-﻿using App.Scripts.Infrastructure;
+﻿using System.Collections;
 using App.Scripts.Infrastructure.Configs;
-using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones.SpawnZoneConfig;
@@ -8,24 +7,48 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Spawner
 {
-    public class GameSpawner : ITickable
+    public class GameSpawner
     {
         private SpawnZone[] _zones;
-
-        public GameSpawner(GameConfig config, PhysicalFactory physicalFactory,
+        private readonly SpawnerCoroutineRunner _coroutineRunner;
+        private GameConfig _config;
+        private int _nextPackFruitCount;
+        
+        
+        public GameSpawner(SpawnerCoroutineRunner coroutineRunner, GameConfig config, PhysicalFactory physicalFactory,
             PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap)
         {
             InitZones(config, physicalFactory, physicalStartVelocityCalculator, cameraWrap);
+            _coroutineRunner = coroutineRunner;
+            _config = config;
+            _nextPackFruitCount = GetNextPackFruitCount();
         }
 
-        public void Tick()
+        public void StartSpawn()
         {
-            if (Input.GetMouseButtonDown(0))
+            _coroutineRunner.StartCoroutine(Spawn());
+        }
+
+
+        private IEnumerator Spawn()
+        {
+            while (true)
             {
-                var zone = GetRandomZone();
-                zone.Spawn();
+                yield return new WaitForSeconds(_config.PackDelay);
+            
+                for (int i = 0; i < _nextPackFruitCount; i++)
+                {
+                    yield return new WaitForSeconds(_config.FruitDelay);
+                    var zone = GetRandomZone();
+                    zone.Spawn();
+                }
+            
+                _nextPackFruitCount = GetNextPackFruitCount();
             }
         }
+
+        private int GetNextPackFruitCount() =>
+            Random.Range(2, _config.MaxPackCount + 1);
 
         private SpawnZone GetRandomZone()
         {
@@ -80,7 +103,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
                     zoneConfig),
                 SpawnZoneType.Right => new RightSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap,
                     zoneConfig),
-                SpawnZoneType.Bottom => new BottomSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap,
+                SpawnZoneType.Bottom => new BottomSpawnZone(physicalFactory, physicalStartVelocityCalculator,
+                    cameraWrap,
                     zoneConfig),
                 _ => new LeftSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap, zoneConfig)
             };

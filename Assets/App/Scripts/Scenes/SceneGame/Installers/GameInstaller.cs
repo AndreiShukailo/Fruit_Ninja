@@ -1,5 +1,4 @@
-﻿using App.Scripts.Infrastructure;
-using App.Scripts.Infrastructure.Configs;
+﻿using App.Scripts.Infrastructure.Configs;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.SceneGame.Features.BackGround;
@@ -14,6 +13,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
     {
         public Camera Camera;
         public SpriteRenderer BackGround;
+        public SpawnerCoroutineRunner SpawnerCoroutineRunner;
         
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -27,7 +27,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var fruitFactory = serviceContainer.Get<PhysicalFactory>();
             serviceContainer.SetServiceSelf(new PhysicalStartVelocityCalculator(gameData));
             var gameMath =  serviceContainer.Get<PhysicalStartVelocityCalculator>();
-            serviceContainer.SetITickableAndSelf(new GameSpawner(gameData, fruitFactory, gameMath, cameraWrap));
+            serviceContainer.SetServiceSelf(new GameSpawner(SpawnerCoroutineRunner, gameData, fruitFactory, gameMath, cameraWrap));
+            serviceContainer.Get<GameSpawner>().StartSpawn();
         }
     }
 }
