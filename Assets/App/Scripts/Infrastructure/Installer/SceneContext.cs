@@ -6,30 +6,29 @@ namespace App.Scripts.Infrastructure.Installer
 {
     public class SceneContext : MonoContext
     {
-        public void Setup(ProjectContext projectContext)
+        public void Setup(ServiceContainer projectContainer)
         {
-            var container = BuildContainer(projectContext);
-            var sceneTickables = GetSceneItickables(projectContext, container);
+            var container = BuildContainer(projectContainer);
+            var sceneTickables = GetSceneTickables(projectContainer, container);
             Tickables.AddRange(sceneTickables);
         }
 
-        private ServiceContainer BuildContainer(ProjectContext projectContext)
+        private ServiceContainer BuildContainer(ServiceContainer projectContainer)
         {
             var container = new ServiceContainer();
-            foreach (var installer in projectContext.Installers)
-                installer.InstallBindings(container);
+            container.PushContainer(projectContainer);
             foreach (var installer in Installers)
                 installer.InstallBindings(container);
 
             return container;
         }
 
-        private IEnumerable<ITickable> GetSceneItickables(ProjectContext projectContext, ServiceContainer container)
+        private IEnumerable<ITickable> GetSceneTickables(ServiceContainer projectContainer, ServiceContainer container)
         {
-            var sceneItickables = container
+            var sceneTickables = container
                 .GetServices<ITickable>()
-                .Where(p => !projectContext.Tickables.Contains(p));
-            return sceneItickables;
+                .Where(p => !projectContainer.GetServices<ITickable>().Contains(p));
+            return sceneTickables;
         }
     }
 }

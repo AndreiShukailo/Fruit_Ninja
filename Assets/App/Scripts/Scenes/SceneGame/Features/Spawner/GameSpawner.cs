@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using App.Scripts.Infrastructure.Configs;
+using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones.SpawnZoneConfig;
@@ -10,12 +11,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
     public class GameSpawner
     {
         private SpawnZone[] _zones;
-        private readonly SpawnerCoroutineRunner _coroutineRunner;
+        private readonly ICoroutineRunner _coroutineRunner;
         private GameConfig _config;
         private int _nextPackFruitCount;
         
         
-        public GameSpawner(SpawnerCoroutineRunner coroutineRunner, GameConfig config, PhysicalFactory physicalFactory,
+        public GameSpawner(ICoroutineRunner coroutineRunner, GameConfig config, PhysicalFactory physicalFactory,
             PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap)
         {
             InitZones(config, physicalFactory, physicalStartVelocityCalculator, cameraWrap);

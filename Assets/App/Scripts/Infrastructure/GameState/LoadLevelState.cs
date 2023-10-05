@@ -1,5 +1,6 @@
 ﻿using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.SceneManagement;
+using App.Scripts.Infrastructure.ServiceLocator;
 using UnityEngine;
 
 namespace App.Scripts.Infrastructure.GameState
@@ -8,13 +9,13 @@ namespace App.Scripts.Infrastructure.GameState
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly ProjectContext _projectContext;
+        private readonly ServiceContainer _projectContainer;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, ProjectContext projectContext)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, ServiceContainer projectContainer)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _projectContext = projectContext;
+            _projectContainer = projectContainer;
         }
 
         public void Enter(string sceneName)
@@ -36,7 +37,7 @@ namespace App.Scripts.Infrastructure.GameState
         {
             var sceneContext = Object.FindObjectOfType<SceneContext>();
             if (sceneContext == null) return;
-            sceneContext.Setup(_projectContext);
+            sceneContext.Setup(_projectContainer);
         }
     }
 }

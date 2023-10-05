@@ -10,7 +10,7 @@ namespace App.Scripts.Infrastructure.GameRunner
 
         public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain, ProjectContext projectContext)
         {
-            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner, loadingCurtain), projectContext);
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner, loadingCurtain), coroutineRunner, projectContext);
         }
     }
 }

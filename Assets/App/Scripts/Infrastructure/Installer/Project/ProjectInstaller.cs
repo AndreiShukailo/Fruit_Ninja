@@ -6,7 +6,8 @@ namespace App.Scripts.Infrastructure.Installer.Project
 {
     public class ProjectInstaller : MonoInstaller
     {
-        [FormerlySerializedAs("GameData")] public GameConfig GameConfig;
+        public GameConfig GameConfig;
+
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
             serviceContainer.SetServiceSelf(GameConfig);

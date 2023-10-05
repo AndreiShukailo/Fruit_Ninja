@@ -9,6 +9,13 @@ namespace App.Scripts.Infrastructure.ServiceLocator
     {
         private readonly Dictionary<Type, IServiceContainer> _containers = new();
 
+        public void PushContainer(ServiceContainer serviceContainer)
+        {
+            foreach (var container in serviceContainer._containers)
+                if (container.Key != typeof(ITickable))
+                    _containers.Add(container.Key, container.Value);
+        }
+
         public void SetServiceSelf<TService>(TService value)
         {
             SetService<TService, TService>(value);
