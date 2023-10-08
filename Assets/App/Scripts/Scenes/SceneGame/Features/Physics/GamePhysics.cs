@@ -1,24 +1,27 @@
 using System.Collections.Generic;
 using App.Scripts.Infrastructure.Configs;
 using App.Scripts.Infrastructure.Installer;
+using App.Scripts.Scenes.SceneGame.Features.Physics.Config;
+using App.Scripts.Scenes.SceneGame.Features.Physics.Mono;
+using App.Scripts.Scenes.SceneGame.Features.Spawner;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Physics
 {
     public class GamePhysics : ITickable
     {
-        private readonly float _gravity;
+        private PhysicsConfig _config;
         
         private readonly List<Physical> _objects = new();
 
-        public GamePhysics(GameConfig config) =>
-            _gravity = config.Gravity;
+        public GamePhysics(PhysicsConfig config) =>
+            _config = config;
 
-        public void AddObject(Physical physical)
-        {
+        public void AddObject(Physical physical) =>
             _objects.Add(physical);
-            physical.OnRemove += RemoveObject;
-        }
+
+        public void RemoveObject(Physical physical) =>
+            _objects.Remove(physical);
 
         public void Tick()
         {
@@ -33,12 +36,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
         }
 
         private Vector3 GetGravityVelocity() =>
-            Vector3.down * (_gravity * Time.deltaTime);
-
-        private void RemoveObject(Physical physical)
-        {
-            physical.OnRemove -= RemoveObject;
-            _objects.Remove(physical);
-        }
+            Vector3.down * (_config.Gravity * Time.deltaTime);
     }
 }

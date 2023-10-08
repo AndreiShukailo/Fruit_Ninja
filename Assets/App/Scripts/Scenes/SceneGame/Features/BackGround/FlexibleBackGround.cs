@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.BackGround
 {
     public class FlexibleBackGround 
     {
         private readonly SpriteRenderer _spriteRenderer;
-        private readonly CameraWrap.CameraWrap _cameraWrap;
+        private readonly CameraWrap _cameraWrap;
         private readonly Texture2D _texture;
         private readonly Sprite _sprite;
         
-        public FlexibleBackGround(CameraWrap.CameraWrap cameraWrap, SpriteRenderer spriteRenderer)
+        public FlexibleBackGround(CameraWrap cameraWrap, SpriteRenderer spriteRenderer)
         {
             _cameraWrap = cameraWrap;
             _spriteRenderer = spriteRenderer;
@@ -27,7 +28,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.BackGround
                 return;
             
             var scale = CalculateScale();
-
             var newScale = new Vector3(scale, scale, 1f);
             _spriteRenderer.transform.localScale = newScale;
         }

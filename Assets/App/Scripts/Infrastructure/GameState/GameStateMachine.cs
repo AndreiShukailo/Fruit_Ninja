@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.SceneManagement;
 
@@ -10,12 +11,12 @@ namespace App.Scripts.Infrastructure.GameState
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, ProjectContext projectContext)
+        public GameStateMachine(SceneLoader sceneLoader, ICoroutineRunner coroutineRunner, ProjectContext projectContext)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, projectContext),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, projectContext),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, coroutineRunner, projectContext),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, projectContext.ServiceContainer),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };
         }
