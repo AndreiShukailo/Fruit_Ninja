@@ -57,7 +57,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067506, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Name
-      value: Coconut
+      value: Onion
       objectReference: {fileID: 0}
+    - target: {fileID: 3763012572910168900, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763012572910168900, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763012572910168900, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167692991175283964, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72719b94b21fd7f4ea8b8e20d7dec96b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

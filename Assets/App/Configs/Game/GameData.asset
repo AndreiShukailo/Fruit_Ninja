@@ -12,19 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3958213bd74933b46491292e0804ae, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  Gravity: 10
   FruitDelay: 0.5
   MaxPackCount: 5
   PackDelay: 3
-  FruitPrefabs:
-  - {fileID: 3465020505223067506, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
-  - {fileID: 3872522012227182588, guid: 34ac0cbf00eaf384f8ce8f7f6881c7d1, type: 3}
-  - {fileID: 3872522012227182588, guid: dc26605d69bb13b4a89e82fe28f02234, type: 3}
-  - {fileID: 3872522012227182588, guid: 6e65b1985bfc0d541953b2c2d7ed67f3, type: 3}
-  - {fileID: 3872522012227182588, guid: 9038bd3b0c4fff643a8c4236d8cead92, type: 3}
-  - {fileID: 3872522012227182588, guid: 58961382fb3c550429ad6390d66534fb, type: 3}
-  - {fileID: 3872522012227182588, guid: fe56d45e567a3384891fc96197fec15f, type: 3}
-  Zones:
-  - {fileID: 11400000, guid: 554eeba3eb2f8a0479985cec15c25c6b, type: 2}
-  - {fileID: 11400000, guid: cbe93661fc0375542b4b9b0d871d19c6, type: 2}
-  - {fileID: 11400000, guid: a4020bffc9ffa794eaa852badfe05e5c, type: 2}
+  ObjectsPrefab:
+  - {fileID: 3878401918373048191, guid: 34ac0cbf00eaf384f8ce8f7f6881c7d1, type: 3}
+  - {fileID: 3878401918373048191, guid: dc26605d69bb13b4a89e82fe28f02234, type: 3}
+  - {fileID: 3878401918373048191, guid: 6e65b1985bfc0d541953b2c2d7ed67f3, type: 3}
+  - {fileID: -5730524358376634383, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+  - {fileID: 3878401918373048191, guid: 9038bd3b0c4fff643a8c4236d8cead92, type: 3}
+  - {fileID: 3878401918373048191, guid: 58961382fb3c550429ad6390d66534fb, type: 3}
+  - {fileID: 3878401918373048191, guid: fe56d45e567a3384891fc96197fec15f, type: 3}

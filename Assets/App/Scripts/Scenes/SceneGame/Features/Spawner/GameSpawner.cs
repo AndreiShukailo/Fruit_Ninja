@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using App.Scripts.Infrastructure.Configs;
 using App.Scripts.Infrastructure.GameRunner;
+using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
+using App.Scripts.Scenes.SceneGame.Features.SpawnedObject;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones;
-using App.Scripts.Scenes.SceneGame.Features.SpawnZones.SpawnZoneConfig;
+using App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Spawner
@@ -11,17 +13,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
     public class GameSpawner
     {
         private SpawnZone[] _zones;
+        private readonly GameConfig _gameConfig;
         private readonly ICoroutineRunner _coroutineRunner;
-        private GameConfig _config;
         private int _nextPackFruitCount;
-        
-        
-        public GameSpawner(ICoroutineRunner coroutineRunner, GameConfig config, PhysicalFactory physicalFactory,
-            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap)
+
+
+        public GameSpawner(GameConfig gameConfig, ICoroutineRunner coroutineRunner, SpawnZoneConfigs zoneConfigs,
+            SpawnedObjectFactory spawnedObjectFactory,
+            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap)
         {
-            InitZones(config, physicalFactory, physicalStartVelocityCalculator, cameraWrap);
+            InitZones(zoneConfigs, spawnedObjectFactory, physicalStartVelocityCalculator, cameraWrap);
+            _gameConfig = gameConfig;
             _coroutineRunner = coroutineRunner;
-            _config = config;
             _nextPackFruitCount = GetNextPackFruitCount();
         }
 
@@ -30,26 +33,36 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
             _coroutineRunner.StartCoroutine(Spawn());
         }
 
+        private void InitZones(SpawnZoneConfigs config, SpawnedObjectFactory spawnedObjectFactory,
+            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap)
+        {
+            _zones = new SpawnZone[config.Zones.Count];
+            for (var i = 0; i < _zones.Length; i++)
+            {
+                _zones[i] = new SpawnZone(spawnedObjectFactory, physicalStartVelocityCalculator, cameraWrap,
+                    config.Zones[i]);
+            }
+        }
 
         private IEnumerator Spawn()
         {
             while (true)
             {
-                yield return new WaitForSeconds(_config.PackDelay);
-            
+                yield return new WaitForSeconds(_gameConfig.PackDelay);
+
                 for (int i = 0; i < _nextPackFruitCount; i++)
                 {
-                    yield return new WaitForSeconds(_config.FruitDelay);
+                    yield return new WaitForSeconds(_gameConfig.FruitDelay);
                     var zone = GetRandomZone();
                     zone.Spawn();
                 }
-            
+
                 _nextPackFruitCount = GetNextPackFruitCount();
             }
         }
 
         private int GetNextPackFruitCount() =>
-            Random.Range(2, _config.MaxPackCount + 1);
+            Random.Range(2, _gameConfig.MaxPackCount + 1);
 
         private SpawnZone GetRandomZone()
         {
@@ -80,35 +93,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
             }
 
             return probs.Length - 1;
-        }
-
-        private void InitZones(GameConfig config, PhysicalFactory physicalFactory,
-            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap)
-        {
-            _zones = new SpawnZone[config.Zones.Count];
-            for (var i = 0; i < _zones.Length; i++)
-            {
-                var zoneData = config.Zones[i];
-                var type = config.Zones[i].Type;
-                _zones[i] = GetSpawnZone(type, physicalFactory, physicalStartVelocityCalculator, cameraWrap, zoneData);
-            }
-        }
-
-        private SpawnZone GetSpawnZone(SpawnZoneType type, PhysicalFactory physicalFactory,
-            PhysicalStartVelocityCalculator physicalStartVelocityCalculator,
-            CameraWrap.CameraWrap cameraWrap, SpawnZoneConfig zoneConfig)
-        {
-            return type switch
-            {
-                SpawnZoneType.Left => new LeftSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap,
-                    zoneConfig),
-                SpawnZoneType.Right => new RightSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap,
-                    zoneConfig),
-                SpawnZoneType.Bottom => new BottomSpawnZone(physicalFactory, physicalStartVelocityCalculator,
-                    cameraWrap,
-                    zoneConfig),
-                _ => new LeftSpawnZone(physicalFactory, physicalStartVelocityCalculator, cameraWrap, zoneConfig)
-            };
         }
     }
 }

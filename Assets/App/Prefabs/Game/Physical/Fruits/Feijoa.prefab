@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067506, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Name
-      value: Coconut 5
+      value: Feijoa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

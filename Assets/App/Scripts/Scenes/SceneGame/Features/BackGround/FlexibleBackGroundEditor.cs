@@ -17,7 +17,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.BackGround
         {
             _camera = Camera.main;
 
-
             if (_spriteRenderer == null)
                 _spriteRenderer = GetComponent<SpriteRenderer>();
 

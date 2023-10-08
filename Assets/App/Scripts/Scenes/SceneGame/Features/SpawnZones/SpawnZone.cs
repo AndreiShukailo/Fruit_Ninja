@@ -1,97 +1,60 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Physics;
+﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
+using App.Scripts.Scenes.SceneGame.Features.Physics;
+using App.Scripts.Scenes.SceneGame.Features.SpawnedObject;
+using App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
 {
-    public abstract class SpawnZone
+    public class SpawnZone
     {
-        public float Priority { get; }
-
-        private readonly PhysicalFactory _physicalFactory;
+        private const float TopOffset = 0.9f;
+        public readonly float Priority;
+        private readonly SpawnedObjectFactory _spawnedObjectFactory;
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;
-        private readonly CameraWrap.CameraWrap _cameraWrap;
+        private readonly CameraWrap _cameraWrap;
+        private readonly SpawnZoneConfig _spawnZoneConfig;
 
-        protected SpawnZone(PhysicalFactory physicalFactory, PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap.CameraWrap cameraWrap, SpawnZoneConfig.SpawnZoneConfig spawnZoneConfig)
+        public SpawnZone(SpawnedObjectFactory spawnedObjectFactory,
+            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
+            SpawnZoneConfig spawnZoneConfig)
         {
             _cameraWrap = cameraWrap;
-            _physicalFactory = physicalFactory;
+            _spawnZoneConfig = spawnZoneConfig;
+            var scaler = new SpawnZonePositionScaler(_cameraWrap, _spawnZoneConfig);
+            _spawnedObjectFactory = spawnedObjectFactory;
             _physicalStartVelocityCalculator = physicalStartVelocityCalculator;
             Priority = spawnZoneConfig.Priority;
         }
 
-        public virtual void Spawn()
+        public void Spawn()
         {
+            var startPoint = GetRandomPosition(_spawnZoneConfig.GetStartPosition(),
+                _spawnZoneConfig.GetEndPosition());
+            var maxHeight = GetMaxHeight(startPoint);
+            var randomAngel = GetRandomAngel();
+            var maxLenght = GetMaxLenght(startPoint, randomAngel);
+            var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel);
+            _spawnedObjectFactory.Create(startPoint, startVelocity);
         }
 
-        protected void SpawnOnTheSide(bool leftSide)
+        private float GetRandomAngel() =>
+            Random.Range(_spawnZoneConfig.MinAngle, _spawnZoneConfig.MaxAngle);
+
+        private float GetMaxLenght(Vector2 startPosition, float angle)
         {
-            var spawnPoint = GetSpawnPointSide(leftSide, out var pointY);
-
-            var distance = GetDistance();
-            var height = GetHeight(pointY);
-
-            var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(height, distance, leftSide);
-            _physicalFactory.Create(spawnPoint, startVelocity);
+            if (angle > 90f)
+                return _cameraWrap.HalfWidth + startPosition.x;
+            return _cameraWrap.HalfWidth - startPosition.x;
         }
 
-        protected void SpawnOnTheBottom()
+        private float GetMaxHeight(Vector2 startPosition) =>
+            _cameraWrap.Position.y + _cameraWrap.OrthographicSize * TopOffset - startPosition.y;
+
+        private Vector2 GetRandomPosition(Vector2 start, Vector2 end)
         {
-            var spawnPoint = GetSpawnPointBottom(out var pointX, out var pointY);
-
-            var height = GetHeight(pointY);
-            var endPointX = GetPointXBottom();
-            var distance = Mathf.Abs(endPointX - pointX);
-
-            var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(height, distance, !(endPointX < pointX));
-            _physicalFactory.Create(spawnPoint, startVelocity);
+            var value = Random.value;
+            return Vector2.Lerp(start, end, value);
         }
-
-        private Vector3 GetSpawnPointBottom(out float pointX, out float pointY)
-        {
-            pointX = GetPointXBottom();
-            pointY = GetPointYBottom();
-            
-            return GetSpawnPoint(pointX, pointY);
-        }
-
-        private float GetPointXBottom() =>
-            Random.Range(_cameraWrap.LeftBoarder, _cameraWrap.RightBoarder);
-
-        private float GetPointYBottom() =>
-            _cameraWrap.OrthographicSize + 1;
-
-        private Vector3 GetSpawnPointSide(bool leftSide, out float pointY)
-        {
-            var pointX = GetPointXSide(leftSide);
-            pointY = GetPointYSide();
-            
-            return GetSpawnPoint(pointX, pointY);
-        }
-
-        private float GetHeight(float pointY)
-        {
-            var height = Random.Range(_cameraWrap.OrthographicSize * 1.5f, _cameraWrap.Height);
-            height -= _cameraWrap.OrthographicSize - pointY;
-            
-            return height;
-        }
-
-
-        private float GetDistance() =>
-            Random.Range(_cameraWrap.HalfWidth, _cameraWrap.Width);
-
-        private Vector3 GetSpawnPoint(float pointX, float pointY) =>
-            new(pointX, _cameraWrap.Position.y -  pointY, 0);
-
-        private float GetPointYSide()
-        {
-            var minPointY = 0.2f * _cameraWrap.OrthographicSize;
-            var maxPointY = _cameraWrap.OrthographicSize;
-            
-            return Random.Range(minPointY, maxPointY);
-        }
-
-        private float GetPointXSide(bool leftSide) =>
-            leftSide ? _cameraWrap.LeftBoarder - 1 : _cameraWrap.RightBoarder + 1;
     }
 }
