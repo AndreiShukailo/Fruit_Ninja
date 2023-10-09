@@ -8,8 +8,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config
         [Range(0f, 20f)] public float Lenght;
         public float Priority = 1f;
 
-        [Range(1, 179)] public int MaxAngle;
-        [Range(1, 179)] public int MinAngle;
+        [Range(0, 360f)] public int MaxAngle;
+        [Range(0, 360f)] public int MinAngle;
 
         private Camera _camera;
         public float PrevAspect;

@@ -8,12 +8,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
 {
     public class GameSpawner
     {
+        private const int PackToComplication = 3;
         private readonly SpawnerConfig _spawnerConfig;
         private readonly ZoneInitializer _zoneInitializer;
         private readonly ICoroutineRunner _coroutineRunner;
 
-        private int _nextPackFruitCount;
+        private int _currenPackCount;
+        private float _currentPackDelay;
+        private float _currentObjectDelay;
 
+        private int _packCounter;
 
         public GameSpawner(ICoroutineRunner coroutineRunner, SpawnerConfig spawnerConfig,
             ZoneInitializer zoneInitializer)
@@ -25,7 +29,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
 
         public void StartSpawn()
         {
-            _nextPackFruitCount = GetNextPackFruitCount();
+            _currentPackDelay = _spawnerConfig.MaxPackDelay;
+            _currentObjectDelay = _spawnerConfig.MaxObjectDelay;
+            _currenPackCount = _spawnerConfig.MinPackCount;
             _coroutineRunner.StartCoroutine(Spawn());
         }
 
@@ -33,20 +39,45 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
         {
             while (true)
             {
-                yield return new WaitForSeconds(_spawnerConfig.PackDelay);
+                yield return new WaitForSeconds(_currentPackDelay);
 
-                for (int i = 0; i < _nextPackFruitCount; i++)
+                for (int i = 0; i < _currenPackCount; i++)
                 {
-                    yield return new WaitForSeconds(_spawnerConfig.ObjectDelay);
+                    yield return new WaitForSeconds(_currentObjectDelay);
                     var zone = _zoneInitializer.GetRandomZone();
                     zone?.Spawn();
                 }
 
-                _nextPackFruitCount = GetNextPackFruitCount();
+                Complication();
             }
         }
 
-        private int GetNextPackFruitCount() =>
-            Random.Range(_spawnerConfig.MinPackCount, _spawnerConfig.MaxPackCount + 1);
+        private void Complication()
+        {
+            _packCounter++;
+            if (_packCounter <= PackToComplication) return;
+            _packCounter = 0;
+            ComplicatePackCount();
+            ComplicatePackDelay();
+            ComplicateObjectDelay();
+        }
+
+        private void ComplicateObjectDelay()
+        {
+            if (_currentObjectDelay > _spawnerConfig.MinPackDelay)
+                _currentObjectDelay -= _spawnerConfig.ObjectComplicationFactor;
+        }
+
+        private void ComplicatePackDelay()
+        {
+            if (_currentPackDelay > _spawnerConfig.MinPackDelay)
+                _currentPackDelay -= _spawnerConfig.PackComplicationFactor;
+        }
+
+        private void ComplicatePackCount()
+        {
+            if (_currenPackCount < _spawnerConfig.MaxPackCount)
+                _currenPackCount++;
+        }
     }
 }

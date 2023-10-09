@@ -9,13 +9,21 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner.Config
     public class SpawnerConfig
     {
         public List<Spawned> SpawnedObjects;
-        [Range(0.1f, 1f)]
-        public float ObjectDelay = 0.5f;
-        [Range(1, 6)]
-        public int MaxPackCount = 5;
-        [Range(1, 6)]
-        public int MinPackCount = 5;
-        [Range(1f, 5f)]
-        public float PackDelay = 3f;
+
+        [Header("ObjectDelay")] [Range(0.1f, 1f)]
+        public float MaxObjectDelay = 1f;
+
+        [Range(0.1f, 1f)] public float ObjectComplicationFactor = 0.1f;
+
+        [Range(0.1f, 1f)] public float MinObjectDelay = 1f;
+
+        [Header("PackCount")] [Range(1, 6)] public int MaxPackCount = 5;
+        [Range(1, 6)] public int MinPackCount = 2;
+
+        [Header("PackDelay")] [Range(0.1f, 3f)]
+        public float MaxPackDelay = 3f;
+
+        [Range(0.1f, 3f)] public float MinPackDelay = 0.1f;
+        [Range(0.1f, 2f)] public float PackComplicationFactor = 0.1f;
     }
 }
