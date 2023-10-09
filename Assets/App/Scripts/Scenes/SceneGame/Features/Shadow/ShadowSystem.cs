@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using App.Scripts.Infrastructure.Installer;
+using App.Scripts.Scenes.SceneGame.Features.Shadow.Mono;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Shadow

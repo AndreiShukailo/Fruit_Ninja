@@ -5,16 +5,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
     [ExecuteInEditMode]
     public class PrevAspectSaver : MonoBehaviour
     {
-        public Camera Camera;
+        [SerializeField] private Camera _camera;
         public float PrevAspect;
 
         private void Update()
         {
             if (Application.isPlaying) return;
             {
-                if (Camera == null)
-                    Camera = Camera.main;
-                if (Camera != null) PrevAspect = Camera.aspect;
+                if (_camera == null)
+                    _camera = Camera.main;
+                if (_camera != null) PrevAspect = _camera.aspect;
             }
         }
     }

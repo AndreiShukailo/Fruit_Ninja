@@ -7,6 +7,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics.Config
     public class PhysicsConfig
     {
         [Range(5f, 20f)]
-        public float Gravity = 8f;
+        public float Gravity = 7f;
     }
 }

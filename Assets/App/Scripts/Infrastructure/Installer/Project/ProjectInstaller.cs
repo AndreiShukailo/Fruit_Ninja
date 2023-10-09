@@ -1,6 +1,5 @@
 ﻿using App.Scripts.Infrastructure.Configs;
 using App.Scripts.Infrastructure.ServiceLocator;
-using UnityEngine.Serialization;
 
 namespace App.Scripts.Infrastructure.Installer.Project
 {

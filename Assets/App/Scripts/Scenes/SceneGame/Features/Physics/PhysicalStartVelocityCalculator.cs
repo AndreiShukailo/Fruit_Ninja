@@ -1,6 +1,4 @@
-using App.Scripts.Infrastructure.Configs;
 using App.Scripts.Scenes.SceneGame.Features.Physics.Config;
-using App.Scripts.Scenes.SceneGame.Features.Spawner;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Physics

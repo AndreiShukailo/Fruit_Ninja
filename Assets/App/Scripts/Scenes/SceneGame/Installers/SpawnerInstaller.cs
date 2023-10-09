@@ -1,7 +1,7 @@
 ﻿using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
-using App.Scripts.Scenes.SceneGame.Features.Animation;
+using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.Shadow;
@@ -13,7 +13,7 @@ using App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
 {
-    public class GameInstaller : MonoInstaller
+    public class SpawnerInstaller : MonoInstaller
     {
         public SpawnedAnimationConfig SpawnedAnimationConfig;
         public SpawnerConfig SpawnerConfig;

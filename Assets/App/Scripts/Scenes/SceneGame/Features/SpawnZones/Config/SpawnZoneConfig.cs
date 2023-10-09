@@ -1,7 +1,5 @@
 ﻿using System;
-using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config
 {

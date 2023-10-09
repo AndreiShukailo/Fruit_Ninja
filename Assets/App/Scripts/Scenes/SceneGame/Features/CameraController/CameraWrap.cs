@@ -24,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
         public float OrthographicSize =>
             _camera.orthographicSize;
 
-        public float Height =>
+        private float Height =>
             OrthographicSize * 2f;
         
         public float HalfWidth =>

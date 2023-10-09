@@ -1,8 +1,9 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Animation;
+﻿using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.Physics.Mono;
 using App.Scripts.Scenes.SceneGame.Features.Shadow;
+using App.Scripts.Scenes.SceneGame.Features.Shadow.Mono;
 using UnityEngine;
 using UnityEngine.Serialization;
 

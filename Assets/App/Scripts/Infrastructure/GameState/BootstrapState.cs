@@ -1,4 +1,5 @@
-﻿using App.Scripts.Infrastructure.GameRunner;
+﻿using App.Scripts.Infrastructure.Configs;
+using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.SceneManagement;
 
@@ -11,7 +12,7 @@ namespace App.Scripts.Infrastructure.GameState
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly GameStateMachine _stateMachine;
         private readonly ProjectContext _projectContext;
-        
+
         public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner,
             ProjectContext projectContext)
         {
@@ -32,7 +33,7 @@ namespace App.Scripts.Infrastructure.GameState
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>("Game");
+            _stateMachine.Enter<LoadLevelState, string>(_projectContext.ServiceContainer.Get<GameConfig>().StartScene);
 
         private void RegisterProjectContext() =>
             _projectContext.Setup(_stateMachine, _coroutineRunner);

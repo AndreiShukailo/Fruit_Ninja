@@ -16,7 +16,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
             _cameraWrap.OnAspectChanged += OnAspectChanged;
         }
 
-        public void OnAspectChanged()
+        private void OnAspectChanged()
         {
             UpdateZonePosition(_cameraWrap.PrevAspect, _zoneConfig, _cameraWrap.Aspect);
         }

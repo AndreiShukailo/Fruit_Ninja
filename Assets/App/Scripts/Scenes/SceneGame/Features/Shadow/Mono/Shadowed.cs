@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneGame.Features.Shadow
+namespace App.Scripts.Scenes.SceneGame.Features.Shadow.Mono
 {
     public class Shadowed : MonoBehaviour
     {

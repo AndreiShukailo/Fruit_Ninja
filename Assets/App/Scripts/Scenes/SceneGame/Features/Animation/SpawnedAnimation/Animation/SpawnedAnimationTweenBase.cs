@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneGame.Features.Animation
+namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Animation
 {
     public abstract class SpawnedAnimationTweenBase : MonoBehaviour
     {

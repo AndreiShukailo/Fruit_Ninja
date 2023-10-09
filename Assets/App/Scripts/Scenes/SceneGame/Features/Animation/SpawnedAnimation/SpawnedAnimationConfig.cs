@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneGame.Features.Animation
+namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation
 {
     [Serializable]
     public class SpawnedAnimationConfig
