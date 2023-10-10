@@ -10,6 +10,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono
 {
     public class Spawned : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         public SpawnedAnimator Animator;
         public Physical Physical;
         public DestroyWhenInvisible DestroyWhenInvisible;
@@ -19,8 +20,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono
             SpawnedAnimationConfig animationConfig, Vector3 startPosition)
         {
             Physical.Construct(gamePhysics);
-            DestroyWhenInvisible.Construct(cameraWrap);
-            Shadowed.Construct(shadowSystem, startPosition);
+            DestroyWhenInvisible.Construct(cameraWrap, _spriteRenderer);
+            Shadowed.Construct(shadowSystem, _spriteRenderer, startPosition);
             Animator.StartAnimations(animationConfig);
             
         }

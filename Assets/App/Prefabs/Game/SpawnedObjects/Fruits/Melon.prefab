@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 4637831332542528743}
   - component: {fileID: 5031833268040741859}
   - component: {fileID: 5485820875894334369}
-  - component: {fileID: 7139796215631137298}
-  - component: {fileID: -8518805786125455662}
+  - component: {fileID: 2915668667620205554}
+  - component: {fileID: 4070718705365278097}
+  - component: {fileID: 5754176089992097204}
   m_Layer: 0
   m_Name: Melon
   m_TagString: Untagged
@@ -102,10 +103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6903b0446b4d1aa0da46a320bb5b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 3465020505223067500}
   Animator:
     _animations:
-    - {fileID: 7139796215631137298}
-    - {fileID: -8518805786125455662}
+    - {fileID: 4070718705365278097}
+    - {fileID: 5754176089992097204}
   Physical: {fileID: 4637831332542528743}
   DestroyWhenInvisible: {fileID: 5031833268040741859}
   Shadowed: {fileID: 5485820875894334369}
@@ -133,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d18416fdc0443c9d7f9b4bd3b559c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 3465020505223067500}
 --- !u!114 &5485820875894334369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,8 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7df7d762574fa1932838cf33827a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 3465020505223067500}
---- !u!114 &7139796215631137298
+--- !u!114 &2915668667620205554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,10 +156,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3465020505223067506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b090e6b3834523b690a2420985f13a, type: 3}
+  m_Script: {fileID: 11500000, guid: 930e75b9a2734272b67e2a5a7ea12ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8518805786125455662
+  _spriteRenderer: {fileID: 3465020505223067500}
+--- !u!114 &4070718705365278097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,5 +170,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45ec006e1aae4c03bebf5d62463dfbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5754176089992097204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3465020505223067506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b090e6b3834523b690a2420985f13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -6,27 +6,27 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics.Mono
     [RequireComponent(typeof(SpriteRenderer))]
     public class DestroyWhenInvisible : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        private SpriteRenderer _spriteRenderer;
         private Texture2D _texture;
         private Sprite _sprite;
         private CameraWrap _camera;
-        
+
         private float _offsetX;
         private float _offsetY;
 
         private bool _visible;
-        
-        public void Construct(CameraWrap cameraWrap)
+
+        public void Construct(CameraWrap cameraWrap, SpriteRenderer spriteRenderer)
         {
             _camera = cameraWrap;
-            _sprite = _spriteRenderer.sprite;
+            _sprite = spriteRenderer.sprite;
             _texture = _sprite.texture;
             InitOffsets();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            UpdateBorders(out var left,out var right,out var up);
+            UpdateBorders(out var left, out var right, out var up);
             if (_visible == false)
                 CheckOnVisible(left, right, up);
             else

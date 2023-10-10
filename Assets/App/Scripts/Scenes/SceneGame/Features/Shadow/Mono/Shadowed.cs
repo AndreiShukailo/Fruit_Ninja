@@ -4,12 +4,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow.Mono
 {
     public class Shadowed : MonoBehaviour
     {
-        public SpriteRenderer SpriteRenderer;
-
+        public SpriteRenderer SpriteRenderer { get; private set; }
         private ShadowSystem _shadowSystem;
 
-        public void Construct(ShadowSystem shadowSystem, Vector3 startPosition)
+        public void Construct(ShadowSystem shadowSystem, SpriteRenderer spriteRenderer, Vector3 startPosition)
         {
+            SpriteRenderer = spriteRenderer;
             _shadowSystem = shadowSystem;
             _shadowSystem.Add(this, startPosition);
         }

@@ -7,7 +7,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruit
     {
         public override void OnSwipe()
         {
-            Debug.Log("Swipe");       
+            Debug.Log("Swipe");            
         }
     }
 }
