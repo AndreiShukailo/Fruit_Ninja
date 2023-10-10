@@ -5,7 +5,6 @@ using App.Scripts.Scenes.SceneGame.Features.Physics.Mono;
 using App.Scripts.Scenes.SceneGame.Features.Shadow;
 using App.Scripts.Scenes.SceneGame.Features.Shadow.Mono;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono
 {
@@ -14,7 +13,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono
         public SpawnedAnimator Animator;
         public Physical Physical;
         public DestroyWhenInvisible DestroyWhenInvisible;
-        [FormerlySerializedAs("ShadowEffect")] public Shadowed Shadowed;
+        public Shadowed Shadowed;
 
         public void Construct(GamePhysics gamePhysics, CameraWrap cameraWrap, ShadowSystem shadowSystem,
             SpawnedAnimationConfig animationConfig, Vector3 startPosition)
@@ -22,8 +21,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono
             Physical.Construct(gamePhysics);
             DestroyWhenInvisible.Construct(cameraWrap);
             Shadowed.Construct(shadowSystem, startPosition);
-            Animator.InitConfig(animationConfig);
-            Animator.StartAnimations();
+            Animator.StartAnimations(animationConfig);
+            
         }
     }
 }

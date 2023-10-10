@@ -1,3 +1,4 @@
+using App.Scripts.Scenes.SceneGame.Extentions;
 using App.Scripts.Scenes.SceneGame.Features.Physics.Config;
 using UnityEngine;
 
@@ -15,22 +16,19 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
         public Vector3 GetStartVelocity(float height, float lenght, float angle)
         {
             var dirAngle = angle;
-            if (angle > 90)
+            if (angle > 90f)
                 angle = 180f - angle;
             var startSpeed = 0f;
-            if (dirAngle < 180 && dirAngle != 0 && height > 0)
+            if (dirAngle < 180f && dirAngle != 0f && height > 0f)
             {
                 startSpeed = GetLenght(height, angle) > lenght
                     ? GetSpeedByLenght(angle, lenght)
                     : GetSpeedByHeight(angle, height);
             }
 
-            var dir = GetDirection(dirAngle);
+            var dir = dirAngle.GetVectorRotation();
             return dir * startSpeed;
         }
-
-        private Vector3 GetDirection(float angle) =>
-            new(Mathf.Cos(angle * Mathf.PI / 180f), Mathf.Sin(angle * Mathf.PI / 180f), 0);
 
         private float GetSpeedByHeight(float angle, float height) =>
             Mathf.Sqrt(2 * Mathf.Abs(height) * _config.Gravity / Mathf.Sin(angle * Mathf.PI / 180) /

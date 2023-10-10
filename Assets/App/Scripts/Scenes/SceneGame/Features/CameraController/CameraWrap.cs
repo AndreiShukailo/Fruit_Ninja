@@ -57,5 +57,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
             OnAspectChanged?.Invoke();
             PrevAspect = Aspect;
         }
+
+        public Vector3 ScreenToWorldPoint(Vector3 position)
+        {
+            var worldPosition = _camera.ScreenToWorldPoint(position);
+            worldPosition.z = 0f;
+            return worldPosition;
+        }
     }
 }

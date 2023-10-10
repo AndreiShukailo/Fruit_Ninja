@@ -10,16 +10,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation
     {
         [SerializeField] private List<SpawnedAnimationTweenBase> _animations;
 
-        public void InitConfig(SpawnedAnimationConfig animationConfig)
+        public void StartAnimations(SpawnedAnimationConfig animationConfig)
         {
             foreach (var animation in _animations)
-                animation.InitConfig(animationConfig);
-        }
-
-        public void StartAnimations()
-        {
-            foreach (var animation in _animations)
+            {
+                animation.Construct(animationConfig);
                 animation.StartAnimation();
+            }
         }
     }
 }

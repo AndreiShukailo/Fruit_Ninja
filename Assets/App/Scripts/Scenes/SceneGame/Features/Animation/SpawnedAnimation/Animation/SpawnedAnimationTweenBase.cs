@@ -8,7 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Anima
         protected SpawnedAnimationConfig _config;
         protected Sequence _animation;
 
-        public void InitConfig(SpawnedAnimationConfig config) =>
+        public void Construct(SpawnedAnimationConfig config) =>
             _config = config;
 
         public abstract void StartAnimation();

@@ -14,7 +14,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow.Mono
             _shadowSystem.Add(this, startPosition);
         }
 
-
         private void OnDestroy() =>
             _shadowSystem.Remove(this);
     }

@@ -17,7 +17,7 @@ namespace App.Scripts.Infrastructure.GameState
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, coroutineRunner, projectContext),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, projectContext.ServiceContainer),
-                [typeof(GameLoopState)] = new GameLoopState(this)
+                [typeof(GameLoopState)] = new GameLoopState()
             };
         }
 

@@ -19,7 +19,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Anima
 
         private float GetRandomRotationDirection()
         {
-            float[] dirArray = new[] { 360f, -360f };
+            float[] dirArray = new[] { 360f * _config.TurnCount, -360f * _config.TurnCount };
             return dirArray[Random.Range(0, dirArray.Length)];
         }
     }

@@ -10,7 +10,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
 {
     public class SpawnZone
     {
-        private const float TopOffset = 0.9f;
+        private const float TopOffset = 0.8f;
         public readonly float Priority;
         private readonly SpawnedObjectFactory _spawnedObjectFactory;
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;

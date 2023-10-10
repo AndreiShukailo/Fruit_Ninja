@@ -8,7 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
 {
     public class GamePhysics : ITickable
     {
-        private PhysicsConfig _config;
+        private readonly PhysicsConfig _config;
         
         private readonly List<Physical> _objects = new();
 
