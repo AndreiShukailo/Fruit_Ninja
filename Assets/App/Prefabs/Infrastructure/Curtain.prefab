@@ -321,5 +321,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0062efdc1704cb5aed2580aa25796dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 2
+  Duration: 1
   Curtain: {fileID: 1277056658813986657}

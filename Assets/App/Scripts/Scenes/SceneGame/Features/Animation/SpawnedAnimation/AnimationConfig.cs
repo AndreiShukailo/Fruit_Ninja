@@ -4,7 +4,7 @@ using UnityEngine;
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation
 {
     [Serializable]
-    public class SpawnedAnimationConfig
+    public class AnimationConfig
     {
         [Header("IncreaseDecreaseAnimation")] [Range(1f, 5f)]
         public float IncreaseDecreaseDuration = 2f;

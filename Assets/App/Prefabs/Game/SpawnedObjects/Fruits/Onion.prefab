@@ -8,6 +8,26 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _leftPieces
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: 421aaf6819af8d244998e60374e4568d, type: 3}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _rightPieces
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: a3024501688bdc3458192e59c604d542, type: 3}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _fruitColor.b
+      value: 0.15294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _fruitColor.g
+      value: 0.10980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _fruitColor.r
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: _pieces.Array.data[0]
       value: 
       objectReference: {fileID: 623008533855448823, guid: 421aaf6819af8d244998e60374e4568d, type: 3}

@@ -3,6 +3,7 @@ using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
+using App.Scripts.Scenes.SceneGame.Features.FruitMono;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.SpawnedObject;
 using App.Scripts.Scenes.SceneGame.Features.Spawner;
@@ -14,15 +15,17 @@ namespace App.Scripts.Scenes.SceneGame.Installers
 {
     public class SpawnerInstaller : MonoInstaller
     {
-        public SpawnedAnimationConfig SpawnedAnimationConfig;
+        public AnimationConfig AnimationConfig;
         public SpawnerConfig SpawnerConfig;
         public SpawnZoneConfigs SpawnZoneConfigs;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
             var cameraWrap = serviceContainer.Get<CameraWrap>();
-            serviceContainer.SetServiceSelf(new SpawnedObjectFactory(serviceContainer, SpawnedAnimationConfig));
-            var fruitFactory = serviceContainer.Get<SpawnedObjectFactory>();
+            serviceContainer.SetServiceSelf(new FruitFactory(serviceContainer, AnimationConfig));
+            serviceContainer.SetServiceSelf(new SpotFactory(serviceContainer, AnimationConfig));
+            serviceContainer.SetServiceSelf(new PieceFactory(serviceContainer, AnimationConfig));
+            var fruitFactory = serviceContainer.Get<FruitFactory>();
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             serviceContainer.SetServiceSelf(new ZoneInitializer(SpawnZoneConfigs, fruitFactory, gameMath, cameraWrap,
                 SpawnerConfig));

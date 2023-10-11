@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using App.Scripts.Infrastructure.Installer;
-using App.Scripts.Scenes.SceneGame.Features.Shadow.Mono;
+using App.Scripts.Scenes.SceneGame.Features.Physics;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Shadow
 {
     public class ShadowSystem : ITickable
     {
-        private readonly Dictionary<Shadowed, SpriteRenderer> _shadoweds;
+        private readonly Dictionary<ISpriteRenderer, SpriteRenderer> _shadows;
 
         private readonly Transform _shadowContainer;
         private readonly SpriteRenderer _shadowPref;
@@ -15,7 +15,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow
 
         public ShadowSystem(ShadowConfig config)
         {
-            _shadoweds = new();
+            _shadows = new();
             _config = config;
             _shadowContainer = _config.ShadowContainer;
             _shadowPref = _config.ShadowPrefab;
@@ -23,38 +23,39 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow
 
         public void Tick()
         {
-            foreach (var shadowed in _shadoweds)
+            foreach (var shadowed in _shadows)
                 Update(shadowed.Key, shadowed.Value);
         }
 
-        public void Add(Shadowed shadowed, Vector3 startPosition)
+        public void Add(ISpriteRenderer iSpriteRenderer, Vector3 startPosition)
         {
             var newSpriteRenderer = Object.Instantiate(_shadowPref, _shadowContainer);
             newSpriteRenderer.transform.position = GetPositionByShadowOffset(startPosition);
-            newSpriteRenderer.sprite = shadowed.SpriteRenderer.sprite;
+            newSpriteRenderer.sprite = iSpriteRenderer.SpriteRenderer.sprite;
             newSpriteRenderer.color = new Color(0, 0, 0, _config.Transparent);
-            _shadoweds.Add(shadowed, newSpriteRenderer);
+            _shadows.Add(iSpriteRenderer, newSpriteRenderer);
         }
 
-        public void Remove(Shadowed shadowed)
+        public void Remove(ISpriteRenderer spriteRenderer)
         {
-            Object.Destroy(_shadoweds[shadowed]);
-            _shadoweds.Remove(shadowed);
+            var removed = _shadows[spriteRenderer];
+            _shadows.Remove(spriteRenderer);
+            Object.Destroy(removed.gameObject);
         }
 
 
-        private void Update(Shadowed shadowed, SpriteRenderer spriteRenderer)
+        private void Update(ISpriteRenderer iSpriteRenderer, SpriteRenderer spriteRenderer)
         {
             var spriteRendererTransform = spriteRenderer.transform;
-            var shadowedTransform = shadowed.transform;
+            var shadowedTransform = iSpriteRenderer.SpriteRenderer.transform;
             spriteRendererTransform.localScale = shadowedTransform.localScale;
             spriteRendererTransform.rotation = shadowedTransform.rotation;
-            spriteRenderer.transform.position = GetTransformByScale(shadowed);
+            spriteRenderer.transform.position = GetTransformByScale(iSpriteRenderer);
         }
 
-        private Vector3 GetTransformByScale(Shadowed shadowed)
+        private Vector3 GetTransformByScale(ISpriteRenderer iSpriteRenderer)
         {
-            var transform = shadowed.transform;
+            var transform = iSpriteRenderer.SpriteRenderer.transform;
             var scale = (transform.localScale.x - 1f) * _config.ScaleFactor;
             var position = transform.position;
             return new Vector3(position.x + _config.ShadowOffset + scale, position.y - _config.ShadowOffset - scale,

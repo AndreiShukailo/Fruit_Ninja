@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 219661508, guid: 90f44a19c8d1b874da10eaf2ea4f264a, type: 3}
+    - target: {fileID: 6570986230645048875, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
+      propertyPath: _targetAngle
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 9196615047050500171, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
       propertyPath: m_Name
       value: MangoPieceRight

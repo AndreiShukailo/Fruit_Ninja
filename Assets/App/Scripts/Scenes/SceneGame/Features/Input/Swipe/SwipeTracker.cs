@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using App.Scripts.Infrastructure.Installer;
+using App.Scripts.Scenes.SceneGame.Extentions;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using UnityEngine;
 
@@ -26,18 +27,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
 
         public void Tick()
         {
+            UpdateLastPositions();
             if (_input.IsSlide)
             {
                 EnableTrack();
                 _swipe.transform.position = GetTrackPosition();
-                UpdateLastPositions();
                 foreach (var swipeableComponent in _swipeables)
                 {
-                    var rect = swipeableComponent.Rect;
+                    var rect = swipeableComponent.SpriteRenderer.GetRect();
                     if (rect.Contains(_swipe.transform.position))
                     {
                         var cutDirection = GetCutDirection();
-                        swipeableComponent.Swipe(cutDirection, _swipe.transform.position);
+                        swipeableComponent.Swipe(cutDirection, swipeableComponent.SpriteRenderer.transform);
                     }
                 }
             }
@@ -62,7 +63,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
             _lastPositions.Enqueue(preLast);
             var heading = preLast - last;
             var distance = heading.magnitude;
-            return heading / distance;
+            if(distance == 0f)
+                return Vector2.up;
+            return (heading / distance).normalized;
         }
 
         private void UpdateLastPositions()

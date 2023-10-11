@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208f3e8acd344cc386d2545f069beb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pieces:
-  - {fileID: -3970330979057167533, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
-  - {fileID: 623008533855448823, guid: 7de6b6d9ad974a448992afcd43951d92, type: 3}
+  _leftPieces: {fileID: -3970330979057167533, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
+  _sprayPrefab: {fileID: 5001080488129502483, guid: 2d1ec049fdb089f43ae081c6c415c222, type: 3}
+  _rightPieces: {fileID: 623008533855448823, guid: 7de6b6d9ad974a448992afcd43951d92, type: 3}
+  _spotPrefab: {fileID: 8981866178538000680, guid: acc073cf1fbcaed49b27eba3c9e94822, type: 3}
+  _fruitColor: {r: 0.30980393, g: 0.46274513, b: 0.1764706, a: 1}
 --- !u!1 &3465020505223067506
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,11 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3465020505223067501}
   - component: {fileID: 3465020505223067500}
-  - component: {fileID: -5730524358376634383}
-  - component: {fileID: 4637831332542528743}
-  - component: {fileID: 5031833268040741859}
-  - component: {fileID: 5485820875894334369}
-  - component: {fileID: 2915668667620205554}
+  - component: {fileID: 6776435548563108185}
   - component: {fileID: 4070718705365278097}
   - component: {fileID: 5754176089992097204}
   m_Layer: 0
@@ -139,7 +137,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5730524358376634383
+--- !u!114 &6776435548563108185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,67 +146,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3465020505223067506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6903b0446b4d1aa0da46a320bb5b8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 19ff3bff113d4fc98a206da239978a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Physical: {fileID: 4637831332542528743}
+  _spriteRenderer: {fileID: 3465020505223067500}
+  _fruitPiecesCreator: {fileID: 641236655737278652}
   _animator:
     _animations:
     - {fileID: 4070718705365278097}
     - {fileID: 5754176089992097204}
-  _fruitPiecesCreator: {fileID: 641236655737278652}
-  _fruitSwipeComponent: {fileID: 2915668667620205554}
-  _spriteRenderer: {fileID: 3465020505223067500}
-  _destroyWhenInvisible: {fileID: 5031833268040741859}
-  _shadowed: {fileID: 5485820875894334369}
---- !u!114 &4637831332542528743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3465020505223067506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efa1546bcfc47c2a86748577f033e0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5031833268040741859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3465020505223067506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d18416fdc0443c9d7f9b4bd3b559c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5485820875894334369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3465020505223067506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7df7d762574fa1932838cf33827a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2915668667620205554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3465020505223067506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930e75b9a2734272b67e2a5a7ea12ade, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4070718705365278097
 MonoBehaviour:
   m_ObjectHideFlags: 0

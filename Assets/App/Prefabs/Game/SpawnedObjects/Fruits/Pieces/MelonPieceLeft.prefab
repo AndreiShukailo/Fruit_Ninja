@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 3590481821471275095}
   - component: {fileID: 5590118346997380117}
   - component: {fileID: -3970330979057167533}
-  - component: {fileID: -6275036869889861884}
-  - component: {fileID: -5552842244627870659}
-  - component: {fileID: 4665485849780595697}
+  - component: {fileID: 6570986230645048875}
   m_Layer: 0
   m_Name: MelonPieceLeft
   m_TagString: Untagged
@@ -76,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -552462765, guid: 2e7fe6fe8932b83468ee59fab435d178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,11 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9356ca3eef484180bf53dabcbdc91880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Physical: {fileID: 4665485849780595697}
   _spriteRenderer: {fileID: 5590118346997380117}
-  _destroyWhenInvisible: {fileID: -6275036869889861884}
-  _shadowed: {fileID: -5552842244627870659}
---- !u!114 &-6275036869889861884
+  _animator:
+    _animations:
+    - {fileID: 6570986230645048875}
+--- !u!114 &6570986230645048875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,30 +111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9196615047050500171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d18416fdc0443c9d7f9b4bd3b559c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 655343d5e36740ed9b15cb1707b49fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5552842244627870659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9196615047050500171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7df7d762574fa1932838cf33827a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4665485849780595697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9196615047050500171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efa1546bcfc47c2a86748577f033e0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Duration: 2

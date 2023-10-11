@@ -120,10 +120,10 @@ TextureImporter:
       name: mango_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 118.5
-        height: 173
+        x: 13
+        y: 19
+        width: 105
+        height: 141
       alignment: 9
       pivot: {x: 0.99663574, y: 0.502209}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,9 +142,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 118
-        y: 0
-        width: 118.5
-        height: 173
+        y: 19
+        width: 103
+        height: 141
       alignment: 9
       pivot: {x: -0.0030856233, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,12 +162,12 @@ TextureImporter:
       name: mango_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 237
-        height: 173
+        x: 13
+        y: 19
+        width: 208
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

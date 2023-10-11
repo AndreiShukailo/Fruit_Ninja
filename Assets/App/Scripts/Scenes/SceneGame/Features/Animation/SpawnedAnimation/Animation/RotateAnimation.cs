@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Animation
 {
-    public class RotateAnimation : SpawnedAnimationTweenBase
+    public class RotateAnimation : AnimationTweenBase
     {
         public override void StartAnimation()
         {

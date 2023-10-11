@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115184174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.0738635, y: -6, z: 0}
+  m_LocalPosition: {x: -5.2724705, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,11 +305,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576c8bae19ee47999f7c992c27c763bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lenght: 6.202718
+  Lenght: 6.4455113
   Priority: 1
   MaxAngle: 90
   MinAngle: 74
-  PrevAspect: 1.8456141
+  PrevAspect: 1.9178572
 --- !u!1 &281816606
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515195771}
   m_LocalRotation: {x: 0, y: 0, z: 0.7095707, w: 0.7046343}
-  m_LocalPosition: {x: 10.290271, y: -2.44, z: 0}
+  m_LocalPosition: {x: 10.693064, y: -2.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -405,7 +405,7 @@ MonoBehaviour:
   Priority: 1
   MaxAngle: 139
   MinAngle: 113
-  PrevAspect: 1.8456141
+  PrevAspect: 1.9178572
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
-  PrevAspect: 1.8456141
+  PrevAspect: 1.9178572
 --- !u!1 &574619736
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,22 +596,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fb4157b6a449188694ff5fb1053a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnedAnimationConfig:
+  AnimationConfig:
     IncreaseDecreaseDuration: 2
-    MaxScale: 1.1
+    MaxScale: 1.2
     MinScale: 0.9
     MaxRotationSpeed: 5
     MinRotationSpeed: 2
-    TurnCount: 1
+    TurnCount: 2
   SpawnerConfig:
     SpawnedObjects:
-    - {fileID: 3878401918373048191, guid: 34ac0cbf00eaf384f8ce8f7f6881c7d1, type: 3}
-    - {fileID: 3878401918373048191, guid: dc26605d69bb13b4a89e82fe28f02234, type: 3}
-    - {fileID: 3878401918373048191, guid: 6e65b1985bfc0d541953b2c2d7ed67f3, type: 3}
-    - {fileID: -5730524358376634383, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
-    - {fileID: 3878401918373048191, guid: 9038bd3b0c4fff643a8c4236d8cead92, type: 3}
-    - {fileID: 3878401918373048191, guid: 58961382fb3c550429ad6390d66534fb, type: 3}
-    - {fileID: 3878401918373048191, guid: fe56d45e567a3384891fc96197fec15f, type: 3}
+    - {fileID: 6602685729955092951, guid: 34ac0cbf00eaf384f8ce8f7f6881c7d1, type: 3}
+    - {fileID: 6602685729955092951, guid: dc26605d69bb13b4a89e82fe28f02234, type: 3}
+    - {fileID: 6602685729955092951, guid: 6e65b1985bfc0d541953b2c2d7ed67f3, type: 3}
+    - {fileID: 6776435548563108185, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+    - {fileID: 6602685729955092951, guid: 9038bd3b0c4fff643a8c4236d8cead92, type: 3}
+    - {fileID: 6602685729955092951, guid: 58961382fb3c550429ad6390d66534fb, type: 3}
+    - {fileID: 6602685729955092951, guid: fe56d45e567a3384891fc96197fec15f, type: 3}
     MaxObjectDelay: 1
     ObjectComplicationFactor: 0.1
     MinObjectDelay: 0.1
@@ -646,7 +646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008326759}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -10.117165, y: -2.45, z: 0}
+  m_LocalPosition: {x: -10.513182, y: -2.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -669,7 +669,7 @@ MonoBehaviour:
   Priority: 1
   MaxAngle: 73
   MinAngle: 49
-  PrevAspect: 1.8456141
+  PrevAspect: 1.9178572
 --- !u!1 &1152530131
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 1152530131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 1.3511083, y: 1.3511083, z: 1}
+  m_LocalScale: {x: 1.4039949, y: 1.4039949, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -947,7 +947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583955115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1218286, y: -6, z: 0}
+  m_LocalPosition: {x: 5.3223124, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -966,11 +966,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576c8bae19ee47999f7c992c27c763bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lenght: 6.202718
+  Lenght: 6.4455113
   Priority: 1
   MaxAngle: 105
   MinAngle: 90
-  PrevAspect: 1.8456141
+  PrevAspect: 1.9178572
 --- !u!1 &1711392494
 GameObject:
   m_ObjectHideFlags: 0

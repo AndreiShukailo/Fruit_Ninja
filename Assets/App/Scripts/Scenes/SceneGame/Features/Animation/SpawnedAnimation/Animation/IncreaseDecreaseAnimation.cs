@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Animation
 {
-    public class IncreaseDecreaseAnimation : SpawnedAnimationTweenBase
+    public class IncreaseDecreaseAnimation : AnimationTweenBase
     {
         public override void StartAnimation()
         {

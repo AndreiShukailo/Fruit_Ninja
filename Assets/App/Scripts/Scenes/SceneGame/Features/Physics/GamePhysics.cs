@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Scenes.SceneGame.Features.Physics.Config;
-using App.Scripts.Scenes.SceneGame.Features.Physics.Mono;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Physics
@@ -9,16 +8,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
     public class GamePhysics : ITickable
     {
         private readonly PhysicsConfig _config;
-        
-        private readonly List<Physical> _objects = new();
+
+        private readonly List<IPhysical> _objects = new();
 
         public GamePhysics(PhysicsConfig config) =>
             _config = config;
 
-        public void AddObject(Physical physical) =>
+        public void AddObject(IPhysical physical) =>
             _objects.Add(physical);
 
-        public void RemoveObject(Physical physical) =>
+        public void RemoveObject(IPhysical physical) =>
             _objects.Remove(physical);
 
         public void Tick()
@@ -27,10 +26,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
                 UpdateObject(physical);
         }
 
-        private void UpdateObject(Physical physical)
+        private void UpdateObject(IPhysical physical)
         {
             physical.AddVelocity(GetGravityVelocity());
-            physical.Position += physical.Velocity * Time.deltaTime;
+            physical.Transform.position += physical.Velocity * Time.deltaTime;
         }
 
         private Vector3 GetGravityVelocity() =>

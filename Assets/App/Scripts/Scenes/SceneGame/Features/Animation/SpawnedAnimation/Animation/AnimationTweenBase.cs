@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Animation
 {
-    public abstract class SpawnedAnimationTweenBase : MonoBehaviour
+    public abstract class AnimationTweenBase : MonoBehaviour
     {
-        protected SpawnedAnimationConfig _config;
+        protected AnimationConfig _config;
         protected Sequence _animation;
 
-        public void Construct(SpawnedAnimationConfig config) =>
+        public void Construct(AnimationConfig config) =>
             _config = config;
 
         public abstract void StartAnimation();

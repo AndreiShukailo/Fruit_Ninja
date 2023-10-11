@@ -55,9 +55,13 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1050139460, guid: 02a7b3dc925f7c64b862df0a8a22ce0e, type: 3}
+    - target: {fileID: 6570986230645048875, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
+      propertyPath: _targetAngle
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 9196615047050500171, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
       propertyPath: m_Name
-      value: OninPiecePear Left
+      value: PearPieceRight 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}

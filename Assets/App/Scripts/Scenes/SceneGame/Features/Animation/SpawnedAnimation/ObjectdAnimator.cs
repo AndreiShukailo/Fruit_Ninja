@@ -6,11 +6,11 @@ using UnityEngine;
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation
 {
     [Serializable]
-    public class SpawnedAnimator
+    public class ObjectdAnimator
     {
-        [SerializeField] private List<SpawnedAnimationTweenBase> _animations;
+        [SerializeField] private List<AnimationTweenBase> _animations;
 
-        public void StartAnimations(SpawnedAnimationConfig animationConfig)
+        public void StartAnimations(AnimationConfig animationConfig)
         {
             foreach (var animation in _animations)
             {
