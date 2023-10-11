@@ -10,13 +10,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
         private readonly PlayerInput _input;
         private readonly CameraWrap _cameraWrap;
         private readonly GameObject _swipe;
-        private List<SwipeableComponent> _swipeables;
+        private List<ISwipeable> _swipeables;
+        private Queue<Vector2> _lastPositions;
+        private Vector2 _сut;
 
         public SwipeTracker(GameObject swipePrefab, PlayerInput input, CameraWrap cameraWrap)
         {
+            _swipeables = new();
             _input = input;
             _cameraWrap = cameraWrap;
             _swipe = Object.Instantiate(swipePrefab);
+            _lastPositions = new Queue<Vector2>(2);
             DisableTrack();
         }
 
@@ -26,10 +30,15 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
             {
                 EnableTrack();
                 _swipe.transform.position = GetTrackPosition();
+                UpdateLastPositions();
                 foreach (var swipeableComponent in _swipeables)
                 {
-                    if(swipeableComponent.Rect.Contains(_swipe.transform.position))
-                        swipeableComponent.OnSwipe();
+                    var rect = swipeableComponent.Rect;
+                    if (rect.Contains(_swipe.transform.position))
+                    {
+                        var cutDirection = GetCutDirection();
+                        swipeableComponent.Swipe(cutDirection, _swipe.transform.position);
+                    }
                 }
             }
             else
@@ -37,12 +46,31 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
                 DisableTrack();
             }
         }
-        
-        public void Add(SwipeableComponent swipeableComponent) =>
-            _swipeables.Add(swipeableComponent);
 
-        public void Remove(SwipeableComponent swipeableComponent) =>
-            _swipeables.Remove(swipeableComponent);
+
+        public void Add(ISwipeable swaipable) =>
+            _swipeables.Add(swaipable);
+
+        public void Remove(ISwipeable swaipable) =>
+            _swipeables.Remove(swaipable);
+
+        private Vector2 GetCutDirection()
+        {
+            var last = _lastPositions.Dequeue();
+            var preLast = _lastPositions.Dequeue();
+            _lastPositions.Enqueue(last);
+            _lastPositions.Enqueue(preLast);
+            var heading = preLast - last;
+            var distance = heading.magnitude;
+            return heading / distance;
+        }
+
+        private void UpdateLastPositions()
+        {
+            _lastPositions.Enqueue(_swipe.transform.position);
+            if (_lastPositions.Count > 2)
+                _lastPositions.Dequeue();
+        }
 
         private Vector3 GetTrackPosition() =>
             _cameraWrap.ScreenToWorldPoint(_input.MousePosition);

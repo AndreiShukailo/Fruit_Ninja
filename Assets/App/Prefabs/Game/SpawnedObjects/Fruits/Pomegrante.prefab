@@ -7,10 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _pieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: d10752d4ee60f1f47869a19165746400, type: 3}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _pieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: 8f045ca6c3e51d743adcc85184211c9a, type: 3}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_Size.x
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_Size.y
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 35ec158e43478604ba9b97a37bdaa7ed, type: 3}
+      objectReference: {fileID: 1152078110, guid: 35ec158e43478604ba9b97a37bdaa7ed, type: 3}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067501, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067506, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Name
-      value: Coconut 1
+      value: Pomegrante
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

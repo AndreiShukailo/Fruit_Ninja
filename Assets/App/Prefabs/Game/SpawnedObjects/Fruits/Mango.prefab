@@ -7,10 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _pieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: 6f053c5fc413fd24c9a55f9f532efd0d, type: 3}
+    - target: {fileID: 641236655737278652, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: _pieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 623008533855448823, guid: 5c6d5465bc174974e8c6c75286b5f17b, type: 3}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_Size.x
+      value: 2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_Size.y
+      value: 1.73
+      objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 90f44a19c8d1b874da10eaf2ea4f264a, type: 3}
+      objectReference: {fileID: -1967211099, guid: 90f44a19c8d1b874da10eaf2ea4f264a, type: 3}
+    - target: {fileID: 3465020505223067500, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067501, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3465020505223067506, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Name
-      value: Coconut 3
+      value: Mango
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

@@ -1,5 +1,7 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
+﻿using App.Scripts.Infrastructure.ServiceLocator;
+using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
+using App.Scripts.Scenes.SceneGame.Features.Input.Swipe;
 using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.Shadow;
 using App.Scripts.Scenes.SceneGame.Features.SpawnedObject.Mono;
@@ -9,27 +11,27 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnedObject
 {
     public class SpawnedObjectFactory
     {
-        private readonly CameraWrap _cameraWrap;
-        private readonly GamePhysics _physics;
-        private readonly ShadowSystem _shadowSystem;
+        private readonly ServiceContainer _serviceContainer;
         private readonly SpawnedAnimationConfig _spawnedAnimationConfig;
 
-        public SpawnedObjectFactory( CameraWrap cameraWrap, GamePhysics physics,
-            ShadowSystem shadowSystem, SpawnedAnimationConfig spawnedAnimationConfig)
+        public SpawnedObjectFactory(ServiceContainer serviceContainer, SpawnedAnimationConfig spawnedAnimationConfig)
         {
-            _cameraWrap = cameraWrap;
-            _physics = physics;
-            _shadowSystem = shadowSystem;
+            _serviceContainer = serviceContainer;
             _spawnedAnimationConfig = spawnedAnimationConfig;
         }
 
-        public Spawned Create(Spawned prefab, Vector3 position, Vector3 startVelocity)
+        public void Create(Spawned prefab, Vector3 position, Vector3 startVelocity)
         {
             var spawned = Object.Instantiate(prefab);
-            spawned.Construct(_physics, _cameraWrap, _shadowSystem, _spawnedAnimationConfig, position);
+
+            var physics = _serviceContainer.Get<GamePhysics>();
+            var cameraWrap = _serviceContainer.Get<CameraWrap>();
+            var shadowSystem = _serviceContainer.Get<ShadowSystem>();
+            var swipeTracker = _serviceContainer.Get<SwipeTracker>();
+            spawned.Construct(physics, cameraWrap, shadowSystem, _spawnedAnimationConfig, swipeTracker, position,
+                _serviceContainer);
             spawned.transform.position = position;
             spawned.Physical.AddVelocity(startVelocity);
-            return spawned;
         }
     }
 }
