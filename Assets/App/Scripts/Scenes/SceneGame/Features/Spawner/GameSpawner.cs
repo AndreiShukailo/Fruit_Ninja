@@ -8,11 +8,14 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
 {
     public class GameSpawner
     {
-        private const int PackToComplication = 3;
+        public GameState GameState { get; set; }
+        private const int PackToComplication = 1;
         private readonly SpawnerConfig _spawnerConfig;
         private readonly ZoneInitializer _zoneInitializer;
         private readonly ICoroutineRunner _coroutineRunner;
 
+        private Coroutine _spawning;
+        
         private int _currenPackCount;
         private float _currentPackDelay;
         private float _currentObjectDelay;
@@ -27,17 +30,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
             _zoneInitializer = zoneInitializer;
         }
 
-        public void StartSpawn()
+        private void StartSpawn()
         {
             _currentPackDelay = _spawnerConfig.MaxPackDelay;
             _currentObjectDelay = _spawnerConfig.MaxObjectDelay;
             _currenPackCount = _spawnerConfig.MinPackCount;
-            _coroutineRunner.StartCoroutine(Spawn());
+            _spawning = _coroutineRunner.StartCoroutine(Spawn());
         }
 
         private IEnumerator Spawn()
         {
-            while (true)
+            while (GameState.IsPlaying)
             {
                 yield return new WaitForSeconds(_currentPackDelay);
 
@@ -52,6 +55,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
             }
         }
 
+        public void StopSpawn() =>
+            _coroutineRunner.StopCoroutine(_spawning);
+
         private void Complication()
         {
             _packCounter++;
@@ -64,7 +70,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
 
         private void ComplicateObjectDelay()
         {
-            if (_currentObjectDelay > _spawnerConfig.MinPackDelay)
+            if (_currentObjectDelay > _spawnerConfig.MinObjectDelay)
                 _currentObjectDelay -= _spawnerConfig.ObjectComplicationFactor;
         }
 
@@ -78,6 +84,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner
         {
             if (_currenPackCount < _spawnerConfig.MaxPackCount)
                 _currenPackCount++;
+        }
+
+        public void Reset()
+        {
+            StartSpawn();
         }
     }
 }

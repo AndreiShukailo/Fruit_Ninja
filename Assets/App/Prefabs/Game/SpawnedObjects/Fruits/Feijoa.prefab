@@ -99,5 +99,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Feijoa
       objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: LeftPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: cdd725d8398de68489e6b5afdb7c8b72, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: RightPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: 22e01b7e65c3d4449b87c250f61fc1f9, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.b
+      value: 0.20784315
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.g
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.r
+      value: 0.44705886
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

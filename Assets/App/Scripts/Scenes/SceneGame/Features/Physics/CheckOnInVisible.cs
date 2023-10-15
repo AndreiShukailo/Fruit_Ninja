@@ -10,27 +10,33 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
     {
         private readonly CameraWrap _cameraWrap;
         private readonly List<ICheckVisible> _objects;
+        private readonly List<ICheckVisible> _toRemove;
 
         public CheckOnInVisible(CameraWrap cameraWrap)
         {
             _cameraWrap = cameraWrap;
             _objects = new();
+            _toRemove = new();
         }
 
         public void Tick()
         {
             foreach (var checkVisible in _objects)
                 Update(checkVisible);
+            foreach (var checkVisible in _toRemove)
+                _objects.Remove(checkVisible);
+            _toRemove.Clear();
         }
 
         public void AddObject(ICheckVisible checkVisible) =>
             _objects.Add(checkVisible);
 
         public void RemoveObject(ICheckVisible checkVisible) =>
-            _objects.Remove(checkVisible);
+            _toRemove.Add(checkVisible);
 
         private void Update(ICheckVisible checkVisible)
         {
+            if (checkVisible.SpriteRenderer == null) return;
             var rect = checkVisible.SpriteRenderer.GetRect();
             if (checkVisible.IsVisible == false)
                 CheckOnVisible(rect, checkVisible);
@@ -58,8 +64,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.Physics
 
         private bool InCameraVisible(Rect rect)
         {
-            return rect.xMax > _cameraWrap.LeftBoarder && rect.xMin < _cameraWrap.RightBoarder &&
-                   rect.yMax > _cameraWrap.BottomBoarder;
+            return rect.xMin > _cameraWrap.LeftBoarder && rect.xMax < _cameraWrap.RightBoarder &&
+                   rect.yMin > _cameraWrap.BottomBoarder;
         }
     }
 }

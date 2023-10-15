@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Animation
 {

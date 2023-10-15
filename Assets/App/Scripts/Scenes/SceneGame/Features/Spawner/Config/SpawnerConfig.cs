@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using App.Scripts.Scenes.SceneGame.Features.FruitMono;
+using App.Scripts.Scenes.SceneGame.Features.View;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Spawner.Config
@@ -8,9 +9,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Spawner.Config
     [Serializable]
     public class SpawnerConfig
     {
-        public List<Fruit> SpawnedObjects;
+        public List<UnitView> SpawnedObjects;
 
-        [Header("ObjectDelay")] [Range(0.1f, 1f)]
+        [Header("ObjectDelay")] [Range(0.1f, 2f)]
         public float MaxObjectDelay = 1f;
 
         [Range(0.1f, 1f)] public float ObjectComplicationFactor = 0.1f;

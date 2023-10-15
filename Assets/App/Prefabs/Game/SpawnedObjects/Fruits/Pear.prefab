@@ -99,5 +99,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pear
       objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: LeftPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: 793cbb282454ec246b2e12310efb5da5, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: RightPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: ad7d99cc65dcad04ca644786c7790946, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.b
+      value: 0.4156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.g
+      value: 0.9058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.r
+      value: 0.9294118
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

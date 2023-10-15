@@ -26,7 +26,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
 
         private float Height =>
             OrthographicSize * 2f;
-        
+
         public float HalfWidth =>
             OrthographicSize * Aspect;
 
@@ -50,7 +50,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
         }
 
         public event Action OnAspectChanged;
-        
+
         public void Tick()
         {
             if (!(Math.Abs(PrevAspect - Aspect) > 0f)) return;
@@ -63,6 +63,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
             var worldPosition = _camera.ScreenToWorldPoint(position);
             worldPosition.z = 0f;
             return worldPosition;
+        }
+
+        public Vector3 WorldPointToScreen(Vector3 position)
+        {
+            var screenPoint = _camera.WorldToScreenPoint(position);
+            screenPoint.z = 0f;
+            return screenPoint;
         }
     }
 }

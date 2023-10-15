@@ -5,6 +5,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.Input.Swipe
 {
     public interface ISwipeable : ISpriteRenderer
     {
-        public void Swipe(Vector2 cut, Transform transform);
+        public void Swipe(Vector2 cut);
     }
 }

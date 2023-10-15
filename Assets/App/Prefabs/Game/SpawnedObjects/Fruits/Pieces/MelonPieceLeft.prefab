@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3590481821471275095}
   - component: {fileID: 5590118346997380117}
-  - component: {fileID: -3970330979057167533}
+  - component: {fileID: 4166714085532836596}
   - component: {fileID: 6570986230645048875}
   m_Layer: 0
   m_Name: MelonPieceLeft
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3970330979057167533
+--- !u!114 &4166714085532836596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,11 +95,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9196615047050500171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9356ca3eef484180bf53dabcbdc91880, type: 3}
+  m_Script: {fileID: 11500000, guid: 343f6792cd8146a39bd99761b77e7128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 5590118346997380117}
-  _animator:
+  SpriteRenderer: {fileID: 5590118346997380117}
+  Animator:
     _animations:
     - {fileID: 6570986230645048875}
 --- !u!114 &6570986230645048875
@@ -114,4 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655343d5e36740ed9b15cb1707b49fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 2
+  _duration: 2
+  _targetAngle: 90

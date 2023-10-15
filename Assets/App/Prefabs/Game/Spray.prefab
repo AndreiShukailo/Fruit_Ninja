@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5270668441533839734}
   - component: {fileID: 5270668441533839729}
   - component: {fileID: 5270668441533839728}
-  - component: {fileID: 5001080488129502483}
+  - component: {fileID: 5855628643005652608}
   m_Layer: 0
   m_Name: Spray
   m_TagString: Untagged
@@ -4880,7 +4880,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &5001080488129502483
+--- !u!114 &5855628643005652608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

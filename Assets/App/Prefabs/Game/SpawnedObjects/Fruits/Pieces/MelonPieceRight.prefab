@@ -67,5 +67,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MelonPieceRight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3970330979057167533, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9eef87335300c8549bd4e8e570fda614, type: 3}

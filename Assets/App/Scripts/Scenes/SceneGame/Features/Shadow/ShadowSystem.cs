@@ -27,13 +27,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow
                 Update(shadowed.Key, shadowed.Value);
         }
 
-        public void Add(ISpriteRenderer iSpriteRenderer, Vector3 startPosition)
+        public void Add(ISpriteRenderer iSpriteRenderer)
         {
-            var newSpriteRenderer = Object.Instantiate(_shadowPref, _shadowContainer);
-            newSpriteRenderer.transform.position = GetPositionByShadowOffset(startPosition);
-            newSpriteRenderer.sprite = iSpriteRenderer.SpriteRenderer.sprite;
-            newSpriteRenderer.color = new Color(0, 0, 0, _config.Transparent);
-            _shadows.Add(iSpriteRenderer, newSpriteRenderer);
+            _shadows.Add(iSpriteRenderer, CreateShadow(iSpriteRenderer));
         }
 
         public void Remove(ISpriteRenderer spriteRenderer)
@@ -51,6 +47,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.Shadow
             spriteRendererTransform.localScale = shadowedTransform.localScale;
             spriteRendererTransform.rotation = shadowedTransform.rotation;
             spriteRenderer.transform.position = GetTransformByScale(iSpriteRenderer);
+        }
+
+        public SpriteRenderer CreateShadow(ISpriteRenderer iSpriteRenderer)
+        {
+            var newSpriteRenderer = Object.Instantiate(_shadowPref, _shadowContainer);
+            newSpriteRenderer.transform.position =
+                GetPositionByShadowOffset(iSpriteRenderer.SpriteRenderer.transform.position);
+            newSpriteRenderer.sprite = iSpriteRenderer.SpriteRenderer.sprite;
+            newSpriteRenderer.color = new Color(0, 0, 0, _config.Transparent);
+            return newSpriteRenderer;
         }
 
         private Vector3 GetTransformByScale(ISpriteRenderer iSpriteRenderer)

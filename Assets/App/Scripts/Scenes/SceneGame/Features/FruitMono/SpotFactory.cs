@@ -1,5 +1,5 @@
 ﻿using App.Scripts.Infrastructure.ServiceLocator;
-using App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation;
+using App.Scripts.Scenes.SceneGame.Features.View;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.FruitMono
@@ -7,21 +7,20 @@ namespace App.Scripts.Scenes.SceneGame.Features.FruitMono
     public class SpotFactory
     {
         private readonly ServiceContainer _serviceContainer;
-        private readonly AnimationConfig _animationConfig;
 
-        public SpotFactory(ServiceContainer serviceContainer, AnimationConfig animationConfig)
+        public SpotFactory(ServiceContainer serviceContainer)
         {
             _serviceContainer = serviceContainer;
-            _animationConfig = animationConfig;
         }
 
-        public void CreateSpot(Spot prefab, Color color, Transform transform)
+        public void CreateSpot(UnitView prefab, Color color, Transform transform)
         {
-            var spot = Object.Instantiate(prefab);
-            var transform1 = spot.transform;
+            var view = Object.Instantiate(prefab);
+            view.SpriteRenderer.color = color;
+            var transform1 = view.transform;
             transform1.position = transform.position;
             transform1.rotation = transform.rotation;
-            spot.Construct(_animationConfig, color);
+            view.Animator.StartAnimations();
         }
     }
 }

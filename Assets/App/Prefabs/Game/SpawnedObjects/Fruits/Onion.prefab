@@ -111,6 +111,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: LeftPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: 421aaf6819af8d244998e60374e4568d, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: RightPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: a3024501688bdc3458192e59c604d542, type: 3}
     - target: {fileID: 9167692991175283964, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
       propertyPath: m_Sprite
       value: 

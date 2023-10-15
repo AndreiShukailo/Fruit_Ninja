@@ -4,6 +4,7 @@ using App.Scripts.Scenes.SceneGame.Features.Physics;
 using App.Scripts.Scenes.SceneGame.Features.SpawnedObject;
 using App.Scripts.Scenes.SceneGame.Features.Spawner.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config;
+using App.Scripts.Scenes.SceneGame.Features.View;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
@@ -62,7 +63,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnZones
             return Vector2.Lerp(start, end, value);
         }
 
-        private Fruit GetRandomPrefab() =>
+        private UnitView GetRandomPrefab() =>
             _spawnerConfig.SpawnedObjects[Random.Range(0, _spawnerConfig.SpawnedObjects.Count)];
     }
 }

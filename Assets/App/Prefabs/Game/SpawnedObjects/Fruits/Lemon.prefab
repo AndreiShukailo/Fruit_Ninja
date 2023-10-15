@@ -99,5 +99,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lemon
       objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: LeftPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: 2aa3d1cb3bb6e764da2af2e548a407bb, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: RightPiece
+      value: 
+      objectReference: {fileID: 8759773495163952976, guid: 3de79a2144fb016439ba63a8f035fe29, type: 3}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.b
+      value: 0.003921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.g
+      value: 0.8352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415883200148200654, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}
+      propertyPath: UnitColor.r
+      value: 0.95294124
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363458034c7c5a84da22bf44014cd1ec, type: 3}

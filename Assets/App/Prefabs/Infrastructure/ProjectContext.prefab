@@ -60,3 +60,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameConfig: {fileID: 11400000, guid: 0d16f9947e416654eab29a9e99abf939, type: 2}
+  PlayerData: {fileID: 11400000, guid: d32c6e627988d3f498d62df03097a5f4, type: 2}
+  TargetFrameRate: 60
