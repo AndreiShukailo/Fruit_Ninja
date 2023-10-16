@@ -15,6 +15,5 @@ namespace App.Scripts.Scenes.SceneGame.Features.Player
             _addScoreAnimation.StartAnimation();
             _scoreCount.text = score.ToString();
         }
-
     }
 }

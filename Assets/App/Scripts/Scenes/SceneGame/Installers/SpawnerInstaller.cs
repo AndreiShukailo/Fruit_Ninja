@@ -25,6 +25,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         [SerializeField] private RestartPopupView _restartPopupView;
         [SerializeField] private ComboPopupView _comboPopupView;
         [SerializeField] private ComboConfig _comboConfig;
+        [SerializeField] private PauseButtonView _pauseButtonView;
+        [SerializeField] private PausePopupView _pausePopupView;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -62,6 +64,12 @@ namespace App.Scripts.Scenes.SceneGame.Installers
                 serviceContainer.Get<SwipeTracker>(), _restartPopupView));
             GameState gameState = serviceContainer.Get<GameState>();
             gameState.StartPlay();
+
+            serviceContainer.SetServiceSelf(new GameStateManager(gameState, _restartPopupView, _pauseButtonView,
+                _pausePopupView));
+            var gameStateManager = serviceContainer.Get<GameStateManager>();
+
+            _pauseButtonView.Construct(gameStateManager);
         }
     }
 }

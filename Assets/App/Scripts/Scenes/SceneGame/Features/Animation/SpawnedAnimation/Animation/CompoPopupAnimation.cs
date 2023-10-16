@@ -13,7 +13,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.Animation.SpawnedAnimation.Anima
             _canvasGroup.alpha = 1f;
             _animation = DOTween.Sequence();
             _animation
-                .Append(_canvasGroup.DOFade(0f, _duration));
+                .Append(_canvasGroup.DOFade(0f, _duration))
+                .AppendCallback(() => gameObject.SetActive(false));
         }
     }
 }

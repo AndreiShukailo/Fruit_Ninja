@@ -2,6 +2,7 @@
 using App.Scripts.Scenes.SceneGame.Features.Input.Swipe;
 using App.Scripts.Scenes.SceneGame.Features.Player;
 using App.Scripts.Scenes.SceneGame.Features.Spawner;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features
 {
@@ -14,6 +15,7 @@ namespace App.Scripts.Scenes.SceneGame.Features
         private readonly RestartPopupView _restartPopupView;
 
         public bool IsPlaying { get; private set; }
+        private bool _isPaused;
 
         public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, PlayerInput playerInput,
             SwipeTracker swipeTracker, RestartPopupView restartPopupView)
@@ -30,7 +32,7 @@ namespace App.Scripts.Scenes.SceneGame.Features
 
         private void ShowLoosePopup()
         {
-            if (IsPlaying) return;
+            if (IsPlaying || _isPaused) return;
             _swipeTracker.OnEmty -= ShowLoosePopup;
             _restartPopupView.Activate(_playerDataModel.CurrentScore, _playerDataModel.BestScore, StartPlay);
         }
@@ -41,7 +43,6 @@ namespace App.Scripts.Scenes.SceneGame.Features
             _gameSpawner.StopSpawn();
         }
 
-
         public void StartPlay()
         {
             _restartPopupView.Deactivate();
@@ -49,6 +50,20 @@ namespace App.Scripts.Scenes.SceneGame.Features
             _playerDataModel.Reset();
             _gameSpawner.Reset();
             _swipeTracker.OnEmty += ShowLoosePopup;
+        }
+
+        public void SetPause()
+        {
+            IsPlaying = false;
+            _isPaused = true;
+            Time.timeScale = 0f;
+        }
+
+        public void Continue()
+        {
+            IsPlaying = true;
+            _isPaused = false;
+            Time.timeScale = 1f;
         }
     }
 }
