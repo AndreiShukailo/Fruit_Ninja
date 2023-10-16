@@ -23,9 +23,14 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         public SpawnZoneConfigs SpawnZoneConfigs;
         public FruitsConfig FruitsConfig;
         [SerializeField] private RestartPopupView _restartPopupView;
+        [SerializeField] private ComboPopupView _comboPopupView;
+        [SerializeField] private ComboConfig _comboConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
+            serviceContainer.SetITickableAndSelf(new ComboSystem(_comboConfig, _comboPopupView));
+            var comboSystem = serviceContainer.Get<ComboSystem>();
+
             var playerDataModel = serviceContainer.Get<PlayerDataModel>();
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             serviceContainer.SetServiceSelf(new FruitFactory(serviceContainer));
@@ -43,7 +48,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
                 fruitParticleFactory, FruitsConfig, addScoreViewFactory));
             var fruitEffectCreator = serviceContainer.Get<FruitSwipeEffectsCreator>();
             serviceContainer.SetServiceSelf(new FruitSwipeStrategy(fruitEffectCreator, simpleDestroyStrategy,
-                playerDataModel));
+                playerDataModel, comboSystem));
             var fruitFactory = serviceContainer.Get<FruitFactory>();
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             serviceContainer.SetServiceSelf(new ZoneInitializer(SpawnZoneConfigs, fruitFactory, gameMath, cameraWrap,
