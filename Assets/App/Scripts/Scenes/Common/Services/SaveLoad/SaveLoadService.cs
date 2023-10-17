@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Scripts.Scenes.Common
+namespace App.Scripts.Scenes.Common.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService
     {

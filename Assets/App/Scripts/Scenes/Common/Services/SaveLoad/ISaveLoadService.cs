@@ -1,4 +1,4 @@
-﻿namespace App.Scripts.Scenes.Common
+﻿namespace App.Scripts.Scenes.Common.Services.SaveLoad
 {
     public interface ISaveLoadService
     {

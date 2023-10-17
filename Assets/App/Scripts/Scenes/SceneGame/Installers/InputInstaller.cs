@@ -1,8 +1,8 @@
 ﻿using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
-using App.Scripts.Scenes.SceneGame.Features.Input;
-using App.Scripts.Scenes.SceneGame.Features.Input.Swipe;
+using App.Scripts.Scenes.SceneGame.Features.InputSystem.Config;
+using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
@@ -15,6 +15,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
             serviceContainer.SetITickableAndSelf(new PlayerInput(_inputConfig));
+            
             var playerInput = serviceContainer.Get<PlayerInput>();
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             serviceContainer.SetITickableAndSelf(new SwipeTracker(_trackPrefab, playerInput, cameraWrap));

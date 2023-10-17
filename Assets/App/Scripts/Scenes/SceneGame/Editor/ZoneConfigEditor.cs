@@ -1,7 +1,7 @@
 ﻿using System;
 using App.Scripts.Scenes.SceneGame.Extentions;
-using App.Scripts.Scenes.SceneGame.Features.SpawnZones;
-using App.Scripts.Scenes.SceneGame.Features.SpawnZones.Config;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;
 using UnityEditor;
 using UnityEngine;
 

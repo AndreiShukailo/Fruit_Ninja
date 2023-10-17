@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace App.Scripts.Scenes.SceneMenu.Feature.Buttons
+namespace App.Scripts.Scenes.Common.Buttons
 {
     [Serializable]
     public class ButtonsContainerView

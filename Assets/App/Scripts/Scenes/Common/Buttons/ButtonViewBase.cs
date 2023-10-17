@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.Scripts.Scenes.SceneMenu.Feature.Buttons
+namespace App.Scripts.Scenes.Common.Buttons
 {
     public class ButtonViewBase : MonoBehaviour
     {

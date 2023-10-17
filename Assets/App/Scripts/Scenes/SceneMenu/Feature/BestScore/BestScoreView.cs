@@ -1,5 +1,4 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Player;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneMenu.Feature.BestScore

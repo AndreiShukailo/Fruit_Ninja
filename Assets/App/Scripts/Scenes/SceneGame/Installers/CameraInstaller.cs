@@ -2,7 +2,8 @@
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.SceneGame.Features.BackGround;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
-using App.Scripts.Scenes.SceneGame.Features.Physics;
+using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
+using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
@@ -17,6 +18,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         {
             serviceContainer.SetITickableAndSelf(new CameraWrap(_camera, _prevAspectSaver));
             var cameraWrap = serviceContainer.Get<CameraWrap>();
+            
             serviceContainer.SetServiceSelf(new FlexibleBackGround(cameraWrap, _backGround));
             serviceContainer.SetITickableAndSelf(new CheckOnInVisible(cameraWrap));
         }

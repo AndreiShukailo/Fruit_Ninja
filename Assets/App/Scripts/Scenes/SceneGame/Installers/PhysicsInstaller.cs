@@ -1,7 +1,7 @@
 ﻿using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
-using App.Scripts.Scenes.SceneGame.Features.Physics;
-using App.Scripts.Scenes.SceneGame.Features.Physics.Config;
+using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Config;
+using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
