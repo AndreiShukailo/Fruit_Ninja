@@ -6,24 +6,29 @@ namespace App.Scripts.Scenes.SceneGame.Features.Player
     public class PlayerDataModel
     {
         public GameState GameState { get; set; }
-        public int BestScore => _playerData.BestScore;
+        public int BestScore => _playerProgress.BestScore;
         public int CurrentScore { get; private set; }
         private int _currentHealthCount;
-        private readonly PlayerData _playerData;
+
+        private readonly StartPlayerDataConfig _startPlayerDataConfig;
+        private readonly ISaveLoadService _saveLoadService;
+        private readonly PlayerProgress _playerProgress;
 
         public event Action<int, int> OnUpdateScore;
         public event Action<int> OnUpdateHealth;
 
 
-        public PlayerDataModel(PlayerData playerData)
+        public PlayerDataModel(StartPlayerDataConfig startPlayerDataConfig, ISaveLoadService saveLoadService)
         {
-            _playerData = playerData;
-            _currentHealthCount = _playerData.StartHealth;
-            CurrentScore = _playerData.StartScore;
+            _saveLoadService = saveLoadService;
+            _startPlayerDataConfig = startPlayerDataConfig;
+            _currentHealthCount = _startPlayerDataConfig.StartHealth;
+            CurrentScore = _startPlayerDataConfig.StartScore;
+            _playerProgress = _saveLoadService.Load() ?? new PlayerProgress();
         }
 
         public void UpdateScore() =>
-            OnUpdateScore?.Invoke(CurrentScore, _playerData.BestScore);
+            OnUpdateScore?.Invoke(CurrentScore, BestScore);
 
         public void UpdateHealth() =>
             OnUpdateHealth?.Invoke(_currentHealthCount);
@@ -34,22 +39,26 @@ namespace App.Scripts.Scenes.SceneGame.Features.Player
             _currentHealthCount -= 1;
             if (_currentHealthCount <= 0)
                 GameState.SetLoose();
+
             UpdateHealth();
         }
 
         public void AddScore(int score)
         {
             CurrentScore += score;
-            if (CurrentScore > _playerData.BestScore)
-                _playerData.BestScore = CurrentScore;
+            if (CurrentScore > BestScore)
+            {
+                _playerProgress.BestScore = CurrentScore;
+                _saveLoadService.Save(_playerProgress);
+            }
 
             UpdateScore();
         }
 
         public void Reset()
         {
-            _currentHealthCount = _playerData.StartHealth;
-            CurrentScore = _playerData.StartScore;
+            _currentHealthCount = _startPlayerDataConfig.StartHealth;
+            CurrentScore = _startPlayerDataConfig.StartScore;
             UpdateHealth();
             UpdateScore();
         }

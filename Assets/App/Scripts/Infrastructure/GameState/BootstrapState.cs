@@ -1,13 +1,13 @@
-﻿using App.Scripts.Infrastructure.Configs;
-using App.Scripts.Infrastructure.GameRunner;
+﻿using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.SceneManagement;
 
 namespace App.Scripts.Infrastructure.GameState
 {
-    public class BootstrapState : IState
+    public class BootstrapState : IPayLoadedState<string>
     {
         private const string Initial = "Initial";
+        private string _currentSceneName;
         private readonly SceneLoader _sceneLoader;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly GameStateMachine _stateMachine;
@@ -22,18 +22,20 @@ namespace App.Scripts.Infrastructure.GameState
             _projectContext = projectContext;
         }
 
-        public void Enter()
+        public void Enter(string currentSceneName)
         {
+            _currentSceneName = currentSceneName;
             RegisterProjectContext();
             _sceneLoader.Load(Initial, EnterLoadLevel);
         }
+        
 
         public void Exit()
         {
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>(_projectContext.ServiceContainer.Get<GameConfig>().StartScene);
+            _stateMachine.Enter<LoadLevelState, string>(_currentSceneName);
 
         private void RegisterProjectContext() =>
             _projectContext.Setup(_stateMachine, _coroutineRunner);

@@ -54,14 +54,12 @@ namespace App.Scripts.Scenes.SceneGame.Features
 
         public void SetPause()
         {
-            IsPlaying = false;
             _isPaused = true;
             Time.timeScale = 0f;
         }
 
         public void Continue()
         {
-            IsPlaying = true;
             _isPaused = false;
             Time.timeScale = 1f;
         }

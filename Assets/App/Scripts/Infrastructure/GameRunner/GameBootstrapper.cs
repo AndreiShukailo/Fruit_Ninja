@@ -2,6 +2,7 @@
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace App.Scripts.Infrastructure.GameRunner
 {
@@ -15,9 +16,12 @@ namespace App.Scripts.Infrastructure.GameRunner
             var projectContext = Instantiate(ProjectContext);
             var curtain = Instantiate(CurtainPrefab);
             GameStateMachine stateMachine = new GameStateMachine(new SceneLoader(this, curtain), this, projectContext);
-            stateMachine.Enter<BootstrapState>();
+            stateMachine.Enter<BootstrapState, string>(GetCurrentSceneName());
 
             DontDestroyOnLoad(this);
         }
+
+        private string GetCurrentSceneName() =>
+            SceneManager.GetActiveScene().name;
     }
 }
