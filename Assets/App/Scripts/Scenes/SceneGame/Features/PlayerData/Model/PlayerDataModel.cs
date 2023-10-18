@@ -16,7 +16,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         private readonly ISaveLoadService _saveLoadService;
         private readonly PlayerProgress _playerProgress;
 
-        public event Action<int, int> OnUpdateScore;
+        public event Action<int> OnUpdateScore;
+        public event Action<int> OnUpdateBestScore;
         public event Action<int> OnUpdateHealth;
 
 
@@ -30,7 +31,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         }
 
         public void UpdateScore() =>
-            OnUpdateScore?.Invoke(CurrentScore, BestScore);
+            OnUpdateScore?.Invoke(CurrentScore);
+
+        public void UpdateBestScore() =>
+            OnUpdateBestScore?.Invoke(BestScore);
 
         public void UpdateHealth() =>
             OnUpdateHealth?.Invoke(_currentHealthCount);
@@ -48,13 +52,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         public void AddScore(int score)
         {
             CurrentScore += score;
-            if (CurrentScore > BestScore)
-            {
-                _playerProgress.BestScore = CurrentScore;
-                _saveLoadService.Save(_playerProgress);
-            }
-
             UpdateScore();
+            
+            if (CurrentScore <= BestScore) return;
+            _playerProgress.BestScore = CurrentScore;
+            _saveLoadService.Save(_playerProgress);
+            UpdateBestScore();
         }
 
         public void Reset()

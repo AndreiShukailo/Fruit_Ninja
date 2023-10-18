@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 379548975}
   - component: {fileID: 379548974}
   - component: {fileID: 379548973}
+  - component: {fileID: 379548976}
   m_Layer: 0
   m_Name: Best_Count
   m_TagString: Untagged
@@ -953,6 +954,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379548971}
   m_CullTransparentMesh: 1
+--- !u!114 &379548976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379548971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bd9a78c8c1441394421c1fc59c8c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 379548974}
+  _duration: 1
 --- !u!1 &386147908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1851,7 @@ MonoBehaviour:
     MaxPackCount: 5
     MinPackCount: 1
     MaxPackDelay: 2
-    MinPackDelay: 0.4
+    MinPackDelay: 1
     PackComplicationFactor: 0.1
   SpawnZoneConfigs: {fileID: 1479989822}
 --- !u!1 &896576728
@@ -2212,6 +2227,7 @@ GameObject:
   - component: {fileID: 1008003868}
   - component: {fileID: 1008003867}
   - component: {fileID: 1008003866}
+  - component: {fileID: 1008003869}
   m_Layer: 0
   m_Name: Resoult_Count
   m_TagString: Untagged
@@ -2237,7 +2253,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -357.53998}
-  m_SizeDelta: {x: 764.48, y: 148.9}
+  m_SizeDelta: {x: 196.58, y: 148.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1008003866
 MonoBehaviour:
@@ -2273,7 +2289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4354
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 829a5240b3ec1dd4d8f58c1fed5bf85d, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 2c367f7f77d46c845935f82a4cc35f36, type: 2}
@@ -2350,6 +2366,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008003864}
   m_CullTransparentMesh: 1
+--- !u!114 &1008003869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008003864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bd9a78c8c1441394421c1fc59c8c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1008003867}
+  _duration: 1
 --- !u!1 &1008326759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,6 +2577,7 @@ GameObject:
   - component: {fileID: 1036144666}
   - component: {fileID: 1036144665}
   - component: {fileID: 1036144667}
+  - component: {fileID: 1036144668}
   m_Layer: 0
   m_Name: CurrentScore
   m_TagString: Untagged
@@ -2685,6 +2716,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &1036144668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036144663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bd9a78c8c1441394421c1fc59c8c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1036144665}
+  _duration: 1
 --- !u!1 &1115668966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,8 +3536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popup: {fileID: 108396902}
-  _currentScore: {fileID: 1008003867}
-  _bestScore: {fileID: 379548974}
+  _currentScore: {fileID: 1008003869}
+  _bestScore: {fileID: 379548976}
   _showAnimarion: {fileID: 108396906}
   _hideAnimarion: {fileID: 108396908}
 --- !u!1 &1539776016
@@ -4276,9 +4321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09ba11fbf524b98ac9b7f3f3c8e806c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberAnimationDuration: 1
-  _currenScore: {fileID: 1036144665}
-  _bestScore: {fileID: 1913443889}
+  _currenScore: {fileID: 1036144668}
+  _bestScore: {fileID: 1913443892}
 --- !u!114 &1859419061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4634,6 +4678,7 @@ GameObject:
   - component: {fileID: 1913443890}
   - component: {fileID: 1913443889}
   - component: {fileID: 1913443891}
+  - component: {fileID: 1913443892}
   m_Layer: 0
   m_Name: BesdtScoreNumber
   m_TagString: Untagged
@@ -4772,6 +4817,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &1913443892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913443887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bd9a78c8c1441394421c1fc59c8c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1913443889}
+  _duration: 1
 --- !u!1 &2038305571
 GameObject:
   m_ObjectHideFlags: 0
