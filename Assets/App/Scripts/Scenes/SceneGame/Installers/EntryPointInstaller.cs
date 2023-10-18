@@ -1,4 +1,5 @@
-﻿using App.Scripts.Infrastructure.Installer;
+﻿using App.Scripts.Infrastructure.GameState;
+using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.Common.Buttons;
 using App.Scripts.Scenes.SceneGame.Features.GameState.Services;
@@ -17,13 +18,14 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var playerInput = serviceContainer.Get<PlayerInput>();
             var swipeTracker = serviceContainer.Get<SwipeTracker>();
             var spawner = serviceContainer.Get<GameSpawner>();
+            var gameStateMachine = serviceContainer.Get<GameStateMachine>();
 
             var restartPopupView = serviceContainer.Get<RestartPopupView>();
             var pausePopupView = serviceContainer.Get<PausePopupView>();
             var buttonContainer = serviceContainer.Get<ButtonsContainerView>();
 
 
-            GameState gameState = new GameState(spawner, playerDataModel, playerInput, swipeTracker);
+            GameState gameState = new GameState(spawner, playerDataModel, playerInput, swipeTracker, gameStateMachine);
             GameStateManager gameStateManager =
                 new GameStateManager(gameState, restartPopupView, pausePopupView, buttonContainer);
 

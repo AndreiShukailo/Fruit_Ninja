@@ -1,4 +1,5 @@
 ﻿using System;
+using App.Scripts.Infrastructure.GameState;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
@@ -8,9 +9,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
 {
     public class GameState
     {
+        private const string MenuSceneName = "Menu";
         private readonly GameSpawner _gameSpawner;
         private readonly PlayerDataModel _playerDataModel;
         private readonly SwipeTracker _swipeTracker;
+        private readonly GameStateMachine _gameStateMachine;
 
         public event Action<int, int> OnLoose;
 
@@ -18,22 +21,23 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         private bool _isPaused;
 
         public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, PlayerInput playerInput,
-            SwipeTracker swipeTracker)
+            SwipeTracker swipeTracker, GameStateMachine gameStateMachine)
         {
             _gameSpawner = gameSpawner;
             _playerDataModel = playerDataModel;
             _swipeTracker = swipeTracker;
+            _gameStateMachine = gameStateMachine;
             playerInput.GameState = this;
             _gameSpawner.GameState = this;
             _playerDataModel.GameState = this;
         }
 
-        private void ShowLoosePopup()
+        public void ExitToMenu()
         {
-            if (IsPlaying || _isPaused) return;
-            _swipeTracker.OnEmty -= ShowLoosePopup;
-            OnLoose?.Invoke(_playerDataModel.CurrentScore, _playerDataModel.BestScore);
+            _gameSpawner.StopSpawn();
+            _gameStateMachine.Enter<LoadLevelState, string>(MenuSceneName);
         }
+
 
         public void SetLoose()
         {
@@ -59,6 +63,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         {
             _isPaused = false;
             Time.timeScale = 1f;
+        }
+
+        private void ShowLoosePopup()
+        {
+            if (IsPlaying || _isPaused) return;
+            _swipeTracker.OnEmty -= ShowLoosePopup;
+            OnLoose?.Invoke(_playerDataModel.CurrentScore, _playerDataModel.BestScore);
         }
     }
 }

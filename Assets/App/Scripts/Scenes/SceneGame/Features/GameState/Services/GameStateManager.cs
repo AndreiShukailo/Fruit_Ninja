@@ -29,7 +29,37 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         private void OnLoose(int current, int best)
         {
             _restartPopupView.Activate(current, best);
+
             SubscribeRestartButton();
+            SubscribeExitToMenuOnRestartButton();
+        }
+
+        private void OnPauseButtonClick()
+        {
+            GetPauseButton().Unsubscribe();
+            _gameState.SetPause();
+            ShowPausePopup();
+        }
+
+        private void OnRestartButtonClick()
+        {
+            GetRestartButton().Unsubscribe();
+            GetExitToMenuOnRestartButton().Unsubscribe();
+            _restartPopupView.Deactivate();
+            _gameState.StartPlay();
+        }
+
+        private void OnExiGameButtonClick() =>
+            _gameState.ExitToMenu();
+
+
+        private void OnContinueButtonClick()
+        {
+            GetContinueButton().Unsubscribe();
+            GetExitToMenuOnPausePopUpButton().Unsubscribe();
+            SubscribePauseButton();
+            HidePausePopup();
+            _gameState.Continue();
         }
 
         private void SubscribePauseButton()
@@ -38,51 +68,44 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
             pauseButton.Subscribe(OnPauseButtonClick);
         }
 
-        private void SubscribeContinueButton()
+        private void SubscribePausePopUpButtons()
         {
             var continueButton = GetContinueButton();
             continueButton.Subscribe(OnContinueButtonClick);
+            var exitToMenuOnPopUp = GetExitToMenuOnPausePopUpButton();
+            exitToMenuOnPopUp.Subscribe(OnExiGameButtonClick);
         }
-        
+
         private void SubscribeRestartButton()
         {
             var restartButton = GetRestartButton();
             restartButton.Subscribe(OnRestartButtonClick);
         }
 
-        private void OnRestartButtonClick()
+        private void SubscribeExitToMenuOnRestartButton()
         {
-            GetRestartButton().Unsubscribe();
-            _restartPopupView.Deactivate();
-            _gameState.StartPlay();
+            var exitToMenuOnRestartButton = GetExitToMenuOnRestartButton();
+            exitToMenuOnRestartButton.Subscribe(OnExiGameButtonClick);
         }
 
-        private void OnPauseButtonClick()
-        {   
-            GetPauseButton().Unsubscribe();
-            _gameState.SetPause();
-            ShowPausePopup();
-        }
 
-        private void OnContinueButtonClick()
-        {
-            GetContinueButton().Unsubscribe();
-            SubscribePauseButton();
-            HidePausePopup();
-            _gameState.Continue();
-        }
+        private ExitToMenuOnRestartButtonView GetExitToMenuOnRestartButton() =>
+            _buttonsContainerView.Get<ExitToMenuOnRestartButtonView>();
+        
+        private ExitToMenuOnPausePopUp GetExitToMenuOnPausePopUpButton() =>
+            _buttonsContainerView.Get<ExitToMenuOnPausePopUp>();
 
         private ContinueButtonView GetContinueButton() =>
             _buttonsContainerView.Get<ContinueButtonView>();
 
         private PauseButtonView GetPauseButton() =>
             _buttonsContainerView.Get<PauseButtonView>();
-        
+
         private RestartButtonView GetRestartButton() =>
             _buttonsContainerView.Get<RestartButtonView>();
 
         private void ShowPausePopup() =>
-            _pausePopupView.Activate(SubscribeContinueButton);
+            _pausePopupView.Activate(SubscribePausePopUpButtons);
 
         private void HidePausePopup() =>
             _pausePopupView.Deactivate();
