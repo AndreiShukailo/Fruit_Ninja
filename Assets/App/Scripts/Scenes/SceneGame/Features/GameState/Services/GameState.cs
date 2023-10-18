@@ -18,7 +18,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         public event Action<int, int> OnLoose;
 
         public bool IsPlaying { get; private set; }
-        private bool _isPaused;
+        public bool IsPaused { get; private set; }
 
         public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, PlayerInput playerInput,
             SwipeTracker swipeTracker, GameStateMachine gameStateMachine)
@@ -55,19 +55,19 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
 
         public void SetPause()
         {
-            _isPaused = true;
+            IsPaused = true;
             Time.timeScale = 0f;
         }
 
         public void Continue()
         {
-            _isPaused = false;
+            IsPaused = false;
             Time.timeScale = 1f;
         }
 
         private void ShowLoosePopup()
         {
-            if (IsPlaying || _isPaused) return;
+            if (IsPlaying || IsPaused) return;
             _swipeTracker.OnEmty -= ShowLoosePopup;
             OnLoose?.Invoke(_playerDataModel.CurrentScore, _playerDataModel.BestScore);
         }

@@ -21,12 +21,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public void Tick()
         {
             IsSlide = false;
-            if(!GameState.IsPlaying) return;
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-                _startMousePosition = UnityEngine.Input.mousePosition;
+            if(!GameState.IsPlaying || GameState.IsPaused) return;
+            if (Input.GetMouseButtonDown(0))
+                _startMousePosition = Input.mousePosition;
 
-            if (!UnityEngine.Input.GetMouseButton(0)) return;
-            MousePosition = UnityEngine.Input.mousePosition;
+            if (!Input.GetMouseButton(0)) return;
+            MousePosition = Input.mousePosition;
             var moveMouseDistance = Vector3.Distance(MousePosition, _startMousePosition);
             if (moveMouseDistance > _inputConfig.MinDistanceToSwipe)
                 IsSlide = true;
