@@ -27,6 +27,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public override void OnDestroy()
         {
             base.OnDestroy();
+            RemoveComponent();
+        }
+
+        public void RemoveComponent()
+        {
             _swipeTracker.Remove(this);
         }
     }

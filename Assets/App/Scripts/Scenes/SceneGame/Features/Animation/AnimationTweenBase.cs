@@ -9,7 +9,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Animation
 
         public abstract void StartAnimation();
 
-        private void StopAnimation() =>
+        public void StopAnimation() =>
             _animation.Kill();
 
         private void OnDestroy() =>

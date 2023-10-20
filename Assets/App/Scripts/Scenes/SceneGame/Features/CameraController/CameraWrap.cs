@@ -65,10 +65,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.CameraController
             return worldPosition;
         }
 
-        public Vector3 WorldPointToScreen(Vector3 position)
+        public Vector2 WorldPointToScreen(Vector3 position)
         {
             var screenPoint = _camera.WorldToScreenPoint(position);
-            screenPoint.z = 0f;
             return screenPoint;
         }
     }

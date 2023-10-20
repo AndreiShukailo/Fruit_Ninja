@@ -1,4 +1,5 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
+﻿using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem;
+using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.Common.View;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;

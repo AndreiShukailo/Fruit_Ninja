@@ -20,7 +20,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
         public override void OnDestroy()
         {
             base.OnDestroy();
-            _gamePhysics.RemoveObject(this);
+            DisablePhysics();
         }
+
+        public void DisablePhysics() =>
+            _gamePhysics.RemoveObject(this);
     }
 }

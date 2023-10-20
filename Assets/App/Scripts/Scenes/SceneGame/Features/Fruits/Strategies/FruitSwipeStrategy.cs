@@ -1,7 +1,6 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Config;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Services;
-using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using UnityEngine;

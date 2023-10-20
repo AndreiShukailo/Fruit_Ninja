@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using App.Scripts.Scenes.SceneGame.Features.Common.View;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config
@@ -8,7 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config
     [Serializable]
     public class SpawnerConfig
     {
-        public List<UnitView> SpawnedObjects;
+        public List<SpawnedObjectContainer> SpawnedObjectContainers;
 
         [Header("ObjectDelay")] [Range(0.1f, 2f)]
         public float MaxObjectDelay = 1f;
@@ -25,5 +25,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config
 
         [Range(0.1f, 3f)] public float MinPackDelay = 0.1f;
         [Range(0.1f, 2f)] public float PackComplicationFactor = 0.1f;
+
+        public void GetAndBind<TComponent, TFactory>(TFactory factory)
+            where TComponent : SpawnedObjectContainer
+            where TFactory : SpawnedObjectFactoryBase
+        {
+            var findContainer = SpawnedObjectContainers.Find(p => p is TComponent);
+            findContainer.Construct(factory);
+        }
     }
 }

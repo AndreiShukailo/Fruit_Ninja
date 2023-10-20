@@ -11,14 +11,14 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     {
         private readonly SpawnZone[] _zones;
 
-        public ZoneInitializer(SpawnZoneConfigs config, FruitFactory fruitFactory,
+        public ZoneInitializer(SpawnZoneConfigs config,
             PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
             SpawnerConfig spawnerConfig)
         {
             _zones = new SpawnZone[config.Zones.Count];
             for (var i = 0; i < _zones.Length; i++)
             {
-                _zones[i] = new SpawnZone(fruitFactory, physicalStartVelocityCalculator, cameraWrap,
+                _zones[i] = new SpawnZone(physicalStartVelocityCalculator, cameraWrap,
                     config.Zones[i], spawnerConfig);
             }
         }

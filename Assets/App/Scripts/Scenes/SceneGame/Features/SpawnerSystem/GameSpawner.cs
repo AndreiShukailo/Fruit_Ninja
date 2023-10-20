@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
@@ -12,22 +13,25 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
         private const int PackToComplication = 1;
         private readonly SpawnerConfig _spawnerConfig;
         private readonly ZoneInitializer _zoneInitializer;
+        private readonly PackCreator _packCreator;
         private readonly ICoroutineRunner _coroutineRunner;
 
         private Coroutine _spawning;
-        
+
         private int _currenPackCount;
         private float _currentPackDelay;
         private float _currentObjectDelay;
 
         private int _packCounter;
+        private Queue<SpawnedObjectContainer> _currentPack;
 
         public GameSpawner(ICoroutineRunner coroutineRunner, SpawnerConfig spawnerConfig,
-            ZoneInitializer zoneInitializer)
+            ZoneInitializer zoneInitializer, PackCreator packCreator)
         {
             _coroutineRunner = coroutineRunner;
             _spawnerConfig = spawnerConfig;
             _zoneInitializer = zoneInitializer;
+            _packCreator = packCreator;
         }
 
         private void StartSpawn()
@@ -35,6 +39,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
             _currentPackDelay = _spawnerConfig.MaxPackDelay;
             _currentObjectDelay = _spawnerConfig.MaxObjectDelay;
             _currenPackCount = _spawnerConfig.MinPackCount;
+            _currentPack = _packCreator.CreatePack(_currenPackCount);
             _spawning = _coroutineRunner.StartCoroutine(Spawn());
         }
 
@@ -48,10 +53,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
                 {
                     yield return new WaitForSeconds(_currentObjectDelay);
                     var zone = _zoneInitializer.GetRandomZone();
-                    zone?.Spawn();
+                    var spawnedObjectContainer = _currentPack.Dequeue();
+                    zone?.Spawn(spawnedObjectContainer);
                 }
 
                 Complication();
+                _currentPack = _packCreator.CreatePack(_currenPackCount);
             }
         }
 
@@ -61,7 +68,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
         private void Complication()
         {
             _packCounter++;
-            if (_packCounter <= PackToComplication) return;
+            if (_packCounter < PackToComplication) return;
             _packCounter = 0;
             ComplicatePackCount();
             ComplicatePackDelay();
@@ -86,9 +93,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
                 _currenPackCount++;
         }
 
-        public void Reset()
-        {
+        public void Reset() =>
             StartSpawn();
-        }
     }
 }

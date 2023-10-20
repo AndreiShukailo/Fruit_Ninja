@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ec006e1aae4c03bebf5d62463dfbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxRotationSpeed: 5
+  _maxRotationSpeed: 3
   _minRotationSpeed: 2
   _turnCount: 2
 --- !u!114 &5754176089992097204
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _increaseDecreaseDuration: 2
-  _maxScale: 1.2
+  _maxScale: 1.1
   _minScale: 0.9
 --- !u!1 &8826422893806302197
 GameObject:

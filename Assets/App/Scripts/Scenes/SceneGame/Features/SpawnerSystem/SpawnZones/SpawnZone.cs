@@ -12,26 +12,23 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     {
         private const float TopOffset = 0.8f;
         public readonly float Priority;
-        private readonly FruitFactory _fruitFactory;
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;
         private readonly CameraWrap _cameraWrap;
         private readonly SpawnZoneConfig _spawnZoneConfig;
         private readonly SpawnerConfig _spawnerConfig;
 
-        public SpawnZone(FruitFactory fruitFactory,
-            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
+        public SpawnZone(PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
             SpawnZoneConfig spawnZoneConfig, SpawnerConfig spawnerConfig)
         {
             _cameraWrap = cameraWrap;
             _spawnZoneConfig = spawnZoneConfig;
             _spawnerConfig = spawnerConfig;
             var scaler = new SpawnZonePositionScaler(_cameraWrap, _spawnZoneConfig);
-            _fruitFactory = fruitFactory;
             _physicalStartVelocityCalculator = physicalStartVelocityCalculator;
             Priority = _spawnZoneConfig.Priority;
         }
 
-        public void Spawn()
+        public void Spawn(SpawnedObjectContainer spawnedObjectContainer)
         {
             var startPoint = GetRandomPosition(_spawnZoneConfig.GetStartPosition(),
                 _spawnZoneConfig.GetEndPosition());
@@ -39,8 +36,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             var randomAngel = GetRandomAngel();
             var maxLenght = GetMaxLenght(startPoint, randomAngel);
             var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel);
-            var spawnedPrefab = GetRandomPrefab();
-            _fruitFactory.Create(spawnedPrefab, startPoint, startVelocity);
+            var spawnedPrefab = GetRandomPrefab(spawnedObjectContainer);
+            spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, startPoint, startVelocity);
         }
 
         private float GetRandomAngel() =>
@@ -62,7 +59,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             return Vector2.Lerp(start, end, value);
         }
 
-        private UnitView GetRandomPrefab() =>
-            _spawnerConfig.SpawnedObjects[Random.Range(0, _spawnerConfig.SpawnedObjects.Count)];
+        private UnitView GetRandomPrefab(SpawnedObjectContainer spawnedObjectContainer) =>
+            spawnedObjectContainer.Units[Random.Range(0, spawnedObjectContainer.Units.Count)];
     }
 }
