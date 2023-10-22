@@ -87,8 +87,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
             var exitToMenuOnRestartButton = GetExitToMenuOnRestartButton();
             exitToMenuOnRestartButton.Subscribe(OnExiGameButtonClick);
         }
-
-
+        
         private ExitToMenuOnRestartButtonView GetExitToMenuOnRestartButton() =>
             _buttonsContainerView.Get<ExitToMenuOnRestartButtonView>();
         

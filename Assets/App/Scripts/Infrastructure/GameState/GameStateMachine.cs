@@ -15,7 +15,7 @@ namespace App.Scripts.Infrastructure.GameState
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, coroutineRunner, projectContext),
+                [typeof(BootstrapState)] = new BootstrapState(this, coroutineRunner, projectContext),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, projectContext.ServiceContainer),
                 [typeof(GameLoopState)] = new GameLoopState()
             };

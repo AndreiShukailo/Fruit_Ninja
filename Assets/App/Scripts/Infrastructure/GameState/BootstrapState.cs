@@ -1,23 +1,19 @@
 ﻿using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Infrastructure.Installer;
-using App.Scripts.Infrastructure.SceneManagement;
 
 namespace App.Scripts.Infrastructure.GameState
 {
     public class BootstrapState : IPayLoadedState<string>
     {
-        private const string Initial = "Initial";
         private string _currentSceneName;
-        private readonly SceneLoader _sceneLoader;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly GameStateMachine _stateMachine;
         private readonly ProjectContext _projectContext;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner,
+        public BootstrapState(GameStateMachine stateMachine, ICoroutineRunner coroutineRunner,
             ProjectContext projectContext)
         {
             _stateMachine = stateMachine;
-            _sceneLoader = sceneLoader;
             _coroutineRunner = coroutineRunner;
             _projectContext = projectContext;
         }
@@ -26,7 +22,7 @@ namespace App.Scripts.Infrastructure.GameState
         {
             _currentSceneName = currentSceneName;
             RegisterProjectContext();
-            _sceneLoader.Load(Initial, EnterLoadLevel);
+            EnterLoadLevel();
         }
         
 
