@@ -4,11 +4,13 @@ using App.Scripts.Scenes.Common.Buttons;
 using App.Scripts.Scenes.Common.Services.SaveLoad;
 using App.Scripts.Scenes.SceneMenu.Feature.BestScore;
 using App.Scripts.Scenes.SceneMenu.Feature.Buttons;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneMenu.Feature.MainScreen
 {
     public class MenuScreenController
     {
+        private const string GameSceneName = "Game";
         private readonly ButtonsContainerView _buttonsContainerView;
         private readonly BestScoreView _bestScoreView;
         private readonly GameStateMachine _gameStateMachine;
@@ -33,6 +35,8 @@ namespace App.Scripts.Scenes.SceneMenu.Feature.MainScreen
         {
             var startGameButton = _buttonsContainerView.Get<StartGameButtonView>();
             startGameButton.Subscribe(OnStartGameButtonClick);
+            var extButton = _buttonsContainerView.Get<ExitGameButtonView>();
+            extButton.Subscribe(OnExitGameButtonClick);
         }
 
         private void UpdateBestScoreView()
@@ -46,6 +50,16 @@ namespace App.Scripts.Scenes.SceneMenu.Feature.MainScreen
             LoadGameScene();
 
         private void LoadGameScene() =>
-            _gameStateMachine.Enter<LoadLevelState, string>("Game");
+            _gameStateMachine.Enter<LoadLevelState, string>(GameSceneName);
+
+        private void OnExitGameButtonClick()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPlaying == true)
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 }

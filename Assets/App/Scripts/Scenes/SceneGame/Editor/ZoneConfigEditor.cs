@@ -10,8 +10,6 @@ namespace App.Scripts.Scenes.SceneGame.Editor
     [CustomEditor(typeof(SpawnZoneConfig))]
     public class ZoneConfigEditor : UnityEditor.Editor
     {
-        public float PrevAspect;
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
