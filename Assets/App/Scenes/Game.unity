@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputConfig:
-    MinDistanceToSwipe: 30
+    MinDistanceToSwipe: 5
   _trackPrefab: {fileID: 6388514261883128293, guid: bf688be9d175f314a9a48b9106a5dfeb, type: 3}
 --- !u!1 &341941314
 GameObject:
@@ -806,7 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9008656e165640409c13375fe6602d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 50
+  PriorityInPack: 30
   MaxCountInPack: 1
   Mass: 1
   Units:
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403c16fc112d4f6cab71f18cc7e5e807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 100
+  PriorityInPack: 10
   MaxCountInPack: 1
   Mass: 2
   Units:

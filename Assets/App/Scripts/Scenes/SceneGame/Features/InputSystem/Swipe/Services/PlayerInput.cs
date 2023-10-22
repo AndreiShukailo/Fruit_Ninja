@@ -28,7 +28,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
             if (!Input.GetMouseButton(0)) return;
             MousePosition = Input.mousePosition;
             var moveMouseDistance = Vector3.Distance(MousePosition, _startMousePosition);
-            if (moveMouseDistance > _inputConfig.MinDistanceToSwipe)
+            if (moveMouseDistance >= _inputConfig.MinDistanceToSwipe)
                 IsSlide = true;
             _startMousePosition = MousePosition;
         }

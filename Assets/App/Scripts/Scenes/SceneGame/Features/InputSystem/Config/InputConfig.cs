@@ -5,6 +5,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Config
     [Serializable]
     public class InputConfig
     {
-        public float MinDistanceToSwipe = 30f;
+        public float MinDistanceToSwipe = 2f;
     }
 }
