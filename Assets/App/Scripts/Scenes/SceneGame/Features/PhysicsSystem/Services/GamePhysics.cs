@@ -28,11 +28,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
 
         private void UpdateObject(IPhysical physical)
         {
-            physical.AddVelocity(GetGravityVelocity());
+            physical.AddVelocity(GetGravityVelocity(physical));
             physical.Transform.position += physical.Velocity * Time.deltaTime;
         }
 
-        private Vector3 GetGravityVelocity() =>
-            Vector3.down * (_config.Gravity * Time.deltaTime);
+        private Vector3 GetGravityVelocity(IPhysical physical) =>
+            Vector3.down * (_config.Gravity * physical.Mass * Time.deltaTime);
     }
 }

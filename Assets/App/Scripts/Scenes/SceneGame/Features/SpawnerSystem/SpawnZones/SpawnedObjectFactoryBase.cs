@@ -30,12 +30,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             _shadowSystem = shadowSystem;
         }
 
-        public void Create(UnitView prefab, Vector3 position, Vector3 startVelocity)
+        public void Create(UnitView prefab, float mass, Vector3 position, Vector3 startVelocity)
         {
             var view = Object.Instantiate(prefab);
             view.transform.position = position;
             var componentContainer = new ComponentContainer(view);
-            var physicalComponent = new PhysicalComponent(_gamePhysics)
+            var physicalComponent = new PhysicalComponent(_gamePhysics, mass)
             {
                 Velocity = startVelocity
             };

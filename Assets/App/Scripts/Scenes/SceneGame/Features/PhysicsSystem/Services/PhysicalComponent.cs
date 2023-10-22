@@ -8,11 +8,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
     {
         public Transform Transform => ComponentContainer.UnitView.transform;
         public Vector3 Velocity { get; set; }
+        public float Mass { get; set; }
         private readonly GamePhysics _gamePhysics;
         private readonly UnitView _unitView;
 
-        public PhysicalComponent(GamePhysics gamePhysics)
+        public PhysicalComponent(GamePhysics gamePhysics, float mass)
         {
+            Mass = mass;
             _gamePhysics = gamePhysics;
             _gamePhysics.AddObject(this);
         }

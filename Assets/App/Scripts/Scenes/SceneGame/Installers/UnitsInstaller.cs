@@ -16,7 +16,6 @@ using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
-using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory;
 using App.Scripts.Scenes.SceneGame.Features.ShadowSystem.Services;
 using UnityEngine;
@@ -35,8 +34,6 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var checkOnInvisible = serviceContainer.Get<CheckOnInVisible>();
             var swipeTracker = serviceContainer.Get<SwipeTracker>();
             var shadowSystem = serviceContainer.Get<ShadowSystem>();
-            var healthView = serviceContainer.Get<HealthView>();
-
 
             var comboSystem = serviceContainer.Get<ComboSystem>();
 
@@ -51,7 +48,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombEffectFactory =
                 new BombEffectsFactory(_bombConfig.BombEffectContainer, serviceContainer.Get<CameraWrap>());
             var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory);
-            var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, healthView);
+            var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel);
 
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem));

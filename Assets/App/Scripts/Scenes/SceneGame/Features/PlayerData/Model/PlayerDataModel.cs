@@ -2,6 +2,7 @@
 using App.Scripts.Scenes.Common;
 using App.Scripts.Scenes.Common.Services.SaveLoad;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Config;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
 {
@@ -20,6 +21,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         public event Action<int> OnUpdateScore;
         public event Action<int> OnUpdateBestScore;
         public event Action<int> OnUpdateHealth;
+
+        public event Action<Vector3> OnAddHealth; 
 
 
         public PlayerDataModel(StartPlayerDataConfig startPlayerDataConfig, ISaveLoadService saveLoadService)
@@ -43,11 +46,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
             UpdateAllowSpawnHealth();
         }
 
-        public void AddHealth()
+        public void AddHealth(Vector3 startPosition)
         {
             if (!GameState.IsPlaying) return;
             _currentHealthCount += 1;
             UpdateAllowSpawnHealth();
+            OnAddHealth?.Invoke(startPosition);
         }
 
         public void RemoveHealth()

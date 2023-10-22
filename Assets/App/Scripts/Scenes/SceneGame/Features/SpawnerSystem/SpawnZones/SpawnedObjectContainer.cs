@@ -8,6 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     {
         [Range(0, 100f)] public int PriorityInPack;
         [Range(0, 6)] public int MaxCountInPack;
+        [Range(1, 5)] public float Mass;
         public List<UnitView> Units;
         public SpawnedObjectFactoryBase SpawnedObjectFactoryBase;
 

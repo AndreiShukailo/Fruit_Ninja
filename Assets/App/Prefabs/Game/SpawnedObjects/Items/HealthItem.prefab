@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2169288955169335806}
   - component: {fileID: 2169288955169335805}
   - component: {fileID: 6725392442644687700}
-  - component: {fileID: -3983950274726795577}
   m_Layer: 0
   m_Name: HealthItem
   m_TagString: Untagged
@@ -101,18 +100,4 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 2169288955169335805}
   Animator:
     _animations: []
-    _additionalAnimations:
-    - {fileID: -3983950274726795577}
---- !u!114 &-3983950274726795577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169288955169335804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c570c89692c846d99b362f36e95588ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 1
+    _additionalAnimations: []

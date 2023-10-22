@@ -20,16 +20,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health
             _heartFactory = heartFactory;
             _playerDataModel = playerDataModel;
             _playerDataModel.OnUpdateHealth += OnUpdateHealth;
+            _playerDataModel.OnAddHealth += OnAddHealth;
             _playerDataModel.UpdateHealth();
         }
+
+        private void OnAddHealth(Vector3 startPosition) => 
+            AddHeart(startPosition);
 
         private void OnUpdateHealth(int healthCount)
         {
             if (_hearts == null)
                 CreateHearts(healthCount);
-
-            if (_hearts?.Count < healthCount)
-                AddHeart();
 
             if (_hearts?.Count > healthCount)
                 RemoveHeart();
@@ -41,8 +42,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health
         private void RemoveHeart() =>
             _hearts?.Pop().Deconstruct();
 
-        private void AddHeart() => 
-            _hearts?.Push(_heartFactory.Create(_heartPrefab, _heartContainer));
+        private void AddHeart(Vector3 startPosition) => 
+            _hearts?.Push(_heartFactory.CreateWhenAdd(_heartPrefab, _heartContainer, startPosition, GetContainerPosition()));
 
         private void CreateHearts(int healthCount)
         {
@@ -51,7 +52,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health
                 _hearts?.Push(_heartFactory.Create(_heartPrefab, _heartContainer));
         }
 
-        public Vector3 GetContainerPosition()
+        private Vector3 GetContainerPosition()
         {
             var lastHeartPosition = _hearts.First().transform.position;
            return new Vector3(lastHeartPosition.x - 1, lastHeartPosition.y, lastHeartPosition.z);

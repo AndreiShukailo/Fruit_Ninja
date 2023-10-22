@@ -35,9 +35,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             var maxHeight = GetMaxHeight(startPoint);
             var randomAngel = GetRandomAngel();
             var maxLenght = GetMaxLenght(startPoint, randomAngel);
-            var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel);
+            var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel,
+                spawnedObjectContainer.Mass);
             var spawnedPrefab = GetRandomPrefab(spawnedObjectContainer);
-            spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, startPoint, startVelocity);
+            spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, spawnedObjectContainer.Mass,
+                startPoint, startVelocity);
         }
 
         private float GetRandomAngel() =>

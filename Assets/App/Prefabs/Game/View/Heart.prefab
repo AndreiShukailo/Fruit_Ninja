@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4380405444578137292}
   - component: {fileID: 5358505312959136294}
   - component: {fileID: 2117189572909100996}
+  - component: {fileID: -369382819970000398}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _increaseAnimation: {fileID: 5358505312959136294}
   _destroyAnimation: {fileID: 2117189572909100996}
+  _healthItemAnimation: {fileID: -369382819970000398}
 --- !u!114 &5358505312959136294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +122,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 1
+--- !u!114 &-369382819970000398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065320019839070340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c570c89692c846d99b362f36e95588ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0.5
 --- !u!1 &1574202142458725804
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _increaseAnimation: {fileID: 3264377510092573430}
   _destroyAnimation: {fileID: 4482091203047026854}
+  _healthItemAnimation: {fileID: 0}
 --- !u!114 &3264377510092573430
 MonoBehaviour:
   m_ObjectHideFlags: 0

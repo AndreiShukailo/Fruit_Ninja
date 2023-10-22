@@ -32,9 +32,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruits.Services
         public void CreateEffect(Vector2 cut, ComponentContainer componentContainer, FruitConfig fruitConfig)
         {
             var unitView = componentContainer.UnitView;
-            var fruitVelocity = componentContainer.GetComponent<PhysicalComponent>().Velocity;
-            _pieceFactory.Create(fruitConfig.LeftPiece, unitView.transform, fruitVelocity + GetLeftVelocity(cut));
-            _pieceFactory.Create(fruitConfig.RightPiece, unitView.transform, fruitVelocity + GetRightVelocity(cut));
+            var physical = componentContainer.GetComponent<PhysicalComponent>();
+            _pieceFactory.Create(fruitConfig.LeftPiece, unitView.transform, physical.Velocity + GetLeftVelocity(cut), physical.Mass);
+            _pieceFactory.Create(fruitConfig.RightPiece, unitView.transform, physical.Velocity + GetRightVelocity(cut), physical.Mass);
             _fruitSpotFactory.CreateSpot(_fruitsConfig.Spot, fruitConfig.UnitColor, unitView.transform);
             var position = unitView.transform.position;
             _fruitParticleFactory.Create(_fruitsConfig.SprayViewEffect, position, fruitConfig.UnitColor);

@@ -1,7 +1,6 @@
 ﻿using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
 using App.Scripts.Scenes.Common.Buttons;
-using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.GameState.View;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health;
@@ -29,7 +28,6 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             
             var playerDataModel = serviceContainer.Get<PlayerDataModel>();
             _healthView.Construct(playerDataModel, new HeartFactory());
-            serviceContainer.SetServiceSelf(_healthView);
             _scoreView.Construct(playerDataModel);
         }
     }

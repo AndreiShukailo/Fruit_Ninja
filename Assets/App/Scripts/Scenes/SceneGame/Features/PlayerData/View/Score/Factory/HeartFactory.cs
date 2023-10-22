@@ -12,5 +12,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory
             view.Construct();
             return view;
         }
+
+        public HeartView CreateWhenAdd(HeartView unitView, Transform parent, Vector3 startPosition, Vector3 endPosition)
+        {
+            var view = Object.Instantiate(unitView, parent.parent);
+            view.Construct(startPosition, endPosition, parent);
+            return view;
+        }
     }
 }

@@ -808,6 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PriorityInPack: 50
   MaxCountInPack: 1
+  Mass: 1
   Units:
   - {fileID: -8234957133151781307, guid: ebb76120c5f271f46a537d8ed0d2b54e, type: 3}
 --- !u!1 &379548971
@@ -2495,6 +2496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PriorityInPack: 100
   MaxCountInPack: 1
+  Mass: 2
   Units:
   - {fileID: 6725392442644687700, guid: 11906e1c020fe564f98fbdf7042b8a6e, type: 3}
 --- !u!1 &950432431
@@ -5565,6 +5567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PriorityInPack: 100
   MaxCountInPack: 6
+  Mass: 1
   Units:
   - {fileID: 2814703301520833966, guid: 34ac0cbf00eaf384f8ce8f7f6881c7d1, type: 3}
   - {fileID: 2814703301520833966, guid: dc26605d69bb13b4a89e82fe28f02234, type: 3}

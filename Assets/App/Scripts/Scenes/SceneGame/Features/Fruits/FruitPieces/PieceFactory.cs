@@ -24,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruits.FruitPieces
             _checkOnInVisible = checkOnInVisible;
         }
 
-        public void Create(UnitView piecePrefab, Transform transform, Vector3 startVelocity)
+        public void Create(UnitView piecePrefab, Transform transform, Vector3 startVelocity, float mass)
         {
             var view = Object.Instantiate(piecePrefab);
             var transform1 = view.transform;
@@ -32,7 +32,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruits.FruitPieces
             transform1.rotation = transform.rotation;
             transform1.localScale = transform.localScale;
             var componentContainer = new ComponentContainer(view);
-            var physicalComponent = new PhysicalComponent(_gamePhysics)
+            var physicalComponent = new PhysicalComponent(_gamePhysics, mass)
             {
                 Velocity = startVelocity
             };
