@@ -1,5 +1,4 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
-using App.Scripts.Scenes.SceneGame.Features.Fruits.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health
         [SerializeField] private HeartView _heartPrefab;
         [SerializeField] private RectTransform _heartContainer;
 
-        private Queue<HeartView> _hearts;
+        private Stack<HeartView> _hearts;
         private PlayerDataModel _playerDataModel;
         private HeartFactory _heartFactory;
 
@@ -38,16 +39,22 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Health
         }
 
         private void RemoveHeart() =>
-            _hearts?.Dequeue().Deconstruct();
+            _hearts?.Pop().Deconstruct();
 
         private void AddHeart() => 
-            _hearts?.Enqueue(_heartFactory.Create(_heartPrefab, _heartContainer));
+            _hearts?.Push(_heartFactory.Create(_heartPrefab, _heartContainer));
 
         private void CreateHearts(int healthCount)
         {
             _hearts = new();
             for (int i = 0; i < healthCount; i++)
-                _hearts?.Enqueue(_heartFactory.Create(_heartPrefab, _heartContainer));
+                _hearts?.Push(_heartFactory.Create(_heartPrefab, _heartContainer));
+        }
+
+        public Vector3 GetContainerPosition()
+        {
+            var lastHeartPosition = _hearts.First().transform.position;
+           return new Vector3(lastHeartPosition.x - 1, lastHeartPosition.y, lastHeartPosition.z);
         }
     }
 }

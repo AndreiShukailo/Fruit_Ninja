@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
+using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using UnityEngine;
 
@@ -7,10 +9,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
 {
     public class PackCreator
     {
+        private readonly PlayerDataModel _playerDataModel;
         private readonly List<SpawnedObjectContainer> _spawnedObjectContainers;
 
-        public PackCreator(SpawnerConfig spawnerConfig)
+        public PackCreator(SpawnerConfig spawnerConfig, PlayerDataModel playerDataModel)
         {
+            _playerDataModel = playerDataModel;
             _spawnedObjectContainers = spawnerConfig.SpawnedObjectContainers;
         }
 
@@ -20,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             for (int i = 0; i < packCount; i++)
             {
                 var container = GetRandomContainer();
-                while (!(pack.Count(p => p == container) < container.MaxCountInPack))
+                while (ImpossibleToSpawn(pack, container))
                 {
                     container = GetRandomContainer();
                 }
@@ -29,6 +33,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             }
 
             return pack;
+        }
+
+        private bool ImpossibleToSpawn(Queue<SpawnedObjectContainer> pack, SpawnedObjectContainer container)
+        {
+            if (container is HealthItemContainer && _playerDataModel.AllowSpawnHealth || container is not HealthItemContainer)
+                return !(pack.Count(p => p == container) < container.MaxCountInPack);
+            return true;
         }
 
         private SpawnedObjectContainer GetRandomContainer()

@@ -29,6 +29,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             
             var playerDataModel = serviceContainer.Get<PlayerDataModel>();
             _healthView.Construct(playerDataModel, new HeartFactory());
+            serviceContainer.SetServiceSelf(_healthView);
             _scoreView.Construct(playerDataModel);
         }
     }

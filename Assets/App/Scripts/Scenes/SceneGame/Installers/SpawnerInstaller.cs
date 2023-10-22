@@ -5,7 +5,10 @@ using App.Scripts.Scenes.SceneGame.Features.Bomb;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Fruits;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
+using App.Scripts.Scenes.SceneGame.Features.Items.Heart.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
+using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
@@ -25,11 +28,12 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var iCoroutineRunner = serviceContainer.Get<ICoroutineRunner>();
+            var playerDataModel = serviceContainer.Get<PlayerDataModel>();
 
 
             var zoneInitializer = new ZoneInitializer(SpawnZoneConfigs, gameMath, cameraWrap,
                 SpawnerConfig);
-            var packCreator = new PackCreator(SpawnerConfig);
+            var packCreator = new PackCreator(SpawnerConfig, playerDataModel);
             serviceContainer.SetServiceSelf(new GameSpawner(iCoroutineRunner, SpawnerConfig, zoneInitializer, packCreator));
         }
 
@@ -37,8 +41,10 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         {
             var fruitFactory = serviceContainer.Get<FruitFactory>();
             var bombFactory = serviceContainer.Get<BombFactory>();
+            var healthItemFactory = serviceContainer.Get<HealthItemFactory>();
             SpawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(fruitFactory);
             SpawnerConfig.GetAndBind<BombsContainer, BombFactory>(bombFactory);
+            SpawnerConfig.GetAndBind<HealthItemContainer, HealthItemFactory>(healthItemFactory);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
     {
         public GameState.Services.GameState GameState { get; set; }
         public int BestScore => _playerProgress.BestScore;
+        public bool AllowSpawnHealth { get; private set; }
         public int CurrentScore { get; private set; }
         private int _currentHealthCount;
 
@@ -36,8 +37,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         public void UpdateBestScore() =>
             OnUpdateBestScore?.Invoke(BestScore);
 
-        public void UpdateHealth() =>
+        public void UpdateHealth()
+        {
             OnUpdateHealth?.Invoke(_currentHealthCount);
+            UpdateAllowSpawnHealth();
+        }
+
+        public void AddHealth()
+        {
+            if (!GameState.IsPlaying) return;
+            _currentHealthCount += 1;
+            UpdateAllowSpawnHealth();
+        }
 
         public void RemoveHealth()
         {
@@ -53,7 +64,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
         {
             CurrentScore += score;
             UpdateScore();
-            
+
             if (CurrentScore <= BestScore) return;
             _playerProgress.BestScore = CurrentScore;
             _saveLoadService.Save(_playerProgress);
@@ -67,5 +78,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.PlayerData.Model
             UpdateHealth();
             UpdateScore();
         }
+
+        private void UpdateAllowSpawnHealth() =>
+            AllowSpawnHealth = _currentHealthCount < _startPlayerDataConfig.StartHealth;
     }
 }
