@@ -26,6 +26,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
     {
         [SerializeField] private FruitsConfig _fruitsConfig;
         [SerializeField] private BombConfig _bombConfig;
+        [SerializeField] private HealthItemConfig _healthItemConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -48,7 +49,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombEffectFactory =
                 new BombEffectsFactory(_bombConfig.BombEffectContainer, serviceContainer.Get<CameraWrap>());
             var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory);
-            var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel);
+            var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
 
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem));

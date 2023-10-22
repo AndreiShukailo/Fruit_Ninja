@@ -3673,6 +3673,8 @@ MonoBehaviour:
     Explosion: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}
     BombPopUpView: {fileID: 2347472843271695383, guid: 40b2ba35c0fc73844bb90bf5f019730f, type: 3}
     BombEffectContainer: {fileID: 1114295793}
+  _healthItemConfig:
+    HealthVFX: {fileID: 8493418993390541412, guid: 10ab30413bea37c40b7e7e66a0c7cf54, type: 3}
 --- !u!1 &1350714050
 GameObject:
   m_ObjectHideFlags: 0
