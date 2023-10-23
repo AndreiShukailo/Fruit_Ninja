@@ -3,6 +3,7 @@ using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
+using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Bomb
@@ -12,12 +13,15 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
         private readonly BombConfig _bombConfig;
         private readonly CheckOnInVisible _checkOnInvisibleSystem;
         private readonly BombEffectsFactory _bombEffectsFactory;
+        private readonly PlayerDataModel _playerDataModel;
 
-        public BombSwipeStrategy(BombConfig bombConfig, CheckOnInVisible checkOnInvisibleSystem, BombEffectsFactory bombEffectsFactory)
+        public BombSwipeStrategy(BombConfig bombConfig, CheckOnInVisible checkOnInvisibleSystem,
+            BombEffectsFactory bombEffectsFactory, PlayerDataModel playerDataModel)
         {
             _bombConfig = bombConfig;
             _checkOnInvisibleSystem = checkOnInvisibleSystem;
             _bombEffectsFactory = bombEffectsFactory;
+            _playerDataModel = playerDataModel;
         }
 
         public void Swipe(Vector2 cut, ComponentContainer componentContainer)
@@ -38,7 +42,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
             var visibleObjects = _checkOnInvisibleSystem.GetVisibleObjects();
             foreach (var item in visibleObjects)
                 AddExplosion(position, item.GetContainer().GetComponent<PhysicalComponent>());
-
+            
+            _playerDataModel.RemoveHealth();
             componentContainer.Destroy();
             _bombEffectsFactory.Create(_bombConfig.BombPopUpView, _bombConfig.Explosion, position);
         }

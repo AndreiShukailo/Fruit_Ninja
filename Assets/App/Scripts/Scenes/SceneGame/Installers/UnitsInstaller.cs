@@ -53,7 +53,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
 
             var bombEffectFactory =
                 new BombEffectsFactory(_bombConfig.BombEffectContainer, serviceContainer.Get<CameraWrap>());
-            var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory);
+            var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory, playerDataModel);
             var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
             var fruitBoxSwipeStrategy = new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
 
