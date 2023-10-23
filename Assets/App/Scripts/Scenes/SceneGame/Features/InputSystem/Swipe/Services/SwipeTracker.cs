@@ -14,28 +14,28 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         
         private readonly PlayerInput _input;
         private readonly CameraWrap _cameraWrap;
-        private readonly GameObject _swipe;
+        private readonly TrailRenderer _swipe;
         private readonly List<ISwipeable> _swipeables;
         private readonly List<ISwipeable> _toRemove;
         private Vector3 _lastPositions;
         private Vector2 _сut;
 
-        public SwipeTracker(GameObject swipePrefab, PlayerInput input, CameraWrap cameraWrap)
+        public SwipeTracker(TrailRenderer swipePrefab, PlayerInput input, CameraWrap cameraWrap)
         {
             _swipeables = new();
             _toRemove = new();
             _input = input;
             _cameraWrap = cameraWrap;
             _swipe = Object.Instantiate(swipePrefab);
-            DisableTrack();
+            _swipe.emitting = false;
         }
 
         public void Tick()
         {
+            _swipe.transform.position = GetTrackPosition();
             if (_input.IsSlide)
             {
-                EnableTrack();
-                _swipe.transform.position = GetTrackPosition();
+                _swipe.emitting = true;
                 foreach (var swipeableComponent in _swipeables)
                 {
                     var rect = swipeableComponent.SpriteRenderer.GetRect();
@@ -48,10 +48,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
 
                 _lastPositions = _swipe.transform.position;
             }
-            else
+
+            if (!_input.IsButtonDown)
             {
-                DisableTrack();
+                _swipe.emitting = false;
             }
+
 
             foreach (var swipeable in _toRemove)
                 _swipeables.Remove(swipeable);
@@ -80,11 +82,5 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
 
         private Vector3 GetTrackPosition() =>
             _cameraWrap.ScreenToWorldPoint(_input.MousePosition);
-
-        private void EnableTrack() =>
-            _swipe.gameObject.SetActive(true);
-
-        private void DisableTrack() =>
-            _swipe.gameObject.SetActive(false);
     }
 }

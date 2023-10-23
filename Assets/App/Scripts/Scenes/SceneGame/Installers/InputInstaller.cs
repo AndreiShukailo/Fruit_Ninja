@@ -10,7 +10,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
     public class InputInstaller : MonoInstaller
     {
         [SerializeField] private InputConfig _inputConfig;
-        [SerializeField] private GameObject _trackPrefab;
+        [SerializeField] private TrailRenderer _trackPrefab;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {

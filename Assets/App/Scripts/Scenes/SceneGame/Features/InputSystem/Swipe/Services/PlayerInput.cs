@@ -9,6 +9,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public GameState.Services.GameState GameState { get; set; }
         public Vector3 MousePosition { get; private set; }
         public bool IsSlide { get; private set; }
+        public bool IsButtonDown { get; private set; }
 
         private readonly InputConfig _inputConfig;
         private Vector3 _startMousePosition;
@@ -21,16 +22,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public void Tick()
         {
             IsSlide = false;
-            if(!GameState.IsPlaying || GameState.IsPaused) return;
+            IsButtonDown = false;
+            MousePosition = Input.mousePosition;
+            if (!GameState.IsPlaying || GameState.IsPaused) return;
             if (Input.GetMouseButtonDown(0))
                 _startMousePosition = Input.mousePosition;
 
             if (!Input.GetMouseButton(0)) return;
-            MousePosition = Input.mousePosition;
             var moveMouseDistance = Vector3.Distance(MousePosition, _startMousePosition);
             if (moveMouseDistance >= _inputConfig.MinDistanceToSwipe)
                 IsSlide = true;
             _startMousePosition = MousePosition;
+            IsButtonDown = true;
         }
     }
 }

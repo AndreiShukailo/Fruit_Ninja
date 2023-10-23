@@ -760,8 +760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputConfig:
-    MinDistanceToSwipe: 5
-  _trackPrefab: {fileID: 6388514261883128293, guid: bf688be9d175f314a9a48b9106a5dfeb, type: 3}
+    MinDistanceToSwipe: 10
+  _trackPrefab: {fileID: 2458966325690319050, guid: bf688be9d175f314a9a48b9106a5dfeb, type: 3}
 --- !u!1 &341941314
 GameObject:
   m_ObjectHideFlags: 0
