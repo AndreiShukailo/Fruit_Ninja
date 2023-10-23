@@ -1,11 +1,9 @@
 ﻿using App.Scripts.Infrastructure.GameState;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Infrastructure.ServiceLocator;
-using App.Scripts.Scenes.Common;
 using App.Scripts.Scenes.Common.Buttons;
 using App.Scripts.Scenes.Common.Services.SaveLoad;
 using App.Scripts.Scenes.SceneMenu.Feature.BestScore;
-using App.Scripts.Scenes.SceneMenu.Feature.Buttons;
 using App.Scripts.Scenes.SceneMenu.Feature.MainScreen;
 using UnityEngine;
 

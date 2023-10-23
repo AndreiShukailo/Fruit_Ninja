@@ -35,8 +35,16 @@ namespace App.Scripts.Scenes.SceneMenu.Feature.MainScreen
         {
             var startGameButton = _buttonsContainerView.Get<StartGameButtonView>();
             startGameButton.Subscribe(OnStartGameButtonClick);
-            var extButton = _buttonsContainerView.Get<ExitGameButtonView>();
-            extButton.Subscribe(OnExitGameButtonClick);
+            var exitGameButtonView = _buttonsContainerView.Get<ExitGameButtonView>();
+            exitGameButtonView.Subscribe(OnExitGameButtonClick);
+        }
+
+        private void UnsubscribeButtons()
+        {
+            var startGameButton = _buttonsContainerView.Get<StartGameButtonView>();
+            startGameButton.Unsubscribe();
+            var exitGameButtonView = _buttonsContainerView.Get<ExitGameButtonView>();
+            exitGameButtonView.Unsubscribe();
         }
 
         private void UpdateBestScoreView()
@@ -46,8 +54,12 @@ namespace App.Scripts.Scenes.SceneMenu.Feature.MainScreen
             _bestScoreView.Construct(bestScore);
         }
 
-        private void OnStartGameButtonClick() =>
+        private void OnStartGameButtonClick()
+        {
+            UnsubscribeButtons();
             LoadGameScene();
+        }
+
 
         private void LoadGameScene() =>
             _gameStateMachine.Enter<LoadLevelState, string>(GameSceneName);

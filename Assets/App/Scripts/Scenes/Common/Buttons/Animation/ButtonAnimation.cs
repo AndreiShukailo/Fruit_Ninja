@@ -10,7 +10,7 @@ namespace App.Scripts.Scenes.Common.Buttons.Animation
         private const float MaxHeight = 110f;
         [SerializeField] private RectTransform _rectTransform;
         private Sequence _animation;
-        
+
         protected override void OnButtonDown()
         {
             _animation.Kill();
@@ -26,5 +26,8 @@ namespace App.Scripts.Scenes.Common.Buttons.Animation
             _animation.Append(_rectTransform.DOSizeDelta(new Vector2(_rectTransform.sizeDelta.x, MaxHeight), Duration))
                 .SetUpdate(true);
         }
+
+        private void OnDestroy() =>
+            _animation.Kill();
     }
 }

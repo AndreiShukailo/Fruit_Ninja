@@ -49,8 +49,15 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
             _gameState.StartPlay();
         }
 
-        private void OnExiGameButtonClick() =>
+        private void OnExiGameButtonClick()
+        {
+            GetExitToMenuOnRestartButton().Unsubscribe();
+            GetExitToMenuOnPausePopUpButton().Unsubscribe();
+            GetRestartButton().Unsubscribe();
+            GetContinueButton().Unsubscribe();
             _gameState.ExitToMenu();
+        }
+
 
 
         private void OnContinueButtonClick()
