@@ -1,6 +1,5 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
-using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;
 using UnityEngine;
 
@@ -11,14 +10,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
         private readonly SpawnZone[] _zones;
 
         public ZoneInitializer(SpawnZoneConfigs config,
-            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
-            SpawnerConfig spawnerConfig)
+            PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap)
         {
             _zones = new SpawnZone[config.Zones.Count];
             for (var i = 0; i < _zones.Length; i++)
             {
                 _zones[i] = new SpawnZone(physicalStartVelocityCalculator, cameraWrap,
-                    config.Zones[i], spawnerConfig);
+                    config.Zones[i]);
             }
         }
 

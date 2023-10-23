@@ -2089,6 +2089,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741948348}
   m_CullTransparentMesh: 1
+--- !u!1 &749678050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749678051}
+  - component: {fileID: 749678052}
+  m_Layer: 0
+  m_Name: FruitBoxContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &749678051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749678050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 775419698}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &749678052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749678050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d3efb5f95e4c17ab70740672ebdd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PriorityInPack: 10
+  MaxCountInPack: 1
+  Mass: 1
+  Units:
+  - {fileID: 7228344700599352377, guid: 13055614d28975245bbc57e1b36d9c2c, type: 3}
 --- !u!1 &775419697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,6 +2170,7 @@ Transform:
   - {fileID: 1999021430}
   - {fileID: 341941315}
   - {fileID: 912841512}
+  - {fileID: 749678051}
   m_Father: {fileID: 1539776017}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2141,6 +2191,7 @@ MonoBehaviour:
     - {fileID: 1999021431}
     - {fileID: 341941316}
     - {fileID: 912841513}
+    - {fileID: 749678052}
     MaxObjectDelay: 1
     ObjectComplicationFactor: 0.1
     MinObjectDelay: 0.3
@@ -2915,7 +2966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008326759}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -10.258898, y: -3.52, z: 0}
+  m_LocalPosition: {x: -10.258901, y: -3.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3149,7 +3200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 829a5240b3ec1dd4d8f58c1fed5bf85d, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 2c367f7f77d46c845935f82a4cc35f36, type: 2}
@@ -3675,6 +3726,10 @@ MonoBehaviour:
     BombEffectContainer: {fileID: 1114295793}
   _healthItemConfig:
     HealthVFX: {fileID: 8493418993390541412, guid: 10ab30413bea37c40b7e7e66a0c7cf54, type: 3}
+  _fruitBoxConfig:
+    FruitCount: 3
+    FruitsContainer: {fileID: 1999021431}
+    ImmortalityDuration: 0.5
 --- !u!1 &1350714050
 GameObject:
   m_ObjectHideFlags: 0
@@ -5283,7 +5338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 829a5240b3ec1dd4d8f58c1fed5bf85d, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 1e6d24e7445b36a49a098f8d4ee1d0a3, type: 2}

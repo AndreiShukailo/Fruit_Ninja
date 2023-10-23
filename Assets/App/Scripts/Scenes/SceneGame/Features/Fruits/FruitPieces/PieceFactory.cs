@@ -38,7 +38,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruits.FruitPieces
             };
             componentContainer.AddComponent(physicalComponent);
             componentContainer.AddComponent(new ShadowedComponent(_shadowSystem, view));
-            componentContainer.AddComponent(new CheckOnInvisibleComponent(_iDestroyStrategy, _checkOnInVisible, view));
+            var checkOnInvisibleComponent = new CheckOnInvisibleComponent(_iDestroyStrategy, _checkOnInVisible, view);
+            componentContainer.AddComponent(checkOnInvisibleComponent);
+            checkOnInvisibleComponent.IsVisible = true;
             view.Animator.StartAnimations();
         }
     }

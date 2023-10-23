@@ -1,5 +1,4 @@
-﻿using System;
-using App.Scripts.Scenes.SceneGame.Features.Common.Components;
+﻿using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using UnityEngine;
@@ -27,11 +26,5 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Heart
             var vfx = Object.Instantiate(_healthItemConfig.HealthVFX);
             vfx.transform.position = new Vector3(position.x, position.y, -1f);
         }
-    }
-
-    [Serializable]
-    public class HealthItemConfig
-    {
-        public GameObject HealthVFX;
     }
 }

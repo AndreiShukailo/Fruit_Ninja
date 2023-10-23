@@ -54,7 +54,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
                     yield return new WaitForSeconds(_currentObjectDelay);
                     var zone = _zoneInitializer.GetRandomZone();
                     var spawnedObjectContainer = _currentPack.Dequeue();
-                    zone?.Spawn(spawnedObjectContainer);
+                    zone?.Spawn(spawnedObjectContainer, 0f);
                 }
 
                 Complication();

@@ -30,9 +30,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Common.Components
         public void Destroy()
         {
             foreach (var component in _components)
-            {
                 component.OnDestroy();
-            }
 
             Object.Destroy(UnitView.gameObject);
         }

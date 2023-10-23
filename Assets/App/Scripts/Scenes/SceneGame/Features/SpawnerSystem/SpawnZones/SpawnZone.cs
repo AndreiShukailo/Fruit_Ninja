@@ -1,8 +1,6 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Common.View;
-using App.Scripts.Scenes.SceneGame.Features.Fruits.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
-using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;
 using UnityEngine;
 
@@ -15,20 +13,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;
         private readonly CameraWrap _cameraWrap;
         private readonly SpawnZoneConfig _spawnZoneConfig;
-        private readonly SpawnerConfig _spawnerConfig;
 
         public SpawnZone(PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
-            SpawnZoneConfig spawnZoneConfig, SpawnerConfig spawnerConfig)
+            SpawnZoneConfig spawnZoneConfig)
         {
             _cameraWrap = cameraWrap;
             _spawnZoneConfig = spawnZoneConfig;
-            _spawnerConfig = spawnerConfig;
             var scaler = new SpawnZonePositionScaler(_cameraWrap, _spawnZoneConfig);
             _physicalStartVelocityCalculator = physicalStartVelocityCalculator;
             Priority = _spawnZoneConfig.Priority;
         }
 
-        public void Spawn(SpawnedObjectContainer spawnedObjectContainer)
+        public async void Spawn(SpawnedObjectContainer spawnedObjectContainer, float swipeAfter)
         {
             var startPoint = GetRandomPosition(_spawnZoneConfig.GetStartPosition(),
                 _spawnZoneConfig.GetEndPosition());
@@ -38,8 +34,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel,
                 spawnedObjectContainer.Mass);
             var spawnedPrefab = GetRandomPrefab(spawnedObjectContainer);
-            spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, spawnedObjectContainer.Mass,
-                startPoint, startVelocity);
+            await spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, spawnedObjectContainer.Mass,
+                startPoint, startVelocity, swipeAfter);
         }
 
         private float GetRandomAngel() =>
