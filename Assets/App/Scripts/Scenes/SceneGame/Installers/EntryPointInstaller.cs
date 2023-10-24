@@ -5,6 +5,7 @@ using App.Scripts.Scenes.Common.Buttons;
 using App.Scripts.Scenes.SceneGame.Features.GameState.Services;
 using App.Scripts.Scenes.SceneGame.Features.GameState.View;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
+using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 
@@ -19,13 +20,19 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var swipeTracker = serviceContainer.Get<SwipeTracker>();
             var spawner = serviceContainer.Get<GameSpawner>();
             var gameStateMachine = serviceContainer.Get<GameStateMachine>();
+            var retardSystem = serviceContainer.Get<RetardSystem>();
 
             var restartPopupView = serviceContainer.Get<RestartPopupView>();
             var pausePopupView = serviceContainer.Get<PausePopupView>();
             var buttonContainer = serviceContainer.Get<ButtonsContainerView>();
 
-
-            GameState gameState = new GameState(spawner, playerDataModel, playerInput, swipeTracker, gameStateMachine);
+            
+            var statableContainer = new StatableContainer();
+            statableContainer.Add(retardSystem);
+            statableContainer.Add(playerInput);
+            
+            
+            GameState gameState = new GameState(spawner, playerDataModel, statableContainer, swipeTracker, gameStateMachine);
             GameStateManager gameStateManager =
                 new GameStateManager(gameState, restartPopupView, pausePopupView, buttonContainer);
 

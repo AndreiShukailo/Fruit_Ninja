@@ -9,6 +9,8 @@ using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
+using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
@@ -44,10 +46,12 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombFactory = serviceContainer.Get<BombFactory>();
             var healthItemFactory = serviceContainer.Get<HealthItemFactory>();
             var fruitBoxFactory = serviceContainer.Get<FruitBoxFactory>();
+            var iceFactory = serviceContainer.Get<IceFactory>();
             SpawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(fruitFactory);
             SpawnerConfig.GetAndBind<BombsContainer, BombFactory>(bombFactory);
             SpawnerConfig.GetAndBind<HealthItemContainer, HealthItemFactory>(healthItemFactory);
             SpawnerConfig.GetAndBind<FruitBoxContainer, FruitBoxFactory>(fruitBoxFactory);
+            SpawnerConfig.GetAndBind<IceContainer, IceFactory>(iceFactory);
         }
     }
 }

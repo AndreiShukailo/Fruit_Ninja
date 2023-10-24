@@ -1,4 +1,5 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
+using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
@@ -24,11 +25,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.FruitBox
 
         public void Swipe(Vector2 cut, ComponentContainer componentContainer)
         {
+            if (!componentContainer.GetComponent<CheckOnInvisibleComponent>().IsVisible) return;
             var spawnZone = CreateSpawnZone(componentContainer);
 
             for (int i = 0; i < _fruitBoxConfig.FruitCount; i++)
                 spawnZone.Spawn(_fruitBoxConfig.FruitsContainer, _fruitBoxConfig.ImmortalityDuration);
-            
+
             componentContainer.Destroy();
         }
 

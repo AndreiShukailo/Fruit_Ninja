@@ -9,7 +9,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.View.Animations
         [SerializeField] private float _duration = 0.5f;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public async void StartAnimation(Action onAnimationEnd)
+        public async void StartAnimation(Action onAnimationEnd = null)
         {
             await ShowAnimationAsync(onAnimationEnd);
         }

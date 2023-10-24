@@ -57,7 +57,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
                 var dir = heading / distance;
                 var newVelocity =
                     dir * Mathf.Lerp(_bombConfig.ExplosionPower, 0f, distance / _bombConfig.ExplosionRadius);
-                item.Velocity = newVelocity;
+                item.SetVelocity(newVelocity);
             }
         }
     }

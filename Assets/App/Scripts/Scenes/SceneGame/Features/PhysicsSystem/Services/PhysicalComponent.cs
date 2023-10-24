@@ -8,8 +8,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
     {
         public Transform Transform => ComponentContainer.UnitView.transform;
         public Vector3 Velocity { get; set; }
+
         public float Mass { get; set; }
+        public bool IsRetarding { get; set; }
+
         private readonly GamePhysics _gamePhysics;
+
         private readonly UnitView _unitView;
 
         public PhysicalComponent(GamePhysics gamePhysics, float mass)
@@ -27,5 +31,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
 
         public void DisablePhysics() =>
             _gamePhysics.RemoveObject(this);
+
+        public void SetVelocity(Vector3 velocity)
+        {
+            Velocity = velocity;
+            IsRetarding = false;
+        }
     }
 }

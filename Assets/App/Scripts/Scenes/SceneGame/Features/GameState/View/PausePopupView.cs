@@ -12,7 +12,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.View
         [SerializeField] private PausePopUpAnimation _showAnimation;
         [SerializeField] private HidePopUpAnimation _hideAnimation;
 
-        public void Activate(Action onAnimationEnd)
+        public void Activate(Action onAnimationEnd = null)
         {
             _popup.SetActive(true);
             _showAnimation.StartAnimation(onAnimationEnd);

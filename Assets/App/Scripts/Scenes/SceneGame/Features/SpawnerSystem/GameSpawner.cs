@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
 {
-    public class GameSpawner
+    public class GameSpawner : IStatable
     {
         public GameState.Services.GameState GameState { get; set; }
         private const int PackToComplication = 1;
@@ -95,5 +95,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
 
         public void Reset() =>
             StartSpawn();
+
+        public void SetGameState(GameState.Services.GameState gameState)
+        {
+            GameState = gameState;
+        }
     }
 }

@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576c8bae19ee47999f7c992c27c763bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lenght: 1.72
+  Lenght: 1.03
   Priority: 1
-  MaxAngle: 145
-  MinAngle: 28
+  MaxAngle: 125
+  MinAngle: 54
   PrevAspect: 1.7786459

@@ -20,14 +20,14 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         public bool IsPlaying { get; private set; }
         public bool IsPaused { get; private set; }
 
-        public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, PlayerInput playerInput,
+        public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, StatableContainer statableContainer,
             SwipeTracker swipeTracker, GameStateMachine gameStateMachine)
         {
             _gameSpawner = gameSpawner;
             _playerDataModel = playerDataModel;
             _swipeTracker = swipeTracker;
             _gameStateMachine = gameStateMachine;
-            playerInput.GameState = this;
+            statableContainer.SetState(this);
             _gameSpawner.GameState = this;
             _playerDataModel.GameState = this;
         }

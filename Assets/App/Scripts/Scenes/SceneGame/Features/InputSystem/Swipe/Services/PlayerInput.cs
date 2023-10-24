@@ -1,12 +1,13 @@
 ﻿using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Config;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
 {
-    public class PlayerInput : ITickable
+    public class PlayerInput : ITickable, IStatable
     {
-        public GameState.Services.GameState GameState { get; set; }
+        private GameState.Services.GameState _gameState;
         public Vector3 MousePosition { get; private set; }
         public bool IsSlide { get; private set; }
         public bool IsButtonDown { get; private set; }
@@ -24,7 +25,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
             IsSlide = false;
             IsButtonDown = false;
             MousePosition = Input.mousePosition;
-            if (!GameState.IsPlaying || GameState.IsPaused) return;
+            if (!_gameState.IsPlaying || _gameState.IsPaused) return;
             if (Input.GetMouseButtonDown(0))
                 _startMousePosition = Input.mousePosition;
 
@@ -35,5 +36,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
             _startMousePosition = MousePosition;
             IsButtonDown = true;
         }
+
+        public void SetGameState(GameState.Services.GameState gameState) =>
+            _gameState = gameState;
     }
 }

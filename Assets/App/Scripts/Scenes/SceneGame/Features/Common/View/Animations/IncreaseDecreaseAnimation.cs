@@ -17,8 +17,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Common.View.Animations
             transform.localScale = Vector2.one * _minScale;
             _animation
                 .Append(transform.DOScale(Vector2.one * _maxScale, _increaseDecreaseDuration))
-                .Append(transform.DOScale(Vector2.one * _minScale, _increaseDecreaseDuration))
-                .SetLoops(-1, LoopType.Yoyo);
+                .Append(transform.DOScale(Vector2.one * _minScale, _increaseDecreaseDuration));
         }
     }
 }

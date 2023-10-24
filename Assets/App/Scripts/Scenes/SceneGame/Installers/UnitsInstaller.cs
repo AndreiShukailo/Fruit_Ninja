@@ -16,6 +16,8 @@ using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
+using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory;
@@ -30,6 +32,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         [SerializeField] private BombConfig _bombConfig;
         [SerializeField] private HealthItemConfig _healthItemConfig;
         [SerializeField] private FruitBoxConfig _fruitBoxConfig;
+        [SerializeField] private IceConfig _iceConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -40,6 +43,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var shadowSystem = serviceContainer.Get<ShadowSystem>();
             var physicalStartVelocityCalculator = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var cameraWrap = serviceContainer.Get<CameraWrap>();
+            var retardSystem = serviceContainer.Get<RetardSystem>();
 
             var comboSystem = serviceContainer.Get<ComboSystem>();
 
@@ -56,6 +60,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory, playerDataModel);
             var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
             var fruitBoxSwipeStrategy = new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
+            var iceSwipeStrategy = new IceSwipeStrategy(_iceConfig, retardSystem);
 
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem));
@@ -65,6 +70,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
                 swipeTracker, healthItemSwipeStrategy, shadowSystem));
             serviceContainer.SetServiceSelf(new FruitBoxFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitBoxSwipeStrategy, shadowSystem));
+            serviceContainer.SetServiceSelf(new IceFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
+                swipeTracker, iceSwipeStrategy, shadowSystem));
         }
 
         private FruitSwipeEffectsCreator GetFruitSwipeEffectsCreator(GamePhysics gamePhysics, ShadowSystem shadowSystem,
