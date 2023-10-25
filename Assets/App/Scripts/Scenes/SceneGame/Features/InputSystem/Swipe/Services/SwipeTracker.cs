@@ -54,7 +54,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
                 _swipe.emitting = false;
             }
 
-
             foreach (var swipeable in _toRemove)
                 _swipeables.Remove(swipeable);
 

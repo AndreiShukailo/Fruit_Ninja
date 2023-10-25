@@ -1,5 +1,4 @@
 using App.Scripts.Scenes.SceneGame.Features.Common;
-using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe

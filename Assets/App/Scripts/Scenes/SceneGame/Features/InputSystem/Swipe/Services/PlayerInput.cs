@@ -11,6 +11,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public Vector3 MousePosition { get; private set; }
         public bool IsSlide { get; private set; }
         public bool IsButtonDown { get; private set; }
+        private bool _isBlocked;
 
         private readonly InputConfig _inputConfig;
         private Vector3 _startMousePosition;
@@ -27,15 +28,24 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
             MousePosition = Input.mousePosition;
             if (!_gameState.IsPlaying || _gameState.IsPaused) return;
             if (Input.GetMouseButtonDown(0))
+            {
+                _isBlocked = false;
                 _startMousePosition = Input.mousePosition;
+            }
+
 
             if (!Input.GetMouseButton(0)) return;
             var moveMouseDistance = Vector3.Distance(MousePosition, _startMousePosition);
             if (moveMouseDistance >= _inputConfig.MinDistanceToSwipe)
-                IsSlide = true;
+                if(!_isBlocked)
+                    IsSlide = true;
             _startMousePosition = MousePosition;
-            IsButtonDown = true;
+            if(!_isBlocked)
+                IsButtonDown = true;
         }
+
+        public void SetBlocked() =>
+            _isBlocked = true;
 
         public void SetGameState(GameState.Services.GameState gameState) =>
             _gameState = gameState;

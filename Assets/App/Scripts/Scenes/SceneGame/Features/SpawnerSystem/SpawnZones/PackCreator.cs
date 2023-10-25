@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
@@ -10,11 +12,14 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     public class PackCreator
     {
         private readonly PlayerDataModel _playerDataModel;
+        private readonly AllSpawnedObjects _allSpawnedObjects;
         private readonly List<SpawnedObjectContainer> _spawnedObjectContainers;
 
-        public PackCreator(SpawnerConfig spawnerConfig, PlayerDataModel playerDataModel)
+        public PackCreator(SpawnerConfig spawnerConfig, PlayerDataModel playerDataModel,
+            AllSpawnedObjects allSpawnedObjects)
         {
             _playerDataModel = playerDataModel;
+            _allSpawnedObjects = allSpawnedObjects;
             _spawnedObjectContainers = spawnerConfig.SpawnedObjectContainers;
         }
 
@@ -37,9 +42,27 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
 
         private bool ImpossibleToSpawn(Queue<SpawnedObjectContainer> pack, SpawnedObjectContainer container)
         {
-            if (container is HealthItemContainer && _playerDataModel.AllowSpawnHealth || container is not HealthItemContainer)
-                return !(pack.Count(p => p == container) < container.MaxCountInPack);
-            return true;
+            var isImpossible = !(pack.Count(p => p == container) < container.MaxCountInPack);
+            switch (container)
+            {
+                case HealthItemContainer when !_playerDataModel.AllowSpawnHealth:
+                case BrickContainer when BrickOnScene():
+                    return true;
+                default:
+                    return isImpossible;
+            }
+        }
+
+        private bool BrickOnScene()
+        {
+            foreach (var componentContainer in _allSpawnedObjects.Objects)
+            {
+                var brick = componentContainer.GetComponent<BrickComponent>();
+                if (brick != null)
+                    return true;
+            }
+
+            return false;
         }
 
         private SpawnedObjectContainer GetRandomContainer()

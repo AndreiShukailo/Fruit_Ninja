@@ -2355,6 +2355,7 @@ Transform:
   - {fileID: 749678051}
   - {fileID: 750475808}
   - {fileID: 341517639}
+  - {fileID: 1632294775}
   m_Father: {fileID: 1539776017}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2378,6 +2379,7 @@ MonoBehaviour:
     - {fileID: 749678052}
     - {fileID: 750475809}
     - {fileID: 341517638}
+    - {fileID: 1632294776}
     MaxObjectDelay: 1
     ObjectComplicationFactor: 0.1
     MinObjectDelay: 0.3
@@ -4684,6 +4686,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612552224}
   m_CullTransparentMesh: 1
+--- !u!1 &1632294774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632294775}
+  - component: {fileID: 1632294776}
+  m_Layer: 0
+  m_Name: BrickContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1632294775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632294774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 775419698}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632294776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632294774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c58c5e496547159a4ea74774664350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PriorityInPack: 10
+  MaxCountInPack: 1
+  Mass: 1
+  Units:
+  - {fileID: 808393380495974032, guid: b3ec8ff4f7f05ca4e879d31da998198f, type: 3}
 --- !u!1 &1632530293
 GameObject:
   m_ObjectHideFlags: 0

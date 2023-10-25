@@ -12,6 +12,8 @@ using App.Scripts.Scenes.SceneGame.Features.Fruits.Spot;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Spray;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Strategies;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
@@ -50,6 +52,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             var retardSystem = serviceContainer.Get<RetardSystem>();
             var comboSystem = serviceContainer.Get<ComboSystem>();
+            var playerInput = serviceContainer.Get<PlayerInput>();
             
             var allSpawnedObject = new AllSpawnedObjects();
             serviceContainer.SetServiceSelf(allSpawnedObject);
@@ -59,6 +62,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var simpleDestroyStrategy = new SimpleDestroyStrategy();
             var fruitEffectCreator = GetFruitSwipeEffectsCreator(gamePhysics, shadowSystem, checkOnInvisible,
                 addScoreViewFactory, simpleDestroyStrategy, allSpawnedObject);
+            
             var fruitSwipeStrategy =
                 new FruitSwipeStrategy(fruitEffectCreator, simpleDestroyStrategy, playerDataModel, comboSystem);
             var fruitDestroyStrategy = new FruitDestroyStrategy(playerDataModel);
@@ -68,6 +72,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombSwipeStrategy =
                 new BombSwipeStrategy(_bombConfig, allSpawnedObject, bombEffectFactory, playerDataModel);
             var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
+            
             var fruitBoxSwipeStrategy =
                 new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
             var iceSwipeStrategy = new IceSwipeStrategy(_iceConfig, retardSystem);
@@ -75,7 +80,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var magnetSystem = serviceContainer.Get<MagnetSystem>();
             var magnetSwipeStrategy = new MagnetSwipeStrategy(magnetSystem);
 
-
+            var brickSwipeStrategy = new BrickSwipeStrategy(playerInput);
             
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem, allSpawnedObject));
@@ -89,6 +94,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
                 swipeTracker, iceSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new MagnetFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
                 swipeTracker, magnetSwipeStrategy, shadowSystem, allSpawnedObject));
+            serviceContainer.SetServiceSelf(new BrickFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
+                swipeTracker, brickSwipeStrategy, shadowSystem, allSpawnedObject));
         }
 
         private FruitSwipeEffectsCreator GetFruitSwipeEffectsCreator(GamePhysics gamePhysics, ShadowSystem shadowSystem,

@@ -24,11 +24,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Ice
 
         public void Tick()
         {
+            if (_retardTimer <= 0 && _isRetard || !_gameState.IsPlaying)
+                CancelRetard();
+            
             if (_isRetard)
                 _retardTimer -= Time.deltaTime;
 
-            if (_retardTimer <= 0 && _isRetard || !_gameState.IsPlaying)
-                CancelRetard();
         }
 
         public void ApplyRetard(float retardTime)

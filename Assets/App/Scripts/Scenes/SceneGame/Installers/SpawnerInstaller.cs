@@ -5,6 +5,8 @@ using App.Scripts.Scenes.SceneGame.Features.Bomb;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
 using App.Scripts.Scenes.SceneGame.Features.Fruits;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
@@ -35,10 +37,11 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var iCoroutineRunner = serviceContainer.Get<ICoroutineRunner>();
             var playerDataModel = serviceContainer.Get<PlayerDataModel>();
+            var allSpawnedObjects = serviceContainer.Get<AllSpawnedObjects>();
 
 
             var zoneInitializer = new ZoneInitializer(SpawnZoneConfigs, gameMath, cameraWrap);
-            var packCreator = new PackCreator(SpawnerConfig, playerDataModel);
+            var packCreator = new PackCreator(SpawnerConfig, playerDataModel, allSpawnedObjects);
             serviceContainer.SetServiceSelf(new GameSpawner(iCoroutineRunner, SpawnerConfig, zoneInitializer, packCreator));
         }
 
@@ -50,12 +53,14 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var fruitBoxFactory = serviceContainer.Get<FruitBoxFactory>();
             var iceFactory = serviceContainer.Get<IceFactory>();
             var magnetFactory = serviceContainer.Get<MagnetFactory>();
+            var brickFactory = serviceContainer.Get<BrickFactory>();
             SpawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(fruitFactory);
             SpawnerConfig.GetAndBind<BombsContainer, BombFactory>(bombFactory);
             SpawnerConfig.GetAndBind<HealthItemContainer, HealthItemFactory>(healthItemFactory);
             SpawnerConfig.GetAndBind<FruitBoxContainer, FruitBoxFactory>(fruitBoxFactory);
             SpawnerConfig.GetAndBind<IceContainer, IceFactory>(iceFactory);
             SpawnerConfig.GetAndBind<MagnetObjectContainer, MagnetFactory>(magnetFactory);
+            SpawnerConfig.GetAndBind<BrickContainer, BrickFactory>(brickFactory);
         }
     }
 }
