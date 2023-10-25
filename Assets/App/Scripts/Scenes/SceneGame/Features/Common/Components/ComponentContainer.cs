@@ -1,23 +1,28 @@
 ﻿using System.Collections.Generic;
 using App.Scripts.Scenes.SceneGame.Features.Common.View;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Common.Components
 {
     public class ComponentContainer
     {
-        public UnitView UnitView { get; private set; }
+        private readonly AllSpawnedObjects _allSpawnedObjects;
+        public UnitView UnitView { get; }
         private readonly List<Component> _components;
-        
-        public ComponentContainer(UnitView unitView)
+
+        public ComponentContainer(UnitView unitView, AllSpawnedObjects allSpawnedObjects)
         {
+            _allSpawnedObjects = allSpawnedObjects;
             UnitView = unitView;
             _components = new List<Component>();
+
+            allSpawnedObjects.Add(this);
         }
 
         public TComponent GetComponent<TComponent>() where TComponent : Component
         {
-            var findComponent =  _components.Find(p => p is TComponent);
+            var findComponent = _components.Find(p => p is TComponent);
             return (TComponent)findComponent;
         }
 
@@ -32,6 +37,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Common.Components
             foreach (var component in _components)
                 component.OnDestroy();
 
+            _allSpawnedObjects.Remove(this);
             Object.Destroy(UnitView.gameObject);
         }
     }

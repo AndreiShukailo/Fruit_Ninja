@@ -18,10 +18,14 @@ using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
 using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Magnet;
+using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory;
 using App.Scripts.Scenes.SceneGame.Features.ShadowSystem.Services;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
@@ -33,6 +37,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         [SerializeField] private HealthItemConfig _healthItemConfig;
         [SerializeField] private FruitBoxConfig _fruitBoxConfig;
         [SerializeField] private IceConfig _iceConfig;
+        [SerializeField] private MagnetConfig _magnetConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -44,41 +49,53 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var physicalStartVelocityCalculator = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             var retardSystem = serviceContainer.Get<RetardSystem>();
-
             var comboSystem = serviceContainer.Get<ComboSystem>();
+            
+            var allSpawnedObject = new AllSpawnedObjects();
+            serviceContainer.SetServiceSelf(allSpawnedObject);
+            serviceContainer.SetITickableAndSelf(new MagnetSystem(allSpawnedObject, _magnetConfig, new MagnetEffectFactory()));
 
             var addScoreViewFactory = serviceContainer.Get<AddScoreViewFactory>();
             var simpleDestroyStrategy = new SimpleDestroyStrategy();
             var fruitEffectCreator = GetFruitSwipeEffectsCreator(gamePhysics, shadowSystem, checkOnInvisible,
-                addScoreViewFactory, simpleDestroyStrategy);
+                addScoreViewFactory, simpleDestroyStrategy, allSpawnedObject);
             var fruitSwipeStrategy =
                 new FruitSwipeStrategy(fruitEffectCreator, simpleDestroyStrategy, playerDataModel, comboSystem);
             var fruitDestroyStrategy = new FruitDestroyStrategy(playerDataModel);
 
             var bombEffectFactory =
                 new BombEffectsFactory(_bombConfig.BombEffectContainer, serviceContainer.Get<CameraWrap>());
-            var bombSwipeStrategy = new BombSwipeStrategy(_bombConfig, checkOnInvisible, bombEffectFactory, playerDataModel);
+            var bombSwipeStrategy =
+                new BombSwipeStrategy(_bombConfig, allSpawnedObject, bombEffectFactory, playerDataModel);
             var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
-            var fruitBoxSwipeStrategy = new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
+            var fruitBoxSwipeStrategy =
+                new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
             var iceSwipeStrategy = new IceSwipeStrategy(_iceConfig, retardSystem);
 
+            var magnetSystem = serviceContainer.Get<MagnetSystem>();
+            var magnetSwipeStrategy = new MagnetSwipeStrategy(magnetSystem);
+
+
+            
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
-                swipeTracker, fruitSwipeStrategy, shadowSystem));
+                swipeTracker, fruitSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new BombFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
-                swipeTracker, bombSwipeStrategy, shadowSystem));
+                swipeTracker, bombSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new HealthItemFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
-                swipeTracker, healthItemSwipeStrategy, shadowSystem));
+                swipeTracker, healthItemSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new FruitBoxFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
-                swipeTracker, fruitBoxSwipeStrategy, shadowSystem));
+                swipeTracker, fruitBoxSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new IceFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
-                swipeTracker, iceSwipeStrategy, shadowSystem));
+                swipeTracker, iceSwipeStrategy, shadowSystem, allSpawnedObject));
+            serviceContainer.SetServiceSelf(new MagnetFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
+                swipeTracker, magnetSwipeStrategy, shadowSystem, allSpawnedObject));
         }
 
         private FruitSwipeEffectsCreator GetFruitSwipeEffectsCreator(GamePhysics gamePhysics, ShadowSystem shadowSystem,
             CheckOnInVisible checkOnInvisible, AddScoreViewFactory addScoreViewFactory,
-            IDestroyStrategy iDestroyStrategy)
+            IDestroyStrategy iDestroyStrategy, AllSpawnedObjects allSpawnedObjects)
         {
-            var pieceFactory = new PieceFactory(gamePhysics, shadowSystem, iDestroyStrategy, checkOnInvisible);
+            var pieceFactory = new PieceFactory(gamePhysics, shadowSystem, iDestroyStrategy, checkOnInvisible, allSpawnedObjects);
             var spotFactory = new FruitSpotFactory();
             var fruitParticleFactory = new FruitParticleFactory();
             var fruitEffectCreator = new FruitSwipeEffectsCreator(pieceFactory, spotFactory, fruitParticleFactory,

@@ -204,7 +204,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &69825003
 GameObject:
@@ -845,6 +845,55 @@ MonoBehaviour:
   _inputConfig:
     MinDistanceToSwipe: 10
   _trackPrefab: {fileID: 2458966325690319050, guid: bf688be9d175f314a9a48b9106a5dfeb, type: 3}
+--- !u!1 &341517637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341517639}
+  - component: {fileID: 341517638}
+  m_Layer: 0
+  m_Name: MagnetContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &341517638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341517637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880f839de0234ab2a43716a8c05ceafe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PriorityInPack: 10
+  MaxCountInPack: 1
+  Mass: 1
+  Units:
+  - {fileID: 4971195468783391453, guid: b268969f16816484d99196d945470c2f, type: 3}
+--- !u!4 &341517639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341517637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 775419698}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341941314
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9008656e165640409c13375fe6602d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 30
+  PriorityInPack: 15
   MaxCountInPack: 1
   Mass: 1
   Units:
@@ -2266,7 +2315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec8134bb58c4d43943a575c86189131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 10
+  PriorityInPack: 5
   MaxCountInPack: 1
   Mass: 1
   Units:
@@ -2305,6 +2354,7 @@ Transform:
   - {fileID: 912841512}
   - {fileID: 749678051}
   - {fileID: 750475808}
+  - {fileID: 341517639}
   m_Father: {fileID: 1539776017}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2327,6 +2377,7 @@ MonoBehaviour:
     - {fileID: 912841513}
     - {fileID: 749678052}
     - {fileID: 750475809}
+    - {fileID: 341517638}
     MaxObjectDelay: 1
     ObjectComplicationFactor: 0.1
     MinObjectDelay: 0.3
@@ -2387,7 +2438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.45490196}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3944,6 +3995,11 @@ MonoBehaviour:
     ImmortalityDuration: 0.5
   _iceConfig:
     ReatardTime: 5
+  _magnetConfig:
+    MagnetTime: 3
+    MagnetRadius: 4
+    MagnetForce: 3
+    MagneticEffectView: {fileID: 7332957359581620255, guid: 82cf961ee2ebea4408ab2a78ebd392c3, type: 3}
 --- !u!1 &1350714050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4814,7 +4870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.27058825}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.16470589}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

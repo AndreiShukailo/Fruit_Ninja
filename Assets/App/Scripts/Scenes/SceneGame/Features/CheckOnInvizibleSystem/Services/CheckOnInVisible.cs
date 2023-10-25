@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using App.Scripts.Infrastructure.Installer;
 using App.Scripts.Scenes.SceneGame.Extentions;
 using App.Scripts.Scenes.SceneGame.Features.CameraController;
@@ -68,14 +67,5 @@ namespace App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services
             return rect.xMin > _cameraWrap.LeftBoarder && rect.xMax < _cameraWrap.RightBoarder &&
                    rect.yMin > _cameraWrap.BottomBoarder;
         }
-
-        public List<ICheckVisible> GetVisibleObjects()
-        {
-            var visibles = _objects.Where(p => p.IsVisible).ToList();
-            foreach (var checkVisible in _toRemove)
-                visibles.Remove(checkVisible);
-            return visibles;
-        }
-
     }
 }

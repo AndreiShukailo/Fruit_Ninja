@@ -1,9 +1,10 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.Bomb.Animation;
+using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
-using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
+using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Bomb
@@ -11,15 +12,15 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
     public class BombSwipeStrategy : ISwipeStrategy
     {
         private readonly BombConfig _bombConfig;
-        private readonly CheckOnInVisible _checkOnInvisibleSystem;
+        private readonly AllSpawnedObjects _allSpawnedObjects;
         private readonly BombEffectsFactory _bombEffectsFactory;
         private readonly PlayerDataModel _playerDataModel;
 
-        public BombSwipeStrategy(BombConfig bombConfig, CheckOnInVisible checkOnInvisibleSystem,
+        public BombSwipeStrategy(BombConfig bombConfig, AllSpawnedObjects allSpawnedObjects,
             BombEffectsFactory bombEffectsFactory, PlayerDataModel playerDataModel)
         {
             _bombConfig = bombConfig;
-            _checkOnInvisibleSystem = checkOnInvisibleSystem;
+            _allSpawnedObjects = allSpawnedObjects;
             _bombEffectsFactory = bombEffectsFactory;
             _playerDataModel = playerDataModel;
         }
@@ -39,10 +40,14 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
 
         private void ProcessExplosion(ComponentContainer componentContainer, Vector3 position)
         {
-            var visibleObjects = _checkOnInvisibleSystem.GetVisibleObjects();
-            foreach (var item in visibleObjects)
-                AddExplosion(position, item.GetContainer().GetComponent<PhysicalComponent>());
-            
+            foreach (var item in _allSpawnedObjects.Objects)
+            {
+                var checkOnInvisibleComponent = item.GetComponent<CheckOnInvisibleComponent>();
+                if (checkOnInvisibleComponent is { IsVisible: true })
+                    AddExplosion(position, item.GetComponent<PhysicalComponent>());
+            }
+
+
             _playerDataModel.RemoveHealth();
             componentContainer.Destroy();
             _bombEffectsFactory.Create(_bombConfig.BombPopUpView, _bombConfig.Explosion, position);
