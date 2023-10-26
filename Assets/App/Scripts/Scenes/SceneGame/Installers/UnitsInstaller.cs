@@ -13,6 +13,7 @@ using App.Scripts.Scenes.SceneGame.Features.Fruits.Spray;
 using App.Scripts.Scenes.SceneGame.Features.Fruits.Strategies;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
+using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Config;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox;
 using App.Scripts.Scenes.SceneGame.Features.Items.FruitBox.Factory;
@@ -40,6 +41,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         [SerializeField] private FruitBoxConfig _fruitBoxConfig;
         [SerializeField] private IceConfig _iceConfig;
         [SerializeField] private MagnetConfig _magnetConfig;
+        [SerializeField] private BrickConfig _brickConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -80,7 +82,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var magnetSystem = serviceContainer.Get<MagnetSystem>();
             var magnetSwipeStrategy = new MagnetSwipeStrategy(magnetSystem);
 
-            var brickSwipeStrategy = new BrickSwipeStrategy(playerInput);
+            var brickSwipeStrategy = new BrickSwipeStrategy(playerInput, _brickConfig);
             
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem, allSpawnedObject));

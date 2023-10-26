@@ -8,7 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Magnet.View
 
         public void Construct(Vector3 position, float duration, float radius)
         {
-            transform.position = new Vector3(position.x, position.y, -1f);
+            transform.position = position;
             var mainModule = _particleSystem.main;
             mainModule.duration = duration;
             mainModule.startSize = radius * 2;

@@ -18,7 +18,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Bomb
         public void Create(BombPopUpView view, GameObject explosionEffect, Vector3 position)
         {
             var explosion = Object.Instantiate(explosionEffect);
-            explosion.transform.position = new Vector3(position.x, position.y, -1f);
+            explosion.transform.position = position;
             
             var popup = Object.Instantiate(view, _container);
             popup.Construct(position, _cameraWrap);

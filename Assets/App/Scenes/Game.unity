@@ -4002,6 +4002,8 @@ MonoBehaviour:
     MagnetRadius: 5
     MagnetForce: 3
     MagneticEffectView: {fileID: 7332957359581620255, guid: 82cf961ee2ebea4408ab2a78ebd392c3, type: 3}
+  _brickConfig:
+    BrickEffect: {fileID: 5117419412277874029, guid: b3a2a2e1a18c59b49b147effad265063, type: 3}
 --- !u!1 &1350714050
 GameObject:
   m_ObjectHideFlags: 0

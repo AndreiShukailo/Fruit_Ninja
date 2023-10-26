@@ -24,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Heart
                 _playerDataModel.AddHealth(componentContainer.UnitView.transform.position);
             componentContainer.Destroy();
             var vfx = Object.Instantiate(_healthItemConfig.HealthVFX);
-            vfx.transform.position = new Vector3(position.x, position.y, -1f);
+            vfx.transform.position = position;
         }
     }
 }
