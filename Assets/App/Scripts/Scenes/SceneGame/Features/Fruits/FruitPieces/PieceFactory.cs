@@ -2,6 +2,7 @@
 using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
 using App.Scripts.Scenes.SceneGame.Features.Common.View;
+using App.Scripts.Scenes.SceneGame.Features.Items.Magnet;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.ShadowSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
@@ -43,6 +44,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Fruits.FruitPieces
             componentContainer.AddComponent(new ShadowedComponent(_shadowSystem, view));
             var checkOnInvisibleComponent = new CheckOnInvisibleComponent(_iDestroyStrategy, _checkOnInVisible, view);
             componentContainer.AddComponent(checkOnInvisibleComponent);
+            componentContainer.AddComponent(new MagneticComponent());
             checkOnInvisibleComponent.IsVisible = true;
             view.Animator.StartAnimations();
         }

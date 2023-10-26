@@ -58,17 +58,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Services
                 var magnetComponent = componentContainer.GetComponent<MagneticComponent>();
 
                 if (magnetComponent is not { IsMagnetic: true }) continue;
-                var physicalComponent = componentContainer.GetComponent<PhysicalComponent>();
 
                 if (magnetComponent.MagneticTimer <= 0)
                 {
                     magnetComponent.SetUnMagnetic();
-                    physicalComponent.Mass = magnetComponent.StartMass;
                     continue;
                 }
 
                 magnetComponent.MagneticTimer -= Time.deltaTime;
 
+                var physicalComponent = componentContainer.GetComponent<PhysicalComponent>();
                 var itemPosition = componentContainer.UnitView.transform.position;
                 var heading = magnetComponent.EndPoint - itemPosition;
                 physicalComponent.SetVelocity(heading * _magnetConfig.MagnetForce);

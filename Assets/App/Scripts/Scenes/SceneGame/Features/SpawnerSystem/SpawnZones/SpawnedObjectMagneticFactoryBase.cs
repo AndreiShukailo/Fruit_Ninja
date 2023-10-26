@@ -34,7 +34,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             componentContainer.AddComponent(physicalComponent);
             componentContainer.AddComponent(new CheckOnInvisibleComponent(_destroyStrategy, _checkOnInVisible, view));
             componentContainer.AddComponent(new ShadowedComponent(_shadowSystem, view));
-            componentContainer.AddComponent(new MagneticComponent(mass));
+            componentContainer.AddComponent(new MagneticComponent());
             view.Animator.StartAnimations();
             await Task.Delay(TimeSpan.FromSeconds(swipeAfter));
             componentContainer.AddComponent(new SwipableComponent(_swipeTracker, _swipeStrategy, view));
