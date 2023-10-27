@@ -15,6 +15,9 @@ using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
 using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
@@ -32,7 +35,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
             BindSpawnedObjects(serviceContainer);
-            
+
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var iCoroutineRunner = serviceContainer.Get<ICoroutineRunner>();
@@ -42,7 +45,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
 
             var zoneInitializer = new ZoneInitializer(SpawnZoneConfigs, gameMath, cameraWrap);
             var packCreator = new PackCreator(SpawnerConfig, playerDataModel, allSpawnedObjects);
-            serviceContainer.SetServiceSelf(new GameSpawner(iCoroutineRunner, SpawnerConfig, zoneInitializer, packCreator));
+            serviceContainer.SetServiceSelf(new GameSpawner(iCoroutineRunner, SpawnerConfig, zoneInitializer,
+                packCreator, serviceContainer.Get<FruitFactory>()));
         }
 
         private void BindSpawnedObjects(ServiceContainer serviceContainer)
@@ -54,6 +58,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var iceFactory = serviceContainer.Get<IceFactory>();
             var magnetFactory = serviceContainer.Get<MagnetFactory>();
             var brickFactory = serviceContainer.Get<BrickFactory>();
+            var samuraiFactory = serviceContainer.Get<SamuraiFactory>();
             SpawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(fruitFactory);
             SpawnerConfig.GetAndBind<BombsContainer, BombFactory>(bombFactory);
             SpawnerConfig.GetAndBind<HealthItemContainer, HealthItemFactory>(healthItemFactory);
@@ -61,6 +66,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             SpawnerConfig.GetAndBind<IceContainer, IceFactory>(iceFactory);
             SpawnerConfig.GetAndBind<MagnetObjectContainer, MagnetFactory>(magnetFactory);
             SpawnerConfig.GetAndBind<BrickContainer, BrickFactory>(brickFactory);
+            SpawnerConfig.GetAndBind<SamuraiContainer, SamuraiFactory>(samuraiFactory);
         }
     }
 }

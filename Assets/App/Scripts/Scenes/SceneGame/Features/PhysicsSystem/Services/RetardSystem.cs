@@ -24,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Ice
 
         public void Tick()
         {
-            if (_retardTimer <= 0 && _isRetard || !_gameState.IsPlaying)
+            if (_retardTimer <= 0 && _isRetard || _isRetard && !_gameState.IsPlaying)
                 CancelRetard();
             
             if (_isRetard)

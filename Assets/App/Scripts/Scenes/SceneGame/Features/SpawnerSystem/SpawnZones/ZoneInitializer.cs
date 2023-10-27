@@ -25,7 +25,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             if (_zones.Length == 0) return null;
             var probs = new float[_zones.Length];
             for (int i = 0; i < _zones.Length; i++)
-                probs[i] = _zones[i].Priority / _zones.Length;
+                probs[i] = _zones[i].SpawnZoneConfig.Priority / _zones.Length;
 
             return _zones[GetRandomZoneNumber(probs)];
         }

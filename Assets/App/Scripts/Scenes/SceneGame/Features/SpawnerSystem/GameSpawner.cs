@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using App.Scripts.Infrastructure.GameRunner;
+using App.Scripts.Scenes.SceneGame.Features.Fruits;
+using App.Scripts.Scenes.SceneGame.Features.Fruits.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Factory;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
 using UnityEngine;
@@ -14,6 +17,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
         private readonly SpawnerConfig _spawnerConfig;
         private readonly ZoneInitializer _zoneInitializer;
         private readonly PackCreator _packCreator;
+        private readonly FruitFactory _fruitFactory;
         private readonly ICoroutineRunner _coroutineRunner;
 
         private Coroutine _spawning;
@@ -26,12 +30,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
         private Queue<SpawnedObjectContainer> _currentPack;
 
         public GameSpawner(ICoroutineRunner coroutineRunner, SpawnerConfig spawnerConfig,
-            ZoneInitializer zoneInitializer, PackCreator packCreator)
+            ZoneInitializer zoneInitializer, PackCreator packCreator, FruitFactory fruitFactory)
         {
             _coroutineRunner = coroutineRunner;
             _spawnerConfig = spawnerConfig;
             _zoneInitializer = zoneInitializer;
             _packCreator = packCreator;
+            _fruitFactory = fruitFactory;
         }
 
         private void StartSpawn()
@@ -39,8 +44,21 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
             _currentPackDelay = _spawnerConfig.MaxPackDelay;
             _currentObjectDelay = _spawnerConfig.MaxObjectDelay;
             _currenPackCount = _spawnerConfig.MinPackCount;
-            _currentPack = _packCreator.CreatePack(_currenPackCount);
+            StartSpawning();
+        }
+
+        public void StartSpawning()
+        {
+            _currentPack = CreatePack();
             _spawning = _coroutineRunner.StartCoroutine(Spawn());
+        }
+
+        public void Reset() =>
+            StartSpawn();
+
+        public void SetGameState(GameState.Services.GameState gameState)
+        {
+            GameState = gameState;
         }
 
         private IEnumerator Spawn()
@@ -58,12 +76,30 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
                 }
 
                 Complication();
-                _currentPack = _packCreator.CreatePack(_currenPackCount);
+                _currentPack = CreatePack();
             }
         }
 
-        public void StopSpawn() =>
+        public void StopSpawn()
+        {
+            if(_spawning == null) return;
             _coroutineRunner.StopCoroutine(_spawning);
+        }
+
+
+        public void StartSamuraiMode(int packDelayFactor, int packCountFactor, SamuraiFruitFactory samuraiFruitFactory)
+        {
+            _currentPackDelay /= packDelayFactor;
+            _currenPackCount *= packCountFactor;
+            _spawnerConfig.GetAndBind<FruitsContainer, SamuraiFruitFactory>(samuraiFruitFactory);
+        }
+
+        public void StopSamuraiMode(int packDelayFactor, int packCountFactor)
+        {
+            _currentPackDelay *= packDelayFactor;
+            _currenPackCount /= packCountFactor;
+            _spawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(_fruitFactory);
+        }
 
         private void Complication()
         {
@@ -73,6 +109,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
             ComplicatePackCount();
             ComplicatePackDelay();
             ComplicateObjectDelay();
+        }
+
+        private Queue<SpawnedObjectContainer> CreatePack()
+        {
+            return GameState.IsSamuraiMode
+                ? _packCreator.CreateFruitOnlyPack(_currenPackCount)
+                : _packCreator.CreatePack(_currenPackCount);
         }
 
         private void ComplicateObjectDelay()
@@ -91,14 +134,6 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem
         {
             if (_currenPackCount < _spawnerConfig.MaxPackCount)
                 _currenPackCount++;
-        }
-
-        public void Reset() =>
-            StartSpawn();
-
-        public void SetGameState(GameState.Services.GameState gameState)
-        {
-            GameState = gameState;
         }
     }
 }

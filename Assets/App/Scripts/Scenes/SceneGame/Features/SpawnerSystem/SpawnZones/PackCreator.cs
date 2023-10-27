@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using App.Scripts.Scenes.SceneGame.Features.Fruits;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using UnityEngine;
@@ -40,6 +42,16 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             return pack;
         }
 
+        public Queue<SpawnedObjectContainer> CreateFruitOnlyPack(int packCount)
+        {
+            var pack = new Queue<SpawnedObjectContainer>();
+            var container = _spawnedObjectContainers.Find((p) => p is FruitsContainer);
+            for (int i = 0; i < packCount; i++)
+                pack.Enqueue(container);
+
+            return pack;
+        }
+
         private bool ImpossibleToSpawn(Queue<SpawnedObjectContainer> pack, SpawnedObjectContainer container)
         {
             var isImpossible = !(pack.Count(p => p == container) < container.MaxCountInPack);
@@ -47,6 +59,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             {
                 case HealthItemContainer when !_playerDataModel.AllowSpawnHealth:
                 case BrickContainer when BrickOnScene():
+                case SamuraiContainer when SamuraiOnScene():
                     return true;
                 default:
                     return isImpossible;
@@ -59,6 +72,18 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             {
                 var brick = componentContainer.GetComponent<BrickComponent>();
                 if (brick != null)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool SamuraiOnScene()
+        {
+            foreach (var componentContainer in _allSpawnedObjects.Objects)
+            {
+                var samuraiComponent = componentContainer.GetComponent<SamuraiComponent>();
+                if (samuraiComponent != null)
                     return true;
             }
 

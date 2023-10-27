@@ -9,25 +9,23 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     public class SpawnZone
     {
         private const float TopOffset = 0.8f;
-        public readonly float Priority;
         private readonly PhysicalStartVelocityCalculator _physicalStartVelocityCalculator;
         private readonly CameraWrap _cameraWrap;
-        private readonly SpawnZoneConfig _spawnZoneConfig;
+        public readonly SpawnZoneConfig SpawnZoneConfig;
 
         public SpawnZone(PhysicalStartVelocityCalculator physicalStartVelocityCalculator, CameraWrap cameraWrap,
             SpawnZoneConfig spawnZoneConfig)
         {
             _cameraWrap = cameraWrap;
-            _spawnZoneConfig = spawnZoneConfig;
-            var scaler = new SpawnZonePositionScaler(_cameraWrap, _spawnZoneConfig);
+            SpawnZoneConfig = spawnZoneConfig;
+            var scaler = new SpawnZonePositionScaler(_cameraWrap, SpawnZoneConfig);
             _physicalStartVelocityCalculator = physicalStartVelocityCalculator;
-            Priority = _spawnZoneConfig.Priority;
         }
 
         public async void Spawn(SpawnedObjectContainer spawnedObjectContainer, float swipeAfter)
         {
-            var startPoint = GetRandomPosition(_spawnZoneConfig.GetStartPosition(),
-                _spawnZoneConfig.GetEndPosition());
+            var startPoint = GetRandomPosition(SpawnZoneConfig.GetStartPosition(),
+                SpawnZoneConfig.GetEndPosition());
             var maxHeight = GetMaxHeight(startPoint);
             var randomAngel = GetRandomAngel();
             var maxLenght = GetMaxLenght(startPoint, randomAngel);
@@ -39,7 +37,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
         }
 
         private float GetRandomAngel() =>
-            Random.Range(_spawnZoneConfig.MinAngle, _spawnZoneConfig.MaxAngle);
+            Random.Range(SpawnZoneConfig.MinAngle, SpawnZoneConfig.MaxAngle);
 
         private float GetMaxLenght(Vector2 startPosition, float angle)
         {

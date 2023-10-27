@@ -24,6 +24,10 @@ using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Services;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Config;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.View.Score.Factory;
@@ -42,6 +46,8 @@ namespace App.Scripts.Scenes.SceneGame.Installers
         [SerializeField] private IceConfig _iceConfig;
         [SerializeField] private MagnetConfig _magnetConfig;
         [SerializeField] private BrickConfig _brickConfig;
+        [SerializeField] private SamuraiConfig _samuraiConfig;
+        [SerializeField] private SamuraiModeConfig _samuraiModeConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
@@ -55,16 +61,17 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var retardSystem = serviceContainer.Get<RetardSystem>();
             var comboSystem = serviceContainer.Get<ComboSystem>();
             var playerInput = serviceContainer.Get<PlayerInput>();
-            
+
             var allSpawnedObject = new AllSpawnedObjects();
             serviceContainer.SetServiceSelf(allSpawnedObject);
-            serviceContainer.SetITickableAndSelf(new MagnetSystem(allSpawnedObject, _magnetConfig, new MagnetEffectFactory()));
+            serviceContainer.SetITickableAndSelf(new MagnetSystem(allSpawnedObject, _magnetConfig,
+                new MagnetEffectFactory()));
 
-            var addScoreViewFactory = serviceContainer.Get<AddScoreViewFactory>();
             var simpleDestroyStrategy = new SimpleDestroyStrategy();
-            var fruitEffectCreator = GetFruitSwipeEffectsCreator(gamePhysics, shadowSystem, checkOnInvisible,
-                addScoreViewFactory, simpleDestroyStrategy, allSpawnedObject);
-            
+            var pieceFactory = new PieceFactory(gamePhysics, shadowSystem, simpleDestroyStrategy, checkOnInvisible,
+                allSpawnedObject);
+            var addScoreViewFactory = serviceContainer.Get<AddScoreViewFactory>();
+            var fruitEffectCreator = GetFruitSwipeEffectsCreator(pieceFactory, addScoreViewFactory);
             var fruitSwipeStrategy =
                 new FruitSwipeStrategy(fruitEffectCreator, simpleDestroyStrategy, playerDataModel, comboSystem);
             var fruitDestroyStrategy = new FruitDestroyStrategy(playerDataModel);
@@ -74,7 +81,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var bombSwipeStrategy =
                 new BombSwipeStrategy(_bombConfig, allSpawnedObject, bombEffectFactory, playerDataModel);
             var healthItemSwipeStrategy = new HealthItemSwipeStrategy(playerDataModel, _healthItemConfig);
-            
+
             var fruitBoxSwipeStrategy =
                 new FruitBoxSwipeStrategy(_fruitBoxConfig, physicalStartVelocityCalculator, cameraWrap);
             var iceSwipeStrategy = new IceSwipeStrategy(_iceConfig, retardSystem);
@@ -84,6 +91,13 @@ namespace App.Scripts.Scenes.SceneGame.Installers
 
             var brickSwipeStrategy = new BrickSwipeStrategy(playerInput, _brickConfig);
             
+            var samuraiFruitFactory = new SamuraiFruitFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
+                swipeTracker, fruitSwipeStrategy, shadowSystem, allSpawnedObject);
+            var samuraiMod = new SamuraiMod(_samuraiModeConfig, samuraiFruitFactory);
+            serviceContainer.SetITickableAndSelf(samuraiMod);
+            var samuraiEffectCreator = new SamuraiEffectCreator(_samuraiConfig, pieceFactory);
+            var samuraiSwipeStrategy = new SamuraiSwipeStrategy(samuraiEffectCreator, samuraiMod);
+
             serviceContainer.SetServiceSelf(new FruitFactory(gamePhysics, fruitDestroyStrategy, checkOnInvisible,
                 swipeTracker, fruitSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new BombFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
@@ -98,13 +112,13 @@ namespace App.Scripts.Scenes.SceneGame.Installers
                 swipeTracker, magnetSwipeStrategy, shadowSystem, allSpawnedObject));
             serviceContainer.SetServiceSelf(new BrickFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
                 swipeTracker, brickSwipeStrategy, shadowSystem, allSpawnedObject));
+            serviceContainer.SetServiceSelf(new SamuraiFactory(gamePhysics, simpleDestroyStrategy, checkOnInvisible,
+                swipeTracker, samuraiSwipeStrategy, shadowSystem, allSpawnedObject));
         }
 
-        private FruitSwipeEffectsCreator GetFruitSwipeEffectsCreator(GamePhysics gamePhysics, ShadowSystem shadowSystem,
-            CheckOnInVisible checkOnInvisible, AddScoreViewFactory addScoreViewFactory,
-            IDestroyStrategy iDestroyStrategy, AllSpawnedObjects allSpawnedObjects)
+        private FruitSwipeEffectsCreator GetFruitSwipeEffectsCreator(PieceFactory pieceFactory,
+            AddScoreViewFactory addScoreViewFactory)
         {
-            var pieceFactory = new PieceFactory(gamePhysics, shadowSystem, iDestroyStrategy, checkOnInvisible, allSpawnedObjects);
             var spotFactory = new FruitSpotFactory();
             var fruitParticleFactory = new FruitParticleFactory();
             var fruitEffectCreator = new FruitSwipeEffectsCreator(pieceFactory, spotFactory, fruitParticleFactory,

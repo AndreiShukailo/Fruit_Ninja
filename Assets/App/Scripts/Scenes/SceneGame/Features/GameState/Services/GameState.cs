@@ -1,8 +1,10 @@
 ﻿using System;
 using App.Scripts.Infrastructure.GameState;
 using App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Factory;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
@@ -19,6 +21,11 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
 
         public bool IsPlaying { get; private set; }
         public bool IsPaused { get; private set; }
+        public bool IsSamuraiMode { get; private set; }
+
+        private int _packDelayFactor;
+        private int _packCountFactor;
+        private SamuraiFruitFactory _samuraiFruitFactory;
 
         public GameState(GameSpawner gameSpawner, PlayerDataModel playerDataModel, StatableContainer statableContainer,
             SwipeTracker swipeTracker, GameStateMachine gameStateMachine)
@@ -63,6 +70,41 @@ namespace App.Scripts.Scenes.SceneGame.Features.GameState.Services
         {
             IsPaused = false;
             Time.timeScale = 1f;
+        }
+
+        public void StartSamuraiMode(int packDelayFactor,
+            int packCountFactor,
+            SamuraiFruitFactory samuraiFruitFactory)
+        {
+            _packCountFactor = packCountFactor;
+            _packDelayFactor = packDelayFactor;
+            _samuraiFruitFactory = samuraiFruitFactory;
+            _gameSpawner.StopSpawn();
+            _swipeTracker.OnEmty += OnStartSamuraiMod;
+        }
+
+        private void OnStartSamuraiMod()
+        {
+            _swipeTracker.OnEmty -= OnStartSamuraiMod;
+            if (!IsPlaying) return;
+            IsSamuraiMode = true;
+            _gameSpawner.StartSamuraiMode(_packDelayFactor, _packCountFactor, _samuraiFruitFactory);
+            _gameSpawner.StartSpawning();
+        }
+
+        public void StopSamuraiMod()
+        {
+            IsSamuraiMode = false;
+            _gameSpawner.StopSpawn();
+            if (IsPlaying)
+                _swipeTracker.OnEmty += OnStopSamuraiMod;
+        }
+
+        private void OnStopSamuraiMod()
+        {
+            _gameSpawner.StopSamuraiMode(_packDelayFactor, _packCountFactor);
+            _gameSpawner.StartSpawning();
+            _swipeTracker.OnEmty -= OnStopSamuraiMod;
         }
 
         private void ShowLoosePopup()
