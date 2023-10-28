@@ -33,6 +33,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
         public void Tick()
         {
             _swipe.transform.position = GetTrackPosition();
+            
+            foreach (var swipeable in _toRemove)
+                _swipeables.Remove(swipeable);
+
+            _toRemove.Clear();
+            
             if (_input.IsSlide)
             {
                 _swipe.emitting = true;
@@ -50,15 +56,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
             }
 
             if (!_input.IsButtonDown)
-            {
                 _swipe.emitting = false;
-            }
-
-            foreach (var swipeable in _toRemove)
-                _swipeables.Remove(swipeable);
-
-            _toRemove.Clear();
-
+            
             if (_swipeables.Count <= 0)
                 OnEmty?.Invoke();
         }

@@ -15,6 +15,8 @@ using App.Scripts.Scenes.SceneGame.Features.Items.Ice;
 using App.Scripts.Scenes.SceneGame.Features.Items.Ice.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet;
 using App.Scripts.Scenes.SceneGame.Features.Items.Magnet.Factory;
+using App.Scripts.Scenes.SceneGame.Features.Items.Mimic;
+using App.Scripts.Scenes.SceneGame.Features.Items.Mimic.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Samurai;
 using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services;
@@ -24,6 +26,7 @@ using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.SceneGame.Installers
 {
@@ -31,20 +34,25 @@ namespace App.Scripts.Scenes.SceneGame.Installers
     {
         public SpawnerConfig SpawnerConfig;
         public SpawnZoneConfigs SpawnZoneConfigs;
+        [SerializeField] private MimicConfig _mimicConfig;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
-            BindSpawnedObjects(serviceContainer);
-
             var cameraWrap = serviceContainer.Get<CameraWrap>();
             var gameMath = serviceContainer.Get<PhysicalStartVelocityCalculator>();
             var iCoroutineRunner = serviceContainer.Get<ICoroutineRunner>();
             var playerDataModel = serviceContainer.Get<PlayerDataModel>();
             var allSpawnedObjects = serviceContainer.Get<AllSpawnedObjects>();
-
+            var samuraiMod = serviceContainer.Get<SamuraiMod>();
 
             var zoneInitializer = new ZoneInitializer(SpawnZoneConfigs, gameMath, cameraWrap);
-            var packCreator = new PackCreator(SpawnerConfig, playerDataModel, allSpawnedObjects);
+            var packCreator = new PackCreator(SpawnerConfig, playerDataModel, allSpawnedObjects, samuraiMod);
+            var mimicSystem = new MimicSystem(new MimicObjectCreator(packCreator), _mimicConfig);
+            serviceContainer.SetITickableAndSelf(mimicSystem);
+            serviceContainer.SetServiceSelf(new MimicFactory(allSpawnedObjects, mimicSystem));
+
+            BindSpawnedObjects(serviceContainer);
+
             serviceContainer.SetServiceSelf(new GameSpawner(iCoroutineRunner, SpawnerConfig, zoneInitializer,
                 packCreator, serviceContainer.Get<FruitFactory>()));
         }
@@ -59,6 +67,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             var magnetFactory = serviceContainer.Get<MagnetFactory>();
             var brickFactory = serviceContainer.Get<BrickFactory>();
             var samuraiFactory = serviceContainer.Get<SamuraiFactory>();
+            var mimicFactory = serviceContainer.Get<MimicFactory>();
             SpawnerConfig.GetAndBind<FruitsContainer, FruitFactory>(fruitFactory);
             SpawnerConfig.GetAndBind<BombsContainer, BombFactory>(bombFactory);
             SpawnerConfig.GetAndBind<HealthItemContainer, HealthItemFactory>(healthItemFactory);
@@ -67,6 +76,7 @@ namespace App.Scripts.Scenes.SceneGame.Installers
             SpawnerConfig.GetAndBind<MagnetObjectContainer, MagnetFactory>(magnetFactory);
             SpawnerConfig.GetAndBind<BrickContainer, BrickFactory>(brickFactory);
             SpawnerConfig.GetAndBind<SamuraiContainer, SamuraiFactory>(samuraiFactory);
+            SpawnerConfig.GetAndBind<MimicContainer, MimicFactory>(mimicFactory);
         }
     }
 }

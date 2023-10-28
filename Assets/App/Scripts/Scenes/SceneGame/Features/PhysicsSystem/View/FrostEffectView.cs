@@ -12,6 +12,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.View
 
         public void Activate()
         {
+            _hideAnimation.StopAnimation();
             _popup.SetActive(true);
             _showAnimation.StartAnimation();
         }

@@ -1,5 +1,4 @@
 ﻿using App.Scripts.Scenes.SceneGame.Features.CameraController;
-using App.Scripts.Scenes.SceneGame.Features.Common.View;
 using App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones.Config;
 using UnityEngine;
@@ -31,7 +30,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             var maxLenght = GetMaxLenght(startPoint, randomAngel);
             var startVelocity = _physicalStartVelocityCalculator.GetStartVelocity(maxHeight, maxLenght, randomAngel,
                 spawnedObjectContainer.Mass);
-            var spawnedPrefab = GetRandomPrefab(spawnedObjectContainer);
+            var spawnedPrefab = spawnedObjectContainer.GetRandomPrefab();
             await spawnedObjectContainer.SpawnedObjectFactoryBase.Create(spawnedPrefab, spawnedObjectContainer.Mass,
                 startPoint, startVelocity, swipeAfter);
         }
@@ -54,8 +53,5 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             var value = Random.value;
             return Vector2.Lerp(start, end, value);
         }
-
-        private UnitView GetRandomPrefab(SpawnedObjectContainer spawnedObjectContainer) =>
-            spawnedObjectContainer.Units[Random.Range(0, spawnedObjectContainer.Units.Count)];
     }
 }

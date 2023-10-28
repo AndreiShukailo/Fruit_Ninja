@@ -1,5 +1,4 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Common.View;
-using UnityEngine;
+﻿using UnityEngine;
 using Component = App.Scripts.Scenes.SceneGame.Features.Common.Components.Component;
 
 namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
@@ -7,17 +6,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
     public class SwipableComponent : Component, ISwipeable
     {
         private ISwipeStrategy _swipeStrategy;
-        private readonly UnitView _unitView;
         private readonly SwipeTracker _swipeTracker;
-        public SpriteRenderer SpriteRenderer => _unitView.SpriteRenderer;
+        public SpriteRenderer SpriteRenderer => ComponentContainer.UnitView.SpriteRenderer;
 
-        public SwipableComponent(SwipeTracker swipeTracker, ISwipeStrategy swipeStrategy, UnitView unitView)
+        public SwipableComponent(SwipeTracker swipeTracker, ISwipeStrategy swipeStrategy)
         {
             _swipeStrategy = swipeStrategy;
-            _unitView = unitView;
             _swipeTracker = swipeTracker;
-            _swipeTracker.Add(this);
         }
+
+        public void Register() =>
+            _swipeTracker.Add(this);
 
         public void Swipe(Vector2 cut)
         {
@@ -26,8 +25,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.InputSystem.Swipe.Services
 
         public override void OnDestroy()
         {
-            base.OnDestroy();
             RemoveComponent();
+            base.OnDestroy();
         }
 
         public void RemoveComponent()

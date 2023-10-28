@@ -22,7 +22,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
         {
         }
 
-        public override async Task Create(UnitView prefab, float mass, Vector3 position, Vector3 startVelocity, float swipeAfter = 0)
+        public override async Task<ComponentContainer> Create(UnitView prefab, float mass, Vector3 position, Vector3 startVelocity, float swipeAfter = 0)
         {
             var view = Object.Instantiate(prefab);
             view.transform.position = position;
@@ -37,7 +37,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             componentContainer.AddComponent(new MagneticComponent());
             view.Animator.StartAnimations();
             await Task.Delay(TimeSpan.FromSeconds(swipeAfter));
-            componentContainer.AddComponent(new SwipableComponent(_swipeTracker, _swipeStrategy, view));
+            var swipeComponent = new SwipableComponent(_swipeTracker, _swipeStrategy);
+            componentContainer.AddComponent(swipeComponent);
+            swipeComponent.Register();
+            return componentContainer;
         }
     }
 }

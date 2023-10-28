@@ -1210,14 +1210,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515195771}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7095707, w: 0.7046343}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 10.434024, y: -3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1479989821}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.4}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &515195773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,7 +2364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec8134bb58c4d43943a575c86189131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 5
+  PriorityInPack: 10
   MaxCountInPack: 1
   Mass: 1
   Units:
@@ -2406,6 +2406,7 @@ Transform:
   - {fileID: 341517639}
   - {fileID: 1632294775}
   - {fileID: 523494414}
+  - {fileID: 1449725666}
   m_Father: {fileID: 1539776017}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2431,6 +2432,7 @@ MonoBehaviour:
     - {fileID: 341517638}
     - {fileID: 1632294776}
     - {fileID: 523494415}
+    - {fileID: 1449725667}
     MaxObjectDelay: 1
     ObjectComplicationFactor: 0.1
     MinObjectDelay: 0.3
@@ -2440,6 +2442,8 @@ MonoBehaviour:
     MinPackDelay: 1
     PackComplicationFactor: 0.1
   SpawnZoneConfigs: {fileID: 1479989822}
+  _mimicConfig:
+    TimeToSwitch: 2
 --- !u!1 &792169456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,7 +2864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403c16fc112d4f6cab71f18cc7e5e807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PriorityInPack: 10
+  PriorityInPack: 5
   MaxCountInPack: 1
   Mass: 2
   Units:
@@ -4126,7 +4130,7 @@ MonoBehaviour:
     Spot: {fileID: 7449006921708552043, guid: acc073cf1fbcaed49b27eba3c9e94822, type: 3}
     SprayViewEffect: {fileID: 5855628643005652608, guid: 2d1ec049fdb089f43ae081c6c415c222, type: 3}
   _bombConfig:
-    ExplosionPower: 14
+    ExplosionPower: 10
     ExplosionRadius: 7
     Explosion: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}
     BombPopUpView: {fileID: 2347472843271695383, guid: 40b2ba35c0fc73844bb90bf5f019730f, type: 3}
@@ -4235,6 +4239,55 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1449725665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1449725666}
+  - component: {fileID: 1449725667}
+  m_Layer: 0
+  m_Name: MimicContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1449725666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449725665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 775419698}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1449725667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449725665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc1be3dab164920b0ce06da296c1d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PriorityInPack: 5
+  MaxCountInPack: 1
+  Mass: 1
+  Units:
+  - {fileID: 82851472172267084, guid: ad4150a0df5d8ce4f926137f9c2944fe, type: 3}
 --- !u!1 &1455890606
 GameObject:
   m_ObjectHideFlags: 0

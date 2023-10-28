@@ -28,7 +28,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config
 
         public void GetAndBind<TComponent, TFactory>(TFactory factory)
             where TComponent : SpawnedObjectContainer
-            where TFactory : SpawnedObjectFactoryBase
+            where TFactory : ISpawnedFactory
         {
             var findContainer = SpawnedObjectContainers.Find(p => p is TComponent);
             findContainer.Construct(factory);

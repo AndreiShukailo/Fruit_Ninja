@@ -14,7 +14,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services
         private List<float> _savedPriority = new();
         private int _leftTime;
         private float _timer;
-        private bool _isStart;
+        public bool IsStart { get; private set; }
 
         public SamuraiMod(SamuraiModeConfig samuraiModeConfig, SamuraiFruitFactory samuraiFruitFactory)
         {
@@ -24,7 +24,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services
 
         public void Tick()
         {
-            if(!_isStart) return;
+            if(!IsStart) return;
             if (!_gameState.IsPlaying)
                 StopMode();
             if (!_gameState.IsSamuraiMode) return;
@@ -42,7 +42,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services
 
         public void StartMode()
         {
-            _isStart = true;
+            IsStart = true;
             _leftTime = _samuraiModeConfig.TimeOfAction;
             _samuraiModeConfig.SamuraiLabelView.ShowLabel(_leftTime);
             _gameState.StartSamuraiMode(_samuraiModeConfig.PackDelayFactor, _samuraiModeConfig.PackCountFactor,
@@ -57,7 +57,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services
 
         private void StopMode()
         {
-            _isStart = false;
+            IsStart = false;
             _gameState.StopSamuraiMod();
             _samuraiModeConfig.SamuraiLabelView.HideLabel();
             for (int i = 0; i < _samuraiModeConfig.DisabledSpawnZones.Count; i++)

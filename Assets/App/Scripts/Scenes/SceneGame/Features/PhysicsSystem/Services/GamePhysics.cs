@@ -44,6 +44,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
             
             physical.AddVelocity(GetGravityVelocity(physical));
             physical.Transform.position += physical.Velocity * Time.deltaTime;
+            physical.OnUpdatePosition?.Invoke();
         }
 
         private Vector3 GetGravityVelocity(IPhysical physical) =>

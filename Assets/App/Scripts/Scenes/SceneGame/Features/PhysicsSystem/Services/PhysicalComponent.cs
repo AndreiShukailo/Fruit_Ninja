@@ -1,4 +1,5 @@
-﻿using App.Scripts.Scenes.SceneGame.Features.Common.View;
+﻿using System;
+using App.Scripts.Scenes.SceneGame.Features.Common.View;
 using UnityEngine;
 using Component = App.Scripts.Scenes.SceneGame.Features.Common.Components.Component;
 
@@ -11,6 +12,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.PhysicsSystem.Services
 
         public float Mass { get; set; }
         public bool IsRetarding { get; set; }
+        public Action OnUpdatePosition { get; set; }
 
         private readonly GamePhysics _gamePhysics;
 

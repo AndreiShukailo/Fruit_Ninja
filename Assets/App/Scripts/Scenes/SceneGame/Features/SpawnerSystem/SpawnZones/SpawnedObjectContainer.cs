@@ -10,9 +10,12 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
         [Range(0, 100)] public int MaxCountInPack;
         [Range(0, 5)] public float Mass = 1f;
         public List<UnitView> Units;
-        public SpawnedObjectFactoryBase SpawnedObjectFactoryBase;
+        public ISpawnedFactory SpawnedObjectFactoryBase;
 
-        public void Construct(SpawnedObjectFactoryBase factory) =>
+        public void Construct(ISpawnedFactory factory) =>
             SpawnedObjectFactoryBase = factory;
+
+        public UnitView GetRandomPrefab() =>
+            Units[Random.Range(0, Units.Count)];
     }
 }

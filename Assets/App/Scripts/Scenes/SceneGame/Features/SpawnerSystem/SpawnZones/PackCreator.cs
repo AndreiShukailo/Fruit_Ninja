@@ -4,7 +4,9 @@ using App.Scripts.Scenes.SceneGame.Features.Fruits;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick;
 using App.Scripts.Scenes.SceneGame.Features.Items.Brick.Factory;
 using App.Scripts.Scenes.SceneGame.Features.Items.Heart;
+using App.Scripts.Scenes.SceneGame.Features.Items.Mimic;
 using App.Scripts.Scenes.SceneGame.Features.Items.Samurai;
+using App.Scripts.Scenes.SceneGame.Features.Items.Samurai.Services;
 using App.Scripts.Scenes.SceneGame.Features.PlayerData.Model;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.Config;
 using UnityEngine;
@@ -15,13 +17,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
     {
         private readonly PlayerDataModel _playerDataModel;
         private readonly AllSpawnedObjects _allSpawnedObjects;
+        private readonly SamuraiMod _samuraiMod;
         private readonly List<SpawnedObjectContainer> _spawnedObjectContainers;
 
+        private SpawnedObjectContainer _currentContainer;
+
         public PackCreator(SpawnerConfig spawnerConfig, PlayerDataModel playerDataModel,
-            AllSpawnedObjects allSpawnedObjects)
+            AllSpawnedObjects allSpawnedObjects, SamuraiMod samuraiMod)
         {
             _playerDataModel = playerDataModel;
             _allSpawnedObjects = allSpawnedObjects;
+            _samuraiMod = samuraiMod;
             _spawnedObjectContainers = spawnerConfig.SpawnedObjectContainers;
         }
 
@@ -52,6 +58,33 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             return pack;
         }
 
+        public SpawnedObjectContainer CreateMimicContainer()
+        {
+            var container = GetRandomContainer();
+            while (ImpossibleToSpawnMimicContainer(container))
+                container = GetRandomContainer();
+
+            _currentContainer = container;
+            return container;
+        }
+
+        private bool ImpossibleToSpawnMimicContainer(SpawnedObjectContainer container)
+        {
+            if (_currentContainer == container)
+                return true;
+
+            switch (container)
+            {
+                case HealthItemContainer when !_playerDataModel.AllowSpawnHealth:
+                case BrickContainer when BrickOnScene():
+                case SamuraiContainer when SamuraiOnScene():
+                case MimicContainer:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private bool ImpossibleToSpawn(Queue<SpawnedObjectContainer> pack, SpawnedObjectContainer container)
         {
             var isImpossible = !(pack.Count(p => p == container) < container.MaxCountInPack);
@@ -80,6 +113,9 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
 
         private bool SamuraiOnScene()
         {
+            if (_samuraiMod.IsStart)
+                return true;
+
             foreach (var componentContainer in _allSpawnedObjects.Objects)
             {
                 var samuraiComponent = componentContainer.GetComponent<SamuraiComponent>();

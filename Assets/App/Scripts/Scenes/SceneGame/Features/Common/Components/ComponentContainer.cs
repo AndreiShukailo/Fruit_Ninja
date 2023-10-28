@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using App.Scripts.Scenes.SceneGame.Features.Common.View;
 using App.Scripts.Scenes.SceneGame.Features.SpawnerSystem;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace App.Scripts.Scenes.SceneGame.Features.Common.Components
 {
     public class ComponentContainer
     {
         private readonly AllSpawnedObjects _allSpawnedObjects;
-        public UnitView UnitView { get; }
+        public UnitView UnitView { get; private set; }
         private readonly List<Component> _components;
 
         public ComponentContainer(UnitView unitView, AllSpawnedObjects allSpawnedObjects)
@@ -34,11 +34,15 @@ namespace App.Scripts.Scenes.SceneGame.Features.Common.Components
 
         public void Destroy()
         {
-            foreach (var component in _components)
-                component.OnDestroy();
-
+            for (int i = 0; i < _components.Count; i++)
+            {
+                _components[i].OnDestroy();
+                _components[i] = null;
+            }
+            
             _allSpawnedObjects.Remove(this);
             Object.Destroy(UnitView.gameObject);
+            UnitView = null;
         }
     }
 }

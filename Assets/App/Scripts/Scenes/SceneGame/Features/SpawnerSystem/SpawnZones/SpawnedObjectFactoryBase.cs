@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem;
 using App.Scripts.Scenes.SceneGame.Features.CheckOnInvizibleSystem.Services;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
@@ -12,7 +13,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
 {
-    public abstract class SpawnedObjectFactoryBase
+    public abstract class SpawnedObjectFactoryBase : ISpawnedFactory
     {
         protected readonly GamePhysics _gamePhysics;
         protected readonly IDestroyStrategy _destroyStrategy;
@@ -35,7 +36,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             _allSpawnedObjects = allSpawnedObjects;
         }
 
-        public virtual async Task Create(UnitView prefab, float mass, Vector3 position, Vector3 startVelocity,
+        public virtual async Task<ComponentContainer> Create(UnitView prefab, float mass, Vector3 position,
+            Vector3 startVelocity,
             float swipeAfter = 0f)
         {
             var view = Object.Instantiate(prefab);
@@ -50,7 +52,17 @@ namespace App.Scripts.Scenes.SceneGame.Features.SpawnerSystem.SpawnZones
             componentContainer.AddComponent(new ShadowedComponent(_shadowSystem, view));
             view.Animator.StartAnimations();
             await Task.Delay(TimeSpan.FromSeconds(swipeAfter));
-            componentContainer.AddComponent(new SwipableComponent(_swipeTracker, _swipeStrategy, view));
+            var swipeComponent = new SwipableComponent(_swipeTracker, _swipeStrategy);
+            componentContainer.AddComponent(swipeComponent);
+            swipeComponent.Register();
+            return componentContainer;
         }
+    }
+
+    public interface ISpawnedFactory
+    {
+        public Task<ComponentContainer> Create(UnitView prefab, float mass, Vector3 position,
+            Vector3 startVelocity,
+            float swipeAfter = 0f);
     }
 }
