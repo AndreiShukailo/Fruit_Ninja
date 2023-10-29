@@ -1,16 +1,19 @@
-﻿using App.Scripts.Infrastructure.Configs;
-using App.Scripts.Infrastructure.ServiceLocator;
+﻿using App.Scripts.Infrastructure.ServiceLocator;
+using App.Scripts.Scenes.Common;
+using App.Scripts.Scenes.Common.Services.SaveLoad;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace App.Scripts.Infrastructure.Installer.Project
 {
     public class ProjectInstaller : MonoInstaller
     {
-        public GameConfig GameConfig;
+        public int TargetFrameRate = 60;
 
         public override void InstallBindings(ServiceContainer serviceContainer)
         {
-            serviceContainer.SetServiceSelf(GameConfig);
+            serviceContainer.SetService<ISaveLoadService, SaveLoadService>(new SaveLoadService());
+            Application.targetFrameRate = TargetFrameRate;
         }
     }
 }

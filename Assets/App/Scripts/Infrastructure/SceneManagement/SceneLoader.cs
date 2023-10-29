@@ -18,27 +18,21 @@ namespace App.Scripts.Infrastructure.SceneManagement
         }
 
         public void Load(string name, Action onLoaded = null) =>
-            _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+            StartLoadScene(name, onLoaded);
+
+        private void StartLoadScene(string nextScene, Action onLoaded = null)
+        {
+            _loadingCurtain.Show(() => _coroutineRunner.StartCoroutine(LoadScene(nextScene, onLoaded)));
+        }
 
         private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
         {
-            if (SceneManager.GetActiveScene().name != "Initial")
-            {
-                _loadingCurtain.Show();
-                yield return new WaitForSeconds(_loadingCurtain.Duration);
-            }
-
-            if (SceneManager.GetActiveScene().name == nextScene)
-            {
-                onLoaded?.Invoke();
-                yield break;
-            }
-
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
 
             while (!waitNextScene.isDone)
                 yield return null;
-
+            
+            Time.timeScale = 1f;
             _loadingCurtain.Hide();
             onLoaded?.Invoke();
         }

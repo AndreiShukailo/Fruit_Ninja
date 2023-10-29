@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: pomegranate_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 24
+        width: 78
+        height: 174
+      alignment: 9
+      pivot: {x: 0.99991304, y: 0.50220895}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 670e46a59bf861c4ca402ccceec53c56
+      internalID: 1197652517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pomegranate_1
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 23
+        width: 87
+        height: 175
+      alignment: 9
+      pivot: {x: 0.00008681214, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206805c382a9f8f4b821fedf722bb1dd
+      internalID: 1439729066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pomegranate_2
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 23
+        width: 165
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d662841abdfa54748adb67d8402734e1
+      internalID: 1152078110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +189,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pomegranate_0: 1197652517
+      pomegranate_1: 1439729066
+      pomegranate_2: 1152078110
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

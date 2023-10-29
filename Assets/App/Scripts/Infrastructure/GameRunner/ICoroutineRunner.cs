@@ -6,5 +6,6 @@ namespace App.Scripts.Infrastructure.GameRunner
     public interface ICoroutineRunner
     {
         public Coroutine StartCoroutine(IEnumerator coroutine);
+        public void StopCoroutine(Coroutine coroutine);
     }
 }

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace App.Scripts.Infrastructure.SceneManagement
@@ -13,13 +14,15 @@ namespace App.Scripts.Infrastructure.SceneManagement
         {
             DontDestroyOnLoad(this);
         }
-        
-        public void Show()
+
+        public void Show(Action onEndAnimation)
         {
+            gameObject.SetActive(true);
             _sequence.Kill();
             _sequence = DOTween.Sequence();
             _sequence.Append(Curtain.DOFade(1f, Duration))
-                .OnComplete(() => gameObject.SetActive(true));
+                .SetUpdate(true)
+                .AppendCallback(() => onEndAnimation?.Invoke());
         }
 
 
