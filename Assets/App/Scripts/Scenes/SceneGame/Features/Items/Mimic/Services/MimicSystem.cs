@@ -8,6 +8,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Mimic
 {
     public class MimicSystem : ITickable
     {
+        private const float TimeToChangeMimicEffect = 0.3f;
         private readonly List<MimicComponent> _mimics = new();
         private readonly List<MimicComponent> _toRemove = new();
         private readonly MimicObjectCreator _mimicObjectCreator;
@@ -26,6 +27,7 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Mimic
                 _mimicObjectCreator.CreateObject(mimicComponent.StartVelocity, mimicComponent.Position);
             mimicComponent.ObjectComponentContainer = componentContainer;
             _mimics.Add(mimicComponent);
+            mimicComponent.PlayMimicEffect();
         }
 
         private void Remove(MimicComponent mimicComponent)
@@ -47,6 +49,8 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Mimic
 
                 mimic.Position = componentContainer.UnitView.transform.position;
                 mimic.TimeToSwitch -= Time.deltaTime;
+                if (mimic.TimeToSwitch > TimeToChangeMimicEffect) continue;
+                mimic.PlayChangeMimicEffect();
                 if (mimic.TimeToSwitch > 0) continue;
                 mimic.TimeToSwitch = _mimicConfig.TimeToSwitch;
                 var physicalComponent = componentContainer.GetComponent<PhysicalComponent>();

@@ -1,5 +1,6 @@
 ﻿using App.Scripts.Infrastructure.GameRunner;
 using App.Scripts.Scenes.SceneGame.Features.Common.Components;
+using App.Scripts.Scenes.SceneGame.Features.Items.Mimic.View;
 using UnityEngine;
 using Component = App.Scripts.Scenes.SceneGame.Features.Common.Components.Component;
 
@@ -15,7 +16,10 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Mimic
         private Vector3 _position;
         private readonly MimicSystem _mimicSystem;
 
-        public Vector3 StartVelocity { get; set; }
+        public Vector3 StartVelocity { get; }
+
+        public float TimeToSwitch { get; set; }
+        public ComponentContainer ObjectComponentContainer { get; set; }
 
         public Vector3 Position
         {
@@ -29,10 +33,13 @@ namespace App.Scripts.Scenes.SceneGame.Features.Items.Mimic
             StartVelocity = startVelocity;
         }
 
-        public float TimeToSwitch { get; set; }
-        public ComponentContainer ObjectComponentContainer { get; set; }
-
         public void Register() =>
             _mimicSystem.Add(this);
+
+        public void PlayChangeMimicEffect() =>
+            (ComponentContainer.UnitView as MimicView)?.PlayChangeMimicEffect();
+        
+        public void PlayMimicEffect() =>
+            (ComponentContainer.UnitView as MimicView)?.PlayMimicEffect();
     }
 }
